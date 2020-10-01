@@ -13,6 +13,14 @@ module.exports = ({ env }) => ({
       },
       options: {
         ssl: false,
+        debug: true,
+        pool: {
+          min: 0,
+          max: 30,
+          idleTimeoutMillis: 30000,
+          createTimeoutMillis: 30000,
+          acquireTimeoutMillis: 30000
+        }
       },
     },
   },
