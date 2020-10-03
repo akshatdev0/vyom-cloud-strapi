@@ -112,3 +112,10 @@ license.txt
 exports
 .cache
 build
+
+
+############################
+# Postgres
+############################
+
+database.env
