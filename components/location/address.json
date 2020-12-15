@@ -14,24 +14,11 @@
     "addressLine2": {
       "type": "string"
     },
-    "area": {
-      "type": "string",
-      "required": true
-    },
-    "city": {
-      "type": "string",
-      "required": true
-    },
-    "state": {
-      "type": "string",
-      "required": true
-    },
-    "country": {
-      "type": "string",
-      "required": true
-    },
     "pincode": {
       "type": "string"
+    },
+    "area": {
+      "model": "area"
     }
   }
 }
