@@ -36,9 +36,14 @@
       "type": "boolean"
     },
     "owner": {
-      "via": "company",
       "plugin": "users-permissions",
-      "model": "user"
+      "model": "user",
+      "via": "company"
+    },
+    "address": {
+      "type": "component",
+      "repeatable": false,
+      "component": "location.address"
     }
   }
 }
