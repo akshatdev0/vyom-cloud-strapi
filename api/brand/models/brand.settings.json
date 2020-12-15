@@ -13,6 +13,13 @@
       "type": "string",
       "required": true,
       "unique": true
+    },
+    "createdAt": {
+      "type": "datetime",
+      "required": true
+    },
+    "updatedAt": {
+      "type": "datetime"
     }
   }
 }
