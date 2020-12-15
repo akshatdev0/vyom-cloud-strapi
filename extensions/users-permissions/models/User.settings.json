@@ -66,6 +66,14 @@
         "SALESMAN"
       ],
       "required": true
+    },
+    "mobileNumber": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "alternateMobileNumber": {
+      "type": "string"
     }
   }
 }
