@@ -23,12 +23,6 @@
       "type": "datetime",
       "required": true
     },
-    "businessType": {
-      "type": "string"
-    },
-    "companyType": {
-      "type": "string"
-    },
     "currentStatus": {
       "type": "boolean",
       "default": true,
@@ -40,9 +34,9 @@
       "required": true
     },
     "owner": {
-      "via": "company",
       "plugin": "users-permissions",
-      "model": "user"
+      "model": "user",
+      "via": "company"
     },
     "address": {
       "type": "component",
@@ -51,6 +45,12 @@
     },
     "updatedAt": {
       "type": "datetime"
+    },
+    "businessType": {
+      "model": "business-type"
+    },
+    "companyType": {
+      "model": "company-type"
     }
   }
 }
