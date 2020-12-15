@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "business_types",
+  "info": {
+    "name": "Business Type"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "datetime",
+      "required": true
+    },
+    "updatedAt": {
+      "type": "datetime"
+    },
+    "block": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    }
+  }
+}

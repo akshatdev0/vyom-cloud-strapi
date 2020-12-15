@@ -54,8 +54,8 @@
       "configurable": false
     },
     "company": {
-      "model": "company",
-      "via": "owner"
+      "via": "owner",
+      "model": "company"
     },
     "type": {
       "type": "enumeration",

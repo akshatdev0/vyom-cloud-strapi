@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "company_types",
+  "info": {
+    "name": "Company Type"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "createdAt": {
+      "type": "datetime",
+      "required": true
+    },
+    "updatedAt": {
+      "type": "datetime"
+    },
+    "description": {
+      "type": "string"
+    },
+    "block": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    }
+  }
+}
