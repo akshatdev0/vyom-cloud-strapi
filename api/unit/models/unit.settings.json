@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "units",
+  "info": {
+    "name": "Unit"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "shortCode": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "createdAt": {
+      "type": "datetime",
+      "required": true
+    },
+    "updatedAt": {
+      "type": "datetime",
+      "required": false
+    },
+    "quantity": {
+      "type": "integer",
+      "required": false
+    },
+    "block": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    }
+  }
+}
