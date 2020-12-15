@@ -19,7 +19,7 @@
       "required": true,
       "unique": true
     },
-    "registrationDate": {
+    "createdAt": {
       "type": "datetime",
       "required": true
     },
@@ -40,14 +40,17 @@
       "required": true
     },
     "owner": {
+      "via": "company",
       "plugin": "users-permissions",
-      "model": "user",
-      "via": "company"
+      "model": "user"
     },
     "address": {
       "type": "component",
       "repeatable": false,
       "component": "location.address"
+    },
+    "updatedAt": {
+      "type": "datetime"
     }
   }
 }

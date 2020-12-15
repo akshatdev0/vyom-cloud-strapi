@@ -17,7 +17,7 @@
     "rating": {
       "type": "integer"
     },
-    "registrationDate": {
+    "createdAt": {
       "type": "datetime",
       "required": true
     },
@@ -29,6 +29,9 @@
       "type": "boolean",
       "default": true,
       "required": true
+    },
+    "updatedAt": {
+      "type": "datetime"
     }
   }
 }
