@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "transaction_types",
+  "info": {
+    "name": "Transaction Type"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "ledgerType": {
+      "type": "enumeration",
+      "enum": [
+        "Debit",
+        "Credit"
+      ],
+      "required": true
+    },
+    "block": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    }
+  }
+}
