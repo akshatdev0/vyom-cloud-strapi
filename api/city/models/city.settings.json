@@ -9,10 +9,6 @@
     "timestamps": true
   },
   "attributes": {
-    "uid": {
-      "type": "uid",
-      "required": true
-    },
     "name": {
       "type": "string",
       "required": true
@@ -22,8 +18,8 @@
       "via": "cities"
     },
     "areas": {
-      "via": "city",
-      "collection": "area"
+      "collection": "area",
+      "via": "city"
     }
   }
 }

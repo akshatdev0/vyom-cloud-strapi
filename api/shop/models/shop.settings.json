@@ -17,10 +17,6 @@
     "rating": {
       "type": "integer"
     },
-    "createdAt": {
-      "type": "datetime",
-      "required": true
-    },
     "type": {
       "type": "string",
       "required": true
@@ -30,8 +26,9 @@
       "default": true,
       "required": true
     },
-    "updatedAt": {
-      "type": "datetime"
+    "shopkeeper": {
+      "model": "shopkeeper",
+      "via": "shop"
     }
   }
 }

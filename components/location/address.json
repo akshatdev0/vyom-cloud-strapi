@@ -1,7 +1,7 @@
 {
   "collectionName": "components_location_addresses",
   "info": {
-    "name": "address",
+    "name": "AddressComponent",
     "icon": "map-marked-alt"
   },
   "options": {},
