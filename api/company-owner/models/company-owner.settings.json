@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "company_owners",
+  "info": {
+    "name": "Company Owner"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "person": {
+      "type": "component",
+      "repeatable": false,
+      "component": "person.person-component"
+    },
+    "company": {
+      "via": "company_owner",
+      "model": "company"
+    }
+  }
+}

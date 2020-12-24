@@ -52,40 +52,6 @@
       "via": "users",
       "plugin": "users-permissions",
       "configurable": false
-    },
-    "company": {
-      "via": "owner",
-      "model": "company"
-    },
-    "type": {
-      "type": "enumeration",
-      "enum": [
-        "ADMIN",
-        "COMPANY_OWNER",
-        "SHOPKEEPER",
-        "SALESMAN"
-      ],
-      "required": true
-    },
-    "mobileNumber": {
-      "type": "string",
-      "required": true,
-      "unique": true
-    },
-    "alternateMobileNumber": {
-      "type": "string"
-    },
-    "address": {
-      "type": "component",
-      "repeatable": false,
-      "component": "location.address"
-    },
-    "createdAt": {
-      "type": "datetime",
-      "required": true
-    },
-    "updatedAt": {
-      "type": "datetime"
     }
   }
 }

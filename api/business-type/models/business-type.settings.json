@@ -17,13 +17,6 @@
     "description": {
       "type": "string"
     },
-    "createdAt": {
-      "type": "datetime",
-      "required": true
-    },
-    "updatedAt": {
-      "type": "datetime"
-    },
     "block": {
       "type": "boolean",
       "default": false,

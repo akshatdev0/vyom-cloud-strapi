@@ -19,10 +19,6 @@
       "required": true,
       "unique": true
     },
-    "createdAt": {
-      "type": "datetime",
-      "required": true
-    },
     "currentStatus": {
       "type": "boolean",
       "default": true,
@@ -33,24 +29,20 @@
       "default": false,
       "required": true
     },
-    "owner": {
-      "plugin": "users-permissions",
-      "model": "user",
-      "via": "company"
-    },
     "address": {
       "type": "component",
       "repeatable": false,
       "component": "location.address"
-    },
-    "updatedAt": {
-      "type": "datetime"
     },
     "businessType": {
       "model": "business-type"
     },
     "companyType": {
       "model": "company-type"
+    },
+    "company_owner": {
+      "model": "company-owner",
+      "via": "company"
     }
   }
 }
