@@ -29,19 +29,27 @@
       "default": false,
       "required": true
     },
-    "address": {
-      "type": "component",
-      "repeatable": false,
-      "component": "location.address"
-    },
     "businessType": {
       "model": "business-type"
     },
     "companyType": {
       "model": "company-type"
     },
-    "company_owner": {
-      "model": "company-owner",
+    "addressLine1": {
+      "type": "string"
+    },
+    "addressLine2": {
+      "type": "string"
+    },
+    "pincode": {
+      "type": "string"
+    },
+    "area": {
+      "model": "area"
+    },
+    "owner": {
+      "plugin": "users-permissions",
+      "model": "user",
       "via": "company"
     }
   }

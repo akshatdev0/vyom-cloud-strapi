@@ -26,8 +26,21 @@
       "default": true,
       "required": true
     },
+    "addressLine1": {
+      "type": "string"
+    },
+    "addressLine2": {
+      "type": "string"
+    },
+    "pincode": {
+      "type": "string"
+    },
+    "area": {
+      "model": "area"
+    },
     "shopkeeper": {
-      "model": "shopkeeper",
+      "plugin": "users-permissions",
+      "model": "user",
       "via": "shop"
     }
   }
