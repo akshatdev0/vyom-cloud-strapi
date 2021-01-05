@@ -47,9 +47,9 @@
     "area": {
       "model": "area"
     },
-    "owner": {
+    "owners": {
       "plugin": "users-permissions",
-      "model": "user",
+      "collection": "user",
       "via": "company"
     }
   }
