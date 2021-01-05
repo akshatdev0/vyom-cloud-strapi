@@ -38,9 +38,9 @@
     "area": {
       "model": "area"
     },
-    "shopkeeper": {
+    "shopkeepers": {
       "plugin": "users-permissions",
-      "model": "user",
+      "collection": "user",
       "via": "shop"
     }
   }
