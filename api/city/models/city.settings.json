@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cities",
+  "info": {
+    "name": "City"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "state": {
+      "model": "state",
+      "via": "cities"
+    },
+    "areas": {
+      "collection": "area",
+      "via": "city"
+    }
+  }
+}

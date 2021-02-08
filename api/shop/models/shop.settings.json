@@ -1,39 +1,30 @@
 {
   "kind": "collectionType",
-  "collectionName": "companies",
+  "collectionName": "shops",
   "info": {
-    "name": "Company"
+    "name": "Shop"
   },
   "options": {
     "increments": true,
     "timestamps": true
   },
   "attributes": {
-    "pid": {
-      "type": "string",
-      "required": true,
-      "unique": true
-    },
     "name": {
       "type": "string",
       "required": true,
       "unique": true
     },
+    "rating": {
+      "type": "integer"
+    },
+    "type": {
+      "type": "string",
+      "required": true
+    },
     "currentStatus": {
       "type": "boolean",
       "default": true,
       "required": true
-    },
-    "suspendStatus": {
-      "type": "boolean",
-      "default": false,
-      "required": true
-    },
-    "businessType": {
-      "model": "business-type"
-    },
-    "companyType": {
-      "model": "company-type"
     },
     "addressLine1": {
       "type": "string"
@@ -47,10 +38,10 @@
     "area": {
       "model": "area"
     },
-    "owners": {
+    "shopkeepers": {
       "plugin": "users-permissions",
       "collection": "user",
-      "via": "company"
+      "via": "shop"
     }
   }
 }
