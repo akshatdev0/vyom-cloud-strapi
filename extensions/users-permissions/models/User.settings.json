@@ -53,19 +53,48 @@
       "plugin": "users-permissions",
       "configurable": false
     },
-    "company": {
-      "model": "company",
-      "via": "owner"
+    "name": {
+      "type": "string"
+    },
+    "gender": {
+      "type": "enumeration",
+      "enum": [
+        "MALE",
+        "FEMALE"
+      ]
+    },
+    "mobileNumber": {
+      "type": "string"
+    },
+    "alternateMobileNumber": {
+      "type": "string"
+    },
+    "addressLine1": {
+      "type": "string"
+    },
+    "addressLine2": {
+      "type": "string"
+    },
+    "pincode": {
+      "type": "string"
+    },
+    "area": {
+      "model": "area"
     },
     "type": {
       "type": "enumeration",
       "enum": [
-        "ADMIN",
         "COMPANY_OWNER",
-        "SHOPKEEPER",
-        "SALESMAN"
-      ],
-      "required": true
+        "SHOPKEEPER"
+      ]
+    },
+    "company": {
+      "via": "owners",
+      "model": "company"
+    },
+    "shop": {
+      "via": "shopkeepers",
+      "model": "shop"
     }
   }
 }
