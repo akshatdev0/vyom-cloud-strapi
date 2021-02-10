@@ -1,0 +1,47 @@
+{
+  "kind": "collectionType",
+  "collectionName": "shops",
+  "info": {
+    "name": "Shop"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "rating": {
+      "type": "integer"
+    },
+    "type": {
+      "type": "string",
+      "required": true
+    },
+    "currentStatus": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "addressLine1": {
+      "type": "string"
+    },
+    "addressLine2": {
+      "type": "string"
+    },
+    "pincode": {
+      "type": "string"
+    },
+    "area": {
+      "model": "area"
+    },
+    "shopkeepers": {
+      "plugin": "users-permissions",
+      "collection": "user",
+      "via": "shop"
+    }
+  }
+}
