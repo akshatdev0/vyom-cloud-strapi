@@ -1,0 +1,56 @@
+{
+  "kind": "collectionType",
+  "collectionName": "companies",
+  "info": {
+    "name": "Company"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "pid": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "currentStatus": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "suspendStatus": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "businessType": {
+      "model": "business-type"
+    },
+    "companyType": {
+      "model": "company-type"
+    },
+    "addressLine1": {
+      "type": "string"
+    },
+    "addressLine2": {
+      "type": "string"
+    },
+    "pincode": {
+      "type": "string"
+    },
+    "area": {
+      "model": "area"
+    },
+    "owners": {
+      "plugin": "users-permissions",
+      "collection": "user",
+      "via": "company"
+    }
+  }
+}
