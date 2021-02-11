@@ -39,9 +39,9 @@
       "model": "area"
     },
     "shopkeepers": {
+      "via": "shop",
       "plugin": "users-permissions",
-      "collection": "user",
-      "via": "shop"
+      "collection": "user"
     }
   }
 }

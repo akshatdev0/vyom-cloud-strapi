@@ -6,7 +6,8 @@
     "description": ""
   },
   "options": {
-    "timestamps": true
+    "timestamps": true,
+    "draftAndPublish": false
   },
   "attributes": {
     "username": {
@@ -84,17 +85,18 @@
     "type": {
       "type": "enumeration",
       "enum": [
+        "ADMIN",
         "COMPANY_OWNER",
         "SHOPKEEPER"
       ]
     },
     "company": {
-      "via": "owners",
-      "model": "company"
+      "model": "company",
+      "via": "owners"
     },
     "shop": {
-      "via": "shopkeepers",
-      "model": "shop"
+      "model": "shop",
+      "via": "shopkeepers"
     }
   }
 }
