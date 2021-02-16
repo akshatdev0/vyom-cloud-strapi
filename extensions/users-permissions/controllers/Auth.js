@@ -115,48 +115,6 @@ module.exports = {
     }
   },
 
-  async smsConfirmation(ctx) {
-    const { confirmation: confirmationToken } = ctx.query;
-
-    const { user: userService, jwt: jwtService } = strapi.plugins[
-      "users-permissions"
-    ].services;
-
-    if (_.isEmpty(confirmationToken)) {
-      return ctx.badRequest(
-        null,
-        formatError({
-          id: "Auth.smsConfirmation.error.token.invalid",
-          message: "Token is invalid.",
-        })
-      );
-    }
-
-    const user = await userService.fetch({ confirmationToken }, []);
-
-    if (!user) {
-      return ctx.badRequest(
-        null,
-        formatError({
-          id: "Auth.smsConfirmation.error.token.invalid",
-          message: "Token is invalid.",
-        })
-      );
-    }
-
-    await userService.edit(
-      { id: user.id },
-      { confirmed: true, confirmationToken: null }
-    );
-
-    ctx.send({
-      jwt: jwtService.issue({ id: user.id }),
-      user: sanitizeEntity(user, {
-        model: strapi.query("user", "users-permissions").model,
-      }),
-    });
-  },
-
   async sendSmsConfirmation(ctx) {
     const params = _.assign(ctx.request.body);
 
@@ -225,4 +183,125 @@ module.exports = {
       return ctx.badRequest(null, err);
     }
   },
+
+  async smsConfirmation(ctx) {
+    const pluginStore = await strapi.store({
+      environment: '',
+      type: 'plugin',
+      name: 'users-permissions',
+    });
+
+    const settings = await pluginStore.get({
+      key: 'advanced',
+    });
+
+    const { confirmation: confirmationToken } = ctx.query;
+
+    const { user: userService, jwt: jwtService } = strapi.plugins[
+      "users-permissions"
+    ].services;
+
+    if (_.isEmpty(confirmationToken)) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "Auth.smsConfirmation.error.token.invalid",
+          message: "Token is invalid.",
+        })
+      );
+    }
+
+    const user = await userService.fetch({ confirmationToken }, []);
+
+    if (!user) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "Auth.smsConfirmation.error.token.invalid",
+          message: "Token is invalid.",
+        })
+      );
+    }
+
+    const role = await strapi
+      .query('role', 'users-permissions')
+      .findOne({ type: settings.default_role }, []);
+
+    if (!role) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: 'Auth.form.error.role.notFound',
+          message: 'Impossible to find the default role.',
+        })
+      );
+    }
+
+    const confirmedUser = await userService.edit(
+      { id: user.id },
+      { role: role.id, confirmed: true, confirmationToken: null }
+    );
+
+    ctx.send({
+      jwt: jwtService.issue({ id: confirmedUser.id }),
+      user: sanitizeEntity(confirmedUser, {
+        model: strapi.query("user", "users-permissions").model,
+      }),
+    });
+  },
+
+  async createPassword(ctx) {
+    const user = ctx.state.user;
+
+    if (!user) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "Auth.createPassword.error.auth.header.missing",
+          message: "No authorization header was found.",
+        })
+      );
+    }
+
+    const params = {
+      ..._.omit(ctx.request.body, ['confirmed', 'confirmationToken', 'resetPasswordToken']),
+    };
+
+    // Password is required.
+    if (!params.password) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: 'Auth.createPassword.error.password.provide',
+          message: 'Please provide your password.',
+        })
+      );
+    }
+
+    // Throw an error if the password selected by the user
+    // contains more than three times the symbol '$'.
+    if (strapi.plugins['users-permissions'].services.user.isHashed(params.password)) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: 'Auth.createPassword.error.password.format',
+          message: 'Your password cannot contain more than three times the symbol `$`.',
+        })
+      );
+    }
+
+    params.password = await strapi.plugins['users-permissions'].services.user.hashPassword(params);
+
+    const { user: userService } = strapi.plugins["users-permissions"].services;
+    const updatedUser = await userService.edit(
+      { id: user.id },
+      { password: params.password }
+    );
+
+    ctx.send({
+      user: sanitizeEntity(updatedUser, {
+        model: strapi.query("user", "users-permissions").model,
+      }),
+    });
+  }
 };

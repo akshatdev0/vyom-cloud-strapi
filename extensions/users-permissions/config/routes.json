@@ -1,6 +1,20 @@
 {
   "routes": [
     {
+      "method": "POST",
+      "path": "/auth/send-sms-confirmation",
+      "handler": "Auth.sendSmsConfirmation",
+      "config": {
+        "policies": [],
+        "prefix": "",
+        "description": "Send a confirmation sms to user",
+        "tag": {
+          "plugin": "users-permissions",
+          "name": "User"
+        }
+      }
+    },
+    {
       "method": "GET",
       "path": "/auth/sms-confirmation",
       "handler": "Auth.smsConfirmation",
@@ -16,12 +30,12 @@
     },
     {
       "method": "POST",
-      "path": "/auth/send-sms-confirmation",
-      "handler": "Auth.sendSmsConfirmation",
+      "path": "/auth/create-password",
+      "handler": "Auth.createPassword",
       "config": {
         "policies": [],
         "prefix": "",
-        "description": "Send a confirmation sms to user",
+        "description": "Create password for an authenticated user",
         "tag": {
           "plugin": "users-permissions",
           "name": "User"

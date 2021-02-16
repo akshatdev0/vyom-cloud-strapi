@@ -1,5 +1,76 @@
 {
   "paths": {
+    "/auth/send-sms-confirmation": {
+      "post": {
+        "deprecated": false,
+        "description": "Send a confirmation sms to user",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "UsersPermissions - User"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "foo": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/auth/sms-confirmation": {
       "get": {
         "deprecated": false,
@@ -57,10 +128,10 @@
         "parameters": []
       }
     },
-    "/auth/send-sms-confirmation": {
+    "/auth/create-password": {
       "post": {
         "deprecated": false,
-        "description": "Send a confirmation sms to user",
+        "description": "Create password for an authenticated user",
         "responses": {
           "200": {
             "description": "response",
