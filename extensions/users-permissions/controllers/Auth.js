@@ -185,11 +185,7 @@ module.exports = {
     }
 
     const params = {
-      ..._.omit(ctx.request.body, [
-        "confirmed",
-        "confirmationToken",
-        "resetPasswordToken",
-      ]),
+      mobileNumber: ctx.request.body.mobileNumber,
       provider: "local",
     };
 
@@ -409,7 +405,7 @@ module.exports = {
     }
 
     const params = {
-      ..._.omit(ctx.request.body, ['confirmed', 'confirmationToken', 'resetPasswordToken']),
+      password: ctx.request.body.password,
     };
 
     // Password is required.
