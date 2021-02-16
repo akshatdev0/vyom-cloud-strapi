@@ -54,7 +54,7 @@ module.exports = {
       return ctx.badRequest(
         null,
         formatError({
-          id: "Auth.form.error.mobileNumber.provide",
+          id: "Auth.register.error.mobileNumber.provide",
           message: "Please provide your mobile number.",
         })
       );
@@ -71,7 +71,7 @@ module.exports = {
       return ctx.badRequest(
         null,
         formatError({
-          id: "Auth.form.error.mobileNumber.invalid",
+          id: "Auth.register.error.mobileNumber.invalid",
           message: "Please provide a valid mobile number.",
         })
       );
@@ -85,7 +85,7 @@ module.exports = {
       return ctx.badRequest(
         null,
         formatError({
-          id: "Auth.form.error.mobileNumber.taken",
+          id: "Auth.register.error.mobileNumber.taken",
           message: "Mobile number is already taken.",
         })
       );
@@ -105,14 +105,13 @@ module.exports = {
         user: sanitizedUser,
       });
     } catch (err) {
-      const adminError = _.includes(err.message, "mobileNumber")
-        ? {
-            id: "Auth.form.error.mobileNumber.taken",
-            message: "Mobile number is already taken.",
-          }
-        : { id: "Auth.form.error.email.taken", message: "Email already taken" };
-
-      ctx.badRequest(null, formatError(adminError));
+      ctx.badRequest(
+        null,
+        formatError({
+          id: "Auth.register.error",
+          message: err.message,
+        })
+      );
     }
   },
 
@@ -127,7 +126,7 @@ module.exports = {
       return ctx.badRequest(
         null,
         formatError({
-          id: "Auth.error.token.invalid",
+          id: "Auth.smsConfirmation.error.token.invalid",
           message: "Token is invalid.",
         })
       );
@@ -139,7 +138,7 @@ module.exports = {
       return ctx.badRequest(
         null,
         formatError({
-          id: "Auth.error.token.invalid",
+          id: "Auth.smsConfirmation.error.token.invalid",
           message: "Token is invalid.",
         })
       );
@@ -165,7 +164,7 @@ module.exports = {
       return ctx.badRequest(
         null,
         formatError({
-          id: "Auth.error.mobileNumber.provide",
+          id: "Auth.sendSmsConfirmation.error.mobileNumber.provide",
           message: "Please provide your mobile number.",
         })
       );
@@ -182,7 +181,7 @@ module.exports = {
       return ctx.badRequest(
         null,
         formatError({
-          id: "Auth.error.mobileNumber.invalid",
+          id: "Auth.sendSmsConfirmation.error.mobileNumber.invalid",
           message: "Please provide a valid mobile number.",
         })
       );
@@ -196,7 +195,7 @@ module.exports = {
       return ctx.badRequest(
         null,
         formatError({
-          id: "Auth.error.mobileNumber.already.confirmed",
+          id: "Auth.sendSmsConfirmation.error.mobileNumber.already.confirmed",
           message: "Mobile number is already confirmed.",
         })
       );
@@ -206,7 +205,7 @@ module.exports = {
       return ctx.badRequest(
         null,
         formatError({
-          id: "Auth.error.user.blocked",
+          id: "Auth.sendSmsConfirmation.error.user.blocked",
           message: "User has been blocked.",
         })
       );
