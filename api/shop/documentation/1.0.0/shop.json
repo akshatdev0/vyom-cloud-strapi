@@ -583,11 +583,33 @@
           "websiteURL": {
             "type": "string"
           },
-          "latitude": {
-            "type": "number"
-          },
-          "longitude": {
-            "type": "number"
+          "shopkeepers": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "shops": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "user": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -636,11 +658,11 @@
           "websiteURL": {
             "type": "string"
           },
-          "latitude": {
-            "type": "number"
-          },
-          "longitude": {
-            "type": "number"
+          "shopkeepers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "created_by": {
             "type": "string"

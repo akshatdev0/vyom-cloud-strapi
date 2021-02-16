@@ -1,6 +1,6 @@
 {
   "paths": {
-    "/states": {
+    "/shopkeepers": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -12,7 +12,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/State"
+                    "$ref": "#/components/schemas/Shopkeeper"
                   }
                 }
               }
@@ -51,7 +51,7 @@
         },
         "summary": "",
         "tags": [
-          "State"
+          "Shopkeeper"
         ],
         "parameters": [
           {
@@ -201,7 +201,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/State"
+                  "$ref": "#/components/schemas/Shopkeeper"
                 }
               }
             }
@@ -239,7 +239,7 @@
         },
         "summary": "",
         "tags": [
-          "State"
+          "Shopkeeper"
         ],
         "requestBody": {
           "description": "",
@@ -247,14 +247,14 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewState"
+                "$ref": "#/components/schemas/NewShopkeeper"
               }
             }
           }
         }
       }
     },
-    "/states/count": {
+    "/shopkeepers/count": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -306,12 +306,12 @@
         },
         "summary": "",
         "tags": [
-          "State"
+          "Shopkeeper"
         ],
         "parameters": []
       }
     },
-    "/states/{id}": {
+    "/shopkeepers/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -321,7 +321,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/State"
+                  "$ref": "#/components/schemas/Shopkeeper"
                 }
               }
             }
@@ -359,7 +359,7 @@
         },
         "summary": "",
         "tags": [
-          "State"
+          "Shopkeeper"
         ],
         "parameters": [
           {
@@ -383,7 +383,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/State"
+                  "$ref": "#/components/schemas/Shopkeeper"
                 }
               }
             }
@@ -421,7 +421,7 @@
         },
         "summary": "",
         "tags": [
-          "State"
+          "Shopkeeper"
         ],
         "requestBody": {
           "description": "",
@@ -429,7 +429,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewState"
+                "$ref": "#/components/schemas/NewShopkeeper"
               }
             }
           }
@@ -495,7 +495,7 @@
         },
         "summary": "",
         "tags": [
-          "State"
+          "Shopkeeper"
         ],
         "parameters": [
           {
@@ -514,24 +514,22 @@
   },
   "components": {
     "schemas": {
-      "State": {
+      "Shopkeeper": {
         "required": [
-          "id",
-          "name"
+          "id"
         ],
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
-          },
-          "cities": {
+          "shops": {
             "type": "array",
             "items": {
               "required": [
                 "id",
-                "name"
+                "name",
+                "type",
+                "currentStatus"
               ],
               "properties": {
                 "id": {
@@ -540,10 +538,40 @@
                 "name": {
                   "type": "string"
                 },
-                "state": {
+                "rating": {
+                  "type": "integer"
+                },
+                "type": {
                   "type": "string"
                 },
-                "areas": {
+                "currentStatus": {
+                  "type": "boolean"
+                },
+                "addressLine1": {
+                  "type": "string"
+                },
+                "addressLine2": {
+                  "type": "string"
+                },
+                "pincode": {
+                  "type": "string"
+                },
+                "area": {
+                  "type": "string"
+                },
+                "gstNumber": {
+                  "type": "string"
+                },
+                "openingYear": {
+                  "type": "string"
+                },
+                "gstRegistrationType": {
+                  "type": "string"
+                },
+                "websiteURL": {
+                  "type": "string"
+                },
+                "shopkeepers": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -558,22 +586,57 @@
               }
             }
           },
-          "country": {
+          "user": {
             "required": [
-              "id"
+              "id",
+              "username",
+              "email"
             ],
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "username": {
                 "type": "string"
               },
-              "states": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
+              "email": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "resetPasswordToken": {
+                "type": "string"
+              },
+              "confirmed": {
+                "type": "boolean"
+              },
+              "blocked": {
+                "type": "boolean"
+              },
+              "role": {
+                "type": "string"
+              },
+              "firstName": {
+                "type": "string"
+              },
+              "gender": {
+                "type": "string"
+              },
+              "alternateMobileNumber": {
+                "type": "string"
+              },
+              "dateOfBirth": {
+                "type": "string"
+              },
+              "lastName": {
+                "type": "string"
+              },
+              "shopkeeper": {
+                "type": "string"
               },
               "created_by": {
                 "type": "string"
@@ -585,21 +648,15 @@
           }
         }
       },
-      "NewState": {
-        "required": [
-          "name"
-        ],
+      "NewShopkeeper": {
         "properties": {
-          "name": {
-            "type": "string"
-          },
-          "cities": {
+          "shops": {
             "type": "array",
             "items": {
               "type": "string"
             }
           },
-          "country": {
+          "user": {
             "type": "string"
           },
           "created_by": {
@@ -614,7 +671,7 @@
   },
   "tags": [
     {
-      "name": "State"
+      "name": "Shopkeeper"
     }
   ]
 }

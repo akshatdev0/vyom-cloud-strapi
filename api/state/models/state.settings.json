@@ -21,8 +21,8 @@
       "via": "state"
     },
     "country": {
-      "model": "country",
-      "via": "states"
+      "via": "states",
+      "model": "country"
     }
   }
 }

@@ -573,6 +573,9 @@
                 "lastName": {
                   "type": "string"
                 },
+                "shopkeeper": {
+                  "type": "string"
+                },
                 "created_by": {
                   "type": "string"
                 },

@@ -1270,6 +1270,31 @@
           },
           "lastName": {
             "type": "string"
+          },
+          "shopkeeper": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "shops": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "user": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -1327,6 +1352,9 @@
             "format": "date"
           },
           "lastName": {
+            "type": "string"
+          },
+          "shopkeeper": {
             "type": "string"
           },
           "created_by": {

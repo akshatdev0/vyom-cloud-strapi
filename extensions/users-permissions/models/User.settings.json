@@ -72,6 +72,10 @@
     },
     "lastName": {
       "type": "string"
+    },
+    "shopkeeper": {
+      "via": "user",
+      "model": "shopkeeper"
     }
   }
 }
