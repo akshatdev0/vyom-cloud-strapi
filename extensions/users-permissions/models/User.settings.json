@@ -64,39 +64,8 @@
         "FEMALE"
       ]
     },
-    "mobileNumber": {
-      "type": "string"
-    },
     "alternateMobileNumber": {
       "type": "string"
-    },
-    "addressLine1": {
-      "type": "string"
-    },
-    "addressLine2": {
-      "type": "string"
-    },
-    "pincode": {
-      "type": "string"
-    },
-    "area": {
-      "model": "area"
-    },
-    "type": {
-      "type": "enumeration",
-      "enum": [
-        "ADMIN",
-        "COMPANY_OWNER",
-        "SHOPKEEPER"
-      ]
-    },
-    "company": {
-      "model": "company",
-      "via": "owners"
-    },
-    "shop": {
-      "model": "shop",
-      "via": "shopkeepers"
     },
     "dateOfBirth": {
       "type": "date"
