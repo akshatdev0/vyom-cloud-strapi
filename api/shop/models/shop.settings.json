@@ -52,11 +52,9 @@
     "websiteURL": {
       "type": "string"
     },
-    "latitude": {
-      "type": "decimal"
-    },
-    "longitude": {
-      "type": "decimal"
+    "shopkeepers": {
+      "via": "shops",
+      "collection": "shopkeeper"
     }
   }
 }

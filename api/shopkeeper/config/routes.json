@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/shopkeepers",
+      "handler": "shopkeeper.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/shopkeepers/count",
+      "handler": "shopkeeper.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/shopkeepers/:id",
+      "handler": "shopkeeper.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/shopkeepers",
+      "handler": "shopkeeper.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/shopkeepers/:id",
+      "handler": "shopkeeper.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/shopkeepers/:id",
+      "handler": "shopkeeper.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
