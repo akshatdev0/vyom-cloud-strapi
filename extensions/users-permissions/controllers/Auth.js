@@ -11,6 +11,12 @@ const crypto = require("crypto");
 const _ = require("lodash");
 const grant = require("grant-koa");
 const { sanitizeEntity } = require("strapi-utils");
+const phoneNumberUtil = require("google-libphonenumber").PhoneNumberUtil.getInstance();
+const PhoneNumberType = require("google-libphonenumber").PhoneNumberType;
+
+const formatError = (error) => [
+  { messages: [{ id: error.id, message: error.message, field: error.field }] },
+];
 
 module.exports = {
   async register(ctx) {
@@ -50,6 +56,23 @@ module.exports = {
         formatError({
           id: "Auth.form.error.mobileNumber.provide",
           message: "Please provide your mobile number.",
+        })
+      );
+    }
+
+    const phoneNumber = phoneNumberUtil.parseAndKeepRawInput(
+      params.username,
+      "IN"
+    );
+    if (
+      !phoneNumberUtil.isValidNumberForRegion(phoneNumber, "IN") ||
+      phoneNumberUtil.getNumberType(phoneNumber) !== PhoneNumberType.MOBILE
+    ) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "Auth.form.error.mobileNumber.invalid",
+          message: "Please provide a valid mobile number.",
         })
       );
     }
