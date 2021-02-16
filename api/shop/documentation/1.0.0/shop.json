@@ -639,6 +639,9 @@
                 "shop": {
                   "type": "string"
                 },
+                "dateOfBirth": {
+                  "type": "string"
+                },
                 "created_by": {
                   "type": "string"
                 },
@@ -647,6 +650,25 @@
                 }
               }
             }
+          },
+          "gstNumber": {
+            "type": "string"
+          },
+          "openingYear": {
+            "type": "string",
+            "format": "date"
+          },
+          "gstRegistrationType": {
+            "type": "string"
+          },
+          "websiteURL": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
           }
         }
       },
@@ -687,6 +709,25 @@
             "items": {
               "type": "string"
             }
+          },
+          "gstNumber": {
+            "type": "string"
+          },
+          "openingYear": {
+            "type": "string",
+            "format": "date"
+          },
+          "gstRegistrationType": {
+            "type": "string"
+          },
+          "websiteURL": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
           },
           "created_by": {
             "type": "string"

@@ -695,6 +695,9 @@
                 "shop": {
                   "type": "string"
                 },
+                "dateOfBirth": {
+                  "type": "string"
+                },
                 "created_by": {
                   "type": "string"
                 },

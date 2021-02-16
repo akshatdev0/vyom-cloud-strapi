@@ -557,6 +557,34 @@
                 }
               }
             }
+          },
+          "country": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "states": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "published_at": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -573,6 +601,9 @@
             "items": {
               "type": "string"
             }
+          },
+          "country": {
+            "type": "string"
           },
           "created_by": {
             "type": "string"

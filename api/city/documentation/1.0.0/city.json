@@ -544,6 +544,9 @@
                   "type": "string"
                 }
               },
+              "country": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },
