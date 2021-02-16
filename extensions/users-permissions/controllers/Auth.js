@@ -19,6 +19,150 @@ const formatError = (error) => [
 ];
 
 module.exports = {
+  async callback(ctx) {
+    const provider = ctx.params.provider || 'local';
+    const params = ctx.request.body;
+
+    const store = await strapi.store({
+      environment: '',
+      type: 'plugin',
+      name: 'users-permissions',
+    });
+
+    if (provider === 'local') {
+      if (!_.get(await store.get({ key: 'grant' }), 'email.enabled')) {
+        return ctx.badRequest(null, 'This provider is disabled.');
+      }
+
+      // The identifier is required.
+      if (!params.identifier) {
+        return ctx.badRequest(
+          null,
+          formatError({
+            id: 'Auth.callback.error.identifier.provide',
+            message: 'Please provide your identifier.',
+          })
+        );
+      }
+
+      // The password is required.
+      if (!params.password) {
+        return ctx.badRequest(
+          null,
+          formatError({
+            id: 'Auth.callback.error.password.provide',
+            message: 'Please provide your password.',
+          })
+        );
+      }
+
+      const query = { provider };
+      query.mobileNumber = params.identifier;
+
+      // Check if the user exists.
+      const user = await strapi.query('user', 'users-permissions').findOne(query);
+
+      if (!user) {
+        return ctx.badRequest(
+          null,
+          formatError({
+            id: 'Auth.callback.error.invalid',
+            message: 'Identifier or password invalid.',
+          })
+        );
+      }
+
+      if (user.confirmed !== true) {
+        return ctx.badRequest(
+          null,
+          formatError({
+            id: 'Auth.callback.error.mobileNumber.not.confirmed',
+            message: 'Your mobile number is not confirmed',
+          })
+        );
+      }
+
+      if (user.blocked === true) {
+        return ctx.badRequest(
+          null,
+          formatError({
+            id: 'Auth.callback.error.user.blocked',
+            message: 'Your account has been blocked by an administrator',
+          })
+        );
+      }
+
+      // The user never authenticated with the `local` provider.
+      if (!user.password) {
+        return ctx.badRequest(
+          null,
+          formatError({
+            id: 'Auth.callback.error.password.local',
+            message:
+              'This user never created a local password.',
+          })
+        );
+      }
+
+      const validPassword = await strapi.plugins[
+        'users-permissions'
+      ].services.user.validatePassword(params.password, user.password);
+
+      if (!validPassword) {
+        return ctx.badRequest(
+          null,
+          formatError({
+            id: 'Auth.callback.error.invalid',
+            message: 'Identifier or password invalid.',
+          })
+        );
+      } else {
+        ctx.send({
+          jwt: strapi.plugins['users-permissions'].services.jwt.issue({
+            id: user.id,
+          }),
+          user: sanitizeEntity(user.toJSON ? user.toJSON() : user, {
+            model: strapi.query('user', 'users-permissions').model,
+          }),
+        });
+      }
+    } else {
+      if (!_.get(await store.get({ key: 'grant' }), [provider, 'enabled'])) {
+        return ctx.badRequest(
+          null,
+          formatError({
+            id: 'Auth.callback.error.provider.disabled',
+            message: 'This provider is disabled.',
+          })
+        );
+      }
+
+      // Connect the user with the third-party provider.
+      let user, error;
+      try {
+        [user, error] = await strapi.plugins['users-permissions'].services.providers.connect(
+          provider,
+          ctx.query
+        );
+      } catch ([user, error]) {
+        return ctx.badRequest(null, error === 'array' ? error[0] : error);
+      }
+
+      if (!user) {
+        return ctx.badRequest(null, error === 'array' ? error[0] : error);
+      }
+
+      ctx.send({
+        jwt: strapi.plugins['users-permissions'].services.jwt.issue({
+          id: user.id,
+        }),
+        user: sanitizeEntity(user.toJSON ? user.toJSON() : user, {
+          model: strapi.query('user', 'users-permissions').model,
+        }),
+      });
+    }
+  },
+
   async register(ctx) {
     const pluginStore = await strapi.store({
       environment: "",
@@ -174,10 +318,11 @@ module.exports = {
         "users-permissions"
       ].services.user.sendConfirmationSms(user);
 
+      // Todo - Remove sending token here
       ctx.send({
         mobileNumber: user.mobileNumber,
-        token: confirmationToken,
         sent: true,
+        token: confirmationToken,
       });
     } catch (err) {
       return ctx.badRequest(null, err);
