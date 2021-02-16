@@ -251,9 +251,9 @@ module.exports = {
   },
 
   async createPassword(ctx) {
-    const user = ctx.state.user;
+    const ctxUser = ctx.state.user;
 
-    if (!user) {
+    if (!ctxUser) {
       return ctx.badRequest(
         null,
         formatError({
@@ -290,9 +290,23 @@ module.exports = {
       );
     }
 
+    const user = await strapi.query("user", "users-permissions").findOne({
+      id: ctxUser.id
+    });
+    if (user.password) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: 'Auth.createPassword.error.password.already.created',
+          message:
+            'Password for this user has already been created.',
+        })
+      );
+    }
+
     const { user: userService } = strapi.plugins["users-permissions"].services;
     const updatedUser = await userService.edit(
-      { id: user.id },
+      { id: ctxUser.id },
       { password: params.password }
     );
 
