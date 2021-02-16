@@ -7,9 +7,7 @@
  */
 
 /* eslint-disable no-useless-escape */
-const crypto = require("crypto");
 const _ = require("lodash");
-const grant = require("grant-koa");
 const { sanitizeEntity } = require("strapi-utils");
 const phoneNumberUtil = require("google-libphonenumber").PhoneNumberUtil.getInstance();
 const PhoneNumberType = require("google-libphonenumber").PhoneNumberType;
@@ -373,12 +371,12 @@ module.exports = {
         null,
         formatError({
           id: 'Auth.form.error.role.notFound',
-          message: 'Impossible to find the default role.',
+          message: 'Not able to find the default role.',
         })
       );
     }
 
-    const confirmedUser = await userService.edit(
+    const confirmedUser = await strapi.query('user', 'users-permissions').update(
       { id: user.id },
       { role: role.id, confirmed: true, confirmationToken: null }
     );
