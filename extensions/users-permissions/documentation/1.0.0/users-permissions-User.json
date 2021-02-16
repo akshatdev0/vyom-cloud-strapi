@@ -1187,8 +1187,7 @@
       "UsersPermissionsUser": {
         "required": [
           "id",
-          "username",
-          "email"
+          "username"
         ],
         "properties": {
           "id": {
@@ -1300,8 +1299,7 @@
       },
       "NewUsersPermissionsUser": {
         "required": [
-          "username",
-          "email"
+          "username"
         ],
         "properties": {
           "username": {

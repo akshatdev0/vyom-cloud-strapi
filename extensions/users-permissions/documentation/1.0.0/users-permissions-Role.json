@@ -527,8 +527,7 @@
             "items": {
               "required": [
                 "id",
-                "username",
-                "email"
+                "username"
               ],
               "properties": {
                 "id": {
