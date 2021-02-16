@@ -610,6 +610,9 @@
               "resetPasswordToken": {
                 "type": "string"
               },
+              "confirmationToken": {
+                "type": "string"
+              },
               "confirmed": {
                 "type": "boolean"
               },

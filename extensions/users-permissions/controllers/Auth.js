@@ -114,4 +114,119 @@ module.exports = {
       ctx.badRequest(null, formatError(adminError));
     }
   },
+
+  async smsConfirmation(ctx) {
+    const { confirmation: confirmationToken } = ctx.query;
+
+    const { user: userService, jwt: jwtService } = strapi.plugins[
+      "users-permissions"
+    ].services;
+
+    if (_.isEmpty(confirmationToken)) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "Auth.error.token.invalid",
+          message: "Token is invalid.",
+        })
+      );
+    }
+
+    const user = await userService.fetch({ confirmationToken }, []);
+
+    if (!user) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "Auth.error.token.invalid",
+          message: "Token is invalid.",
+        })
+      );
+    }
+
+    await userService.edit(
+      { id: user.id },
+      { confirmed: true, confirmationToken: null }
+    );
+
+    ctx.send({
+      jwt: jwtService.issue({ id: user.id }),
+      user: sanitizeEntity(user, {
+        model: strapi.query("user", "users-permissions").model,
+      }),
+    });
+  },
+
+  async sendSmsConfirmation(ctx) {
+    const params = _.assign(ctx.request.body);
+
+    if (!params.username) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "Auth.error.mobileNumber.provide",
+          message: "Please provide your mobile number.",
+        })
+      );
+    }
+
+    const phoneNumber = phoneNumberUtil.parseAndKeepRawInput(
+      params.username,
+      "IN"
+    );
+    if (
+      !phoneNumberUtil.isValidNumberForRegion(phoneNumber, "IN") ||
+      phoneNumberUtil.getNumberType(phoneNumber) !== PhoneNumberType.MOBILE
+    ) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "Auth.error.mobileNumber.invalid",
+          message: "Please provide a valid mobile number.",
+        })
+      );
+    }
+
+    const user = await strapi.query("user", "users-permissions").findOne({
+      username: params.username,
+    });
+
+    if (user.confirmed) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "Auth.error.mobileNumber.already.confirmed",
+          message: "Mobile number is already confirmed.",
+        })
+      );
+    }
+
+    if (user.blocked) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "Auth.error.user.blocked",
+          message: "User has been blocked.",
+        })
+      );
+    }
+
+    try {
+      const confirmationToken = await strapi.plugins[
+        "users-permissions"
+      ].services.user.sendConfirmationSms(user);
+
+      const user1 = await strapi.query("user", "users-permissions").findOne({
+        username: params.username,
+      });
+
+      ctx.send({
+        mobileNumber: user.username,
+        token: confirmationToken,
+        sent: true,
+      });
+    } catch (err) {
+      return ctx.badRequest(null, err);
+    }
+  },
 };
