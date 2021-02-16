@@ -589,10 +589,13 @@
           "user": {
             "required": [
               "id",
-              "username"
+              "mobileNumber"
             ],
             "properties": {
               "id": {
+                "type": "string"
+              },
+              "mobileNumber": {
                 "type": "string"
               },
               "username": {

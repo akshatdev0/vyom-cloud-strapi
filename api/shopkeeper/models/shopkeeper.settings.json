@@ -16,9 +16,9 @@
       "dominant": true
     },
     "user": {
+      "via": "shopkeeper",
       "plugin": "users-permissions",
-      "model": "user",
-      "via": "shopkeeper"
+      "model": "user"
     }
   }
 }

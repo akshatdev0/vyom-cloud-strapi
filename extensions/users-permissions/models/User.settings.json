@@ -10,12 +10,18 @@
     "draftAndPublish": false
   },
   "attributes": {
+    "mobileNumber": {
+      "type": "string",
+      "unique": true,
+      "configurable": false,
+      "required": true
+    },
     "username": {
       "type": "string",
       "minLength": 3,
       "unique": true,
       "configurable": false,
-      "required": true
+      "required": false
     },
     "email": {
       "type": "email",
@@ -79,8 +85,8 @@
       "type": "string"
     },
     "shopkeeper": {
-      "via": "user",
-      "model": "shopkeeper"
+      "model": "shopkeeper",
+      "via": "user"
     }
   }
 }

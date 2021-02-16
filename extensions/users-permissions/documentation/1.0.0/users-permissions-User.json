@@ -1315,10 +1315,13 @@
       "UsersPermissionsUser": {
         "required": [
           "id",
-          "username"
+          "mobileNumber"
         ],
         "properties": {
           "id": {
+            "type": "string"
+          },
+          "mobileNumber": {
             "type": "string"
           },
           "username": {
@@ -1427,9 +1430,12 @@
       },
       "NewUsersPermissionsUser": {
         "required": [
-          "username"
+          "mobileNumber"
         ],
         "properties": {
+          "mobileNumber": {
+            "type": "string"
+          },
           "username": {
             "type": "string",
             "minLength": 3
