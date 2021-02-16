@@ -1404,6 +1404,24 @@
                   "type": "string"
                 }
               },
+              "gstNumber": {
+                "type": "string"
+              },
+              "openingYear": {
+                "type": "string"
+              },
+              "gstRegistrationType": {
+                "type": "string"
+              },
+              "websiteURL": {
+                "type": "string"
+              },
+              "latitude": {
+                "type": "number"
+              },
+              "longitude": {
+                "type": "number"
+              },
               "created_by": {
                 "type": "string"
               },
@@ -1411,6 +1429,10 @@
                 "type": "string"
               }
             }
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date"
           }
         }
       },
@@ -1491,6 +1513,10 @@
           },
           "shop": {
             "type": "string"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date"
           },
           "created_by": {
             "type": "string"

@@ -97,6 +97,9 @@
     "shop": {
       "model": "shop",
       "via": "shopkeepers"
+    },
+    "dateOfBirth": {
+      "type": "date"
     }
   }
 }
