@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "02/16/2021 6:34:48 AM"
+    "x-generation-date": "02/16/2021 10:54:48 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -8719,87 +8719,6 @@
                 "type": "string"
               }
             }
-          },
-          "owners": {
-            "type": "array",
-            "items": {
-              "required": [
-                "id",
-                "username",
-                "email"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "username": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "provider": {
-                  "type": "string"
-                },
-                "password": {
-                  "type": "string"
-                },
-                "resetPasswordToken": {
-                  "type": "string"
-                },
-                "confirmed": {
-                  "type": "boolean"
-                },
-                "blocked": {
-                  "type": "boolean"
-                },
-                "role": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "gender": {
-                  "type": "string"
-                },
-                "mobileNumber": {
-                  "type": "string"
-                },
-                "alternateMobileNumber": {
-                  "type": "string"
-                },
-                "addressLine1": {
-                  "type": "string"
-                },
-                "addressLine2": {
-                  "type": "string"
-                },
-                "pincode": {
-                  "type": "string"
-                },
-                "area": {
-                  "type": "string"
-                },
-                "type": {
-                  "type": "string"
-                },
-                "company": {
-                  "type": "string"
-                },
-                "shop": {
-                  "type": "string"
-                },
-                "dateOfBirth": {
-                  "type": "string"
-                },
-                "created_by": {
-                  "type": "string"
-                },
-                "updated_by": {
-                  "type": "string"
-                }
-              }
-            }
           }
         }
       },
@@ -8842,12 +8761,6 @@
           },
           "area": {
             "type": "string"
-          },
-          "owners": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
           },
           "created_by": {
             "type": "string"
@@ -9015,87 +8928,6 @@
               }
             }
           },
-          "shopkeepers": {
-            "type": "array",
-            "items": {
-              "required": [
-                "id",
-                "username",
-                "email"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "username": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "provider": {
-                  "type": "string"
-                },
-                "password": {
-                  "type": "string"
-                },
-                "resetPasswordToken": {
-                  "type": "string"
-                },
-                "confirmed": {
-                  "type": "boolean"
-                },
-                "blocked": {
-                  "type": "boolean"
-                },
-                "role": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "gender": {
-                  "type": "string"
-                },
-                "mobileNumber": {
-                  "type": "string"
-                },
-                "alternateMobileNumber": {
-                  "type": "string"
-                },
-                "addressLine1": {
-                  "type": "string"
-                },
-                "addressLine2": {
-                  "type": "string"
-                },
-                "pincode": {
-                  "type": "string"
-                },
-                "area": {
-                  "type": "string"
-                },
-                "type": {
-                  "type": "string"
-                },
-                "company": {
-                  "type": "string"
-                },
-                "shop": {
-                  "type": "string"
-                },
-                "dateOfBirth": {
-                  "type": "string"
-                },
-                "created_by": {
-                  "type": "string"
-                },
-                "updated_by": {
-                  "type": "string"
-                }
-              }
-            }
-          },
           "gstNumber": {
             "type": "string"
           },
@@ -9148,12 +8980,6 @@
           },
           "area": {
             "type": "string"
-          },
-          "shopkeepers": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
           },
           "gstNumber": {
             "type": "string"
@@ -9493,31 +9319,7 @@
                 "gender": {
                   "type": "string"
                 },
-                "mobileNumber": {
-                  "type": "string"
-                },
                 "alternateMobileNumber": {
-                  "type": "string"
-                },
-                "addressLine1": {
-                  "type": "string"
-                },
-                "addressLine2": {
-                  "type": "string"
-                },
-                "pincode": {
-                  "type": "string"
-                },
-                "area": {
-                  "type": "string"
-                },
-                "type": {
-                  "type": "string"
-                },
-                "company": {
-                  "type": "string"
-                },
-                "shop": {
                   "type": "string"
                 },
                 "dateOfBirth": {
@@ -9646,174 +9448,8 @@
               "FEMALE"
             ]
           },
-          "mobileNumber": {
-            "type": "string"
-          },
           "alternateMobileNumber": {
             "type": "string"
-          },
-          "addressLine1": {
-            "type": "string"
-          },
-          "addressLine2": {
-            "type": "string"
-          },
-          "pincode": {
-            "type": "string"
-          },
-          "area": {
-            "required": [
-              "id",
-              "name"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "city": {
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
-          },
-          "type": {
-            "type": "string",
-            "enum": [
-              "ADMIN",
-              "COMPANY_OWNER",
-              "SHOPKEEPER"
-            ]
-          },
-          "company": {
-            "required": [
-              "id",
-              "pid",
-              "name",
-              "currentStatus",
-              "suspendStatus"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "pid": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "currentStatus": {
-                "type": "boolean"
-              },
-              "suspendStatus": {
-                "type": "boolean"
-              },
-              "businessType": {
-                "type": "string"
-              },
-              "companyType": {
-                "type": "string"
-              },
-              "addressLine1": {
-                "type": "string"
-              },
-              "addressLine2": {
-                "type": "string"
-              },
-              "pincode": {
-                "type": "string"
-              },
-              "area": {
-                "type": "string"
-              },
-              "owners": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
-          },
-          "shop": {
-            "required": [
-              "id",
-              "name",
-              "type",
-              "currentStatus"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "rating": {
-                "type": "integer"
-              },
-              "type": {
-                "type": "string"
-              },
-              "currentStatus": {
-                "type": "boolean"
-              },
-              "addressLine1": {
-                "type": "string"
-              },
-              "addressLine2": {
-                "type": "string"
-              },
-              "pincode": {
-                "type": "string"
-              },
-              "area": {
-                "type": "string"
-              },
-              "shopkeepers": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "gstNumber": {
-                "type": "string"
-              },
-              "openingYear": {
-                "type": "string"
-              },
-              "gstRegistrationType": {
-                "type": "string"
-              },
-              "websiteURL": {
-                "type": "string"
-              },
-              "latitude": {
-                "type": "number"
-              },
-              "longitude": {
-                "type": "number"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
           },
           "dateOfBirth": {
             "type": "string",
@@ -9867,36 +9503,7 @@
               "FEMALE"
             ]
           },
-          "mobileNumber": {
-            "type": "string"
-          },
           "alternateMobileNumber": {
-            "type": "string"
-          },
-          "addressLine1": {
-            "type": "string"
-          },
-          "addressLine2": {
-            "type": "string"
-          },
-          "pincode": {
-            "type": "string"
-          },
-          "area": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string",
-            "enum": [
-              "ADMIN",
-              "COMPANY_OWNER",
-              "SHOPKEEPER"
-            ]
-          },
-          "company": {
-            "type": "string"
-          },
-          "shop": {
             "type": "string"
           },
           "dateOfBirth": {

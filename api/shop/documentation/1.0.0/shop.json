@@ -570,87 +570,6 @@
               }
             }
           },
-          "shopkeepers": {
-            "type": "array",
-            "items": {
-              "required": [
-                "id",
-                "username",
-                "email"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "username": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "provider": {
-                  "type": "string"
-                },
-                "password": {
-                  "type": "string"
-                },
-                "resetPasswordToken": {
-                  "type": "string"
-                },
-                "confirmed": {
-                  "type": "boolean"
-                },
-                "blocked": {
-                  "type": "boolean"
-                },
-                "role": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "gender": {
-                  "type": "string"
-                },
-                "mobileNumber": {
-                  "type": "string"
-                },
-                "alternateMobileNumber": {
-                  "type": "string"
-                },
-                "addressLine1": {
-                  "type": "string"
-                },
-                "addressLine2": {
-                  "type": "string"
-                },
-                "pincode": {
-                  "type": "string"
-                },
-                "area": {
-                  "type": "string"
-                },
-                "type": {
-                  "type": "string"
-                },
-                "company": {
-                  "type": "string"
-                },
-                "shop": {
-                  "type": "string"
-                },
-                "dateOfBirth": {
-                  "type": "string"
-                },
-                "created_by": {
-                  "type": "string"
-                },
-                "updated_by": {
-                  "type": "string"
-                }
-              }
-            }
-          },
           "gstNumber": {
             "type": "string"
           },
@@ -703,12 +622,6 @@
           },
           "area": {
             "type": "string"
-          },
-          "shopkeepers": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
           },
           "gstNumber": {
             "type": "string"

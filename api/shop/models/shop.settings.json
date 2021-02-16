@@ -40,11 +40,6 @@
     "area": {
       "model": "area"
     },
-    "shopkeepers": {
-      "via": "shop",
-      "plugin": "users-permissions",
-      "collection": "user"
-    },
     "gstNumber": {
       "type": "string"
     },

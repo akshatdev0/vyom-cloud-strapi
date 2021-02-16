@@ -564,31 +564,7 @@
                 "gender": {
                   "type": "string"
                 },
-                "mobileNumber": {
-                  "type": "string"
-                },
                 "alternateMobileNumber": {
-                  "type": "string"
-                },
-                "addressLine1": {
-                  "type": "string"
-                },
-                "addressLine2": {
-                  "type": "string"
-                },
-                "pincode": {
-                  "type": "string"
-                },
-                "area": {
-                  "type": "string"
-                },
-                "type": {
-                  "type": "string"
-                },
-                "company": {
-                  "type": "string"
-                },
-                "shop": {
                   "type": "string"
                 },
                 "dateOfBirth": {
