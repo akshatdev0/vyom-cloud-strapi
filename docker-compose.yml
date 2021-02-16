@@ -1,9 +1,27 @@
 version: "3"
 services:
-  database:
-    image: "postgres:10.14-alpine"
-    env_file:
-      - database.env
+  strapi:
+    build: .
+    environment:
+      DATABASE_CLIENT: postgres
+      DATABASE_NAME: strapi
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_USERNAME: strapi
+      DATABASE_PASSWORD: strapi
+    volumes:
+      - ./:/srv/app
+    ports:
+      - "1337:1337"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: strapi
+      POSTGRES_USER: strapi
+      POSTGRES_PASSWORD: strapi
     volumes:
       - database-data:/var/lib/postgresql/data/
     ports:
