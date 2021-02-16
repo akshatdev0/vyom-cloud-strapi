@@ -558,7 +558,7 @@
                 "role": {
                   "type": "string"
                 },
-                "name": {
+                "firstName": {
                   "type": "string"
                 },
                 "gender": {
@@ -568,6 +568,9 @@
                   "type": "string"
                 },
                 "dateOfBirth": {
+                  "type": "string"
+                },
+                "lastName": {
                   "type": "string"
                 },
                 "created_by": {
