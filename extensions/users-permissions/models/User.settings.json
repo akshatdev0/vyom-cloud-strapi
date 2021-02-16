@@ -54,7 +54,7 @@
       "plugin": "users-permissions",
       "configurable": false
     },
-    "name": {
+    "firstName": {
       "type": "string"
     },
     "gender": {
@@ -69,6 +69,9 @@
     },
     "dateOfBirth": {
       "type": "date"
+    },
+    "lastName": {
+      "type": "string"
     }
   }
 }

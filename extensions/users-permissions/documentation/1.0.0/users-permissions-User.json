@@ -1251,7 +1251,7 @@
               }
             }
           },
-          "name": {
+          "firstName": {
             "type": "string"
           },
           "gender": {
@@ -1267,6 +1267,9 @@
           "dateOfBirth": {
             "type": "string",
             "format": "date"
+          },
+          "lastName": {
+            "type": "string"
           }
         }
       },
@@ -1306,7 +1309,7 @@
           "role": {
             "type": "string"
           },
-          "name": {
+          "firstName": {
             "type": "string"
           },
           "gender": {
@@ -1322,6 +1325,9 @@
           "dateOfBirth": {
             "type": "string",
             "format": "date"
+          },
+          "lastName": {
+            "type": "string"
           },
           "created_by": {
             "type": "string"
