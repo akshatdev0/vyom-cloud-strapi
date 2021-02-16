@@ -49,8 +49,8 @@ module.exports = {
       provider: "local",
     };
 
-    // Mobile Number (username) is required.
-    if (!params.username) {
+    // Mobile Number is required.
+    if (!params.mobileNumber) {
       return ctx.badRequest(
         null,
         formatError({
@@ -61,7 +61,7 @@ module.exports = {
     }
 
     const phoneNumber = phoneNumberUtil.parseAndKeepRawInput(
-      params.username,
+      params.mobileNumber,
       "IN"
     );
     if (
@@ -78,7 +78,7 @@ module.exports = {
     }
 
     const user = await strapi.query("user", "users-permissions").findOne({
-      username: params.username,
+      mobileNumber: params.mobileNumber,
     });
 
     if (user) {
@@ -92,6 +92,7 @@ module.exports = {
     }
 
     try {
+      params.username = params.mobileNumber;
       const user = await strapi
         .query("user", "users-permissions")
         .create(params);
@@ -104,7 +105,7 @@ module.exports = {
         user: sanitizedUser,
       });
     } catch (err) {
-      const adminError = _.includes(err.message, "username")
+      const adminError = _.includes(err.message, "mobileNumber")
         ? {
             id: "Auth.form.error.mobileNumber.taken",
             message: "Mobile number is already taken.",
@@ -160,7 +161,7 @@ module.exports = {
   async sendSmsConfirmation(ctx) {
     const params = _.assign(ctx.request.body);
 
-    if (!params.username) {
+    if (!params.mobileNumber) {
       return ctx.badRequest(
         null,
         formatError({
@@ -171,7 +172,7 @@ module.exports = {
     }
 
     const phoneNumber = phoneNumberUtil.parseAndKeepRawInput(
-      params.username,
+      params.mobileNumber,
       "IN"
     );
     if (
@@ -188,7 +189,7 @@ module.exports = {
     }
 
     const user = await strapi.query("user", "users-permissions").findOne({
-      username: params.username,
+      mobileNumber: params.mobileNumber,
     });
 
     if (user.confirmed) {
@@ -216,12 +217,8 @@ module.exports = {
         "users-permissions"
       ].services.user.sendConfirmationSms(user);
 
-      const user1 = await strapi.query("user", "users-permissions").findOne({
-        username: params.username,
-      });
-
       ctx.send({
-        mobileNumber: user.username,
+        mobileNumber: user.mobileNumber,
         token: confirmationToken,
         sent: true,
       });
