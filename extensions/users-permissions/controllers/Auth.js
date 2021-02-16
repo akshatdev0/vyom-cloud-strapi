@@ -290,8 +290,6 @@ module.exports = {
       );
     }
 
-    params.password = await strapi.plugins['users-permissions'].services.user.hashPassword(params);
-
     const { user: userService } = strapi.plugins["users-permissions"].services;
     const updatedUser = await userService.edit(
       { id: user.id },
