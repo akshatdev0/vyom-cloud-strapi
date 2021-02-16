@@ -1,0 +1,32 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/auth/sms-confirmation",
+      "handler": "Auth.smsConfirmation",
+      "config": {
+        "policies": [],
+        "prefix": "",
+        "description": "Validate a user account",
+        "tag": {
+          "plugin": "users-permissions",
+          "name": "User"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/auth/send-sms-confirmation",
+      "handler": "Auth.sendSmsConfirmation",
+      "config": {
+        "policies": [],
+        "prefix": "",
+        "description": "Send a confirmation sms to user",
+        "tag": {
+          "plugin": "users-permissions",
+          "name": "User"
+        }
+      }
+    }
+  ]
+}
