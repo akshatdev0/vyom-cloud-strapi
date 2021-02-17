@@ -1,0 +1,46 @@
+{
+  "routes": [
+    {
+      "method": "POST",
+      "path": "/auth/send-sms-confirmation",
+      "handler": "Auth.sendSmsConfirmation",
+      "config": {
+        "policies": [],
+        "prefix": "",
+        "description": "Send a confirmation sms to user",
+        "tag": {
+          "plugin": "users-permissions",
+          "name": "User"
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/auth/sms-confirmation",
+      "handler": "Auth.smsConfirmation",
+      "config": {
+        "policies": [],
+        "prefix": "",
+        "description": "Validate a user account",
+        "tag": {
+          "plugin": "users-permissions",
+          "name": "User"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/auth/create-password",
+      "handler": "Auth.createPassword",
+      "config": {
+        "policies": [],
+        "prefix": "",
+        "description": "Create password for an authenticated user",
+        "tag": {
+          "plugin": "users-permissions",
+          "name": "User"
+        }
+      }
+    }
+  ]
+}

@@ -2,11 +2,13 @@
   "kind": "collectionType",
   "collectionName": "states",
   "info": {
-    "name": "State"
+    "name": "State",
+    "description": ""
   },
   "options": {
     "increments": true,
-    "timestamps": true
+    "timestamps": true,
+    "draftAndPublish": false
   },
   "attributes": {
     "name": {
@@ -15,8 +17,12 @@
       "unique": true
     },
     "cities": {
-      "via": "state",
-      "collection": "city"
+      "collection": "city",
+      "via": "state"
+    },
+    "country": {
+      "via": "states",
+      "model": "country"
     }
   }
 }

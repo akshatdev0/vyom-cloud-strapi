@@ -14,8 +14,8 @@
       "required": true
     },
     "state": {
-      "model": "state",
-      "via": "cities"
+      "via": "cities",
+      "model": "state"
     },
     "areas": {
       "collection": "area",

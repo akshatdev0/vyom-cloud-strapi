@@ -46,11 +46,6 @@
     },
     "area": {
       "model": "area"
-    },
-    "owners": {
-      "via": "company",
-      "plugin": "users-permissions",
-      "collection": "user"
     }
   }
 }

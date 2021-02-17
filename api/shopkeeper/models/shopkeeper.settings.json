@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "shopkeepers",
+  "info": {
+    "name": "Shopkeeper"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "shops": {
+      "collection": "shop",
+      "via": "shopkeepers",
+      "dominant": true
+    },
+    "user": {
+      "via": "shopkeeper",
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

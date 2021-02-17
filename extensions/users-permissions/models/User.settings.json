@@ -10,18 +10,24 @@
     "draftAndPublish": false
   },
   "attributes": {
+    "mobileNumber": {
+      "type": "string",
+      "unique": true,
+      "configurable": false,
+      "required": true
+    },
     "username": {
       "type": "string",
       "minLength": 3,
       "unique": true,
       "configurable": false,
-      "required": true
+      "required": false
     },
     "email": {
       "type": "email",
       "minLength": 6,
       "configurable": false,
-      "required": true
+      "required": false
     },
     "provider": {
       "type": "string",
@@ -34,6 +40,11 @@
       "private": true
     },
     "resetPasswordToken": {
+      "type": "string",
+      "configurable": false,
+      "private": true
+    },
+    "confirmationToken": {
       "type": "string",
       "configurable": false,
       "private": true
@@ -54,7 +65,7 @@
       "plugin": "users-permissions",
       "configurable": false
     },
-    "name": {
+    "firstName": {
       "type": "string"
     },
     "gender": {
@@ -64,39 +75,18 @@
         "FEMALE"
       ]
     },
-    "mobileNumber": {
-      "type": "string"
-    },
     "alternateMobileNumber": {
       "type": "string"
     },
-    "addressLine1": {
+    "dateOfBirth": {
+      "type": "date"
+    },
+    "lastName": {
       "type": "string"
     },
-    "addressLine2": {
-      "type": "string"
-    },
-    "pincode": {
-      "type": "string"
-    },
-    "area": {
-      "model": "area"
-    },
-    "type": {
-      "type": "enumeration",
-      "enum": [
-        "ADMIN",
-        "COMPANY_OWNER",
-        "SHOPKEEPER"
-      ]
-    },
-    "company": {
-      "model": "company",
-      "via": "owners"
-    },
-    "shop": {
-      "model": "shop",
-      "via": "shopkeepers"
+    "shopkeeper": {
+      "model": "shopkeeper",
+      "via": "user"
     }
   }
 }
