@@ -2,11 +2,13 @@
   "kind": "collectionType",
   "collectionName": "shops",
   "info": {
-    "name": "Shop"
+    "name": "Shop",
+    "description": ""
   },
   "options": {
     "increments": true,
-    "timestamps": true
+    "timestamps": true,
+    "draftAndPublish": false
   },
   "attributes": {
     "name": {
@@ -38,10 +40,21 @@
     "area": {
       "model": "area"
     },
+    "gstNumber": {
+      "type": "string"
+    },
+    "openingYear": {
+      "type": "date"
+    },
+    "gstRegistrationType": {
+      "type": "string"
+    },
+    "websiteURL": {
+      "type": "string"
+    },
     "shopkeepers": {
-      "via": "shop",
-      "plugin": "users-permissions",
-      "collection": "user"
+      "via": "shops",
+      "collection": "shopkeeper"
     }
   }
 }
