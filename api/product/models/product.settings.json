@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "products",
   "info": {
-    "name": "Product"
+    "name": "Product",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -22,7 +23,8 @@
       "regex": "^[A-Z]{3}$"
     },
     "description": {
-      "type": "text"
+      "type": "text",
+      "required": true
     },
     "longDescription": {
       "type": "richtext"
@@ -33,6 +35,53 @@
     },
     "brand": {
       "model": "brand"
+    },
+    "unit": {
+      "model": "unit"
+    },
+    "unitValue": {
+      "type": "decimal",
+      "required": true
+    },
+    "minSellingQuantity": {
+      "type": "integer",
+      "required": true
+    },
+    "maxSellingQuantity": {
+      "type": "integer",
+      "required": true
+    },
+    "buyingRate": {
+      "type": "decimal",
+      "required": true
+    },
+    "sellingRate": {
+      "type": "decimal",
+      "required": true
+    },
+    "discountType": {
+      "type": "enumeration",
+      "enum": [
+        "AMOUNT",
+        "PERCENTAGE"
+      ]
+    },
+    "discountValue": {
+      "type": "decimal"
+    },
+    "specifications": {
+      "type": "json"
+    },
+    "image": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
     }
   }
 }
