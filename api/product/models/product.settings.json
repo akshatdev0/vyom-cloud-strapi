@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "name": "Product"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "sku": {
+      "type": "string",
+      "required": true,
+      "maxLength": 3,
+      "minLength": 3,
+      "regex": "^[A-Z]{3}$"
+    },
+    "description": {
+      "type": "text"
+    },
+    "longDescription": {
+      "type": "richtext"
+    },
+    "product_category": {
+      "model": "product-category",
+      "via": "products"
+    },
+    "brand": {
+      "model": "brand"
+    }
+  }
+}

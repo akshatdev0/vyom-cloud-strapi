@@ -47,6 +47,10 @@
       "maxLength": 3,
       "required": true,
       "regex": "^[A-Z]{2,3}$"
+    },
+    "products": {
+      "via": "product_category",
+      "collection": "product"
     }
   }
 }
