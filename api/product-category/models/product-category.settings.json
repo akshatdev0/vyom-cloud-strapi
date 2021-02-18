@@ -45,7 +45,8 @@
       "unique": false,
       "minLength": 2,
       "maxLength": 3,
-      "required": true
+      "required": true,
+      "regex": "^[A-Z]{2,3}$"
     }
   }
 }
