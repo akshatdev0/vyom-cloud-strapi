@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/price-rules",
+      "handler": "price-rule.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/price-rules/count",
+      "handler": "price-rule.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/price-rules/:id",
+      "handler": "price-rule.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/price-rules",
+      "handler": "price-rule.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/price-rules/:id",
+      "handler": "price-rule.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/price-rules/:id",
+      "handler": "price-rule.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

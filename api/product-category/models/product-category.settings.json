@@ -51,6 +51,9 @@
     "products": {
       "via": "product_category",
       "collection": "product"
+    },
+    "appliedPriceRules": {
+      "collection": "price-rule"
     }
   }
 }
