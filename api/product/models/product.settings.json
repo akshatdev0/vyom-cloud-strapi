@@ -72,6 +72,9 @@
       ],
       "plugin": "upload",
       "required": false
+    },
+    "variantAttributes": {
+      "collection": "attribute"
     }
   }
 }
