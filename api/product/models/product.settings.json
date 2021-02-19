@@ -39,18 +39,6 @@
     "unit": {
       "model": "unit"
     },
-    "unitValue": {
-      "type": "decimal",
-      "required": true
-    },
-    "minSellingQuantity": {
-      "type": "integer",
-      "required": true
-    },
-    "maxSellingQuantity": {
-      "type": "integer",
-      "required": true
-    },
     "buyingPrice": {
       "type": "decimal",
       "required": true
@@ -75,6 +63,10 @@
     },
     "variantAttributes": {
       "collection": "attribute"
+    },
+    "productVariants": {
+      "via": "product",
+      "collection": "product-variant"
     }
   }
 }

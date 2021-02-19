@@ -1,0 +1,59 @@
+{
+  "kind": "collectionType",
+  "collectionName": "product_variants",
+  "info": {
+    "name": "Product Variant",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "sku": {
+      "type": "string",
+      "regex": "^[A-Z1-9]{1,2}$",
+      "required": true,
+      "maxLength": 2,
+      "minLength": 1
+    },
+    "availableStock": {
+      "type": "integer",
+      "required": true
+    },
+    "presentStock": {
+      "type": "integer",
+      "required": true
+    },
+    "lowStock": {
+      "type": "integer",
+      "required": false
+    },
+    "unitValue": {
+      "type": "decimal",
+      "required": true
+    },
+    "minSellingQuantity": {
+      "type": "integer",
+      "required": false
+    },
+    "maxSellingQuantity": {
+      "type": "integer"
+    },
+    "description": {
+      "type": "text"
+    },
+    "attributeValues": {
+      "collection": "attribute-value"
+    },
+    "product": {
+      "model": "product",
+      "via": "productVariants"
+    }
+  }
+}
