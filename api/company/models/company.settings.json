@@ -56,6 +56,12 @@
       "unique": true,
       "maxLength": 4,
       "minLength": 4
+    },
+    "priceRules": {
+      "collection": "price-rule"
+    },
+    "appliedPriceRules": {
+      "collection": "price-rule"
     }
   }
 }

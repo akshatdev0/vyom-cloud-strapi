@@ -54,6 +54,9 @@
     "product": {
       "model": "product",
       "via": "productVariants"
+    },
+    "appliedPriceRules": {
+      "collection": "price-rule"
     }
   }
 }

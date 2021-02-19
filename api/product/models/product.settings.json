@@ -67,6 +67,9 @@
     "productVariants": {
       "via": "product",
       "collection": "product-variant"
+    },
+    "appliedPriceRules": {
+      "collection": "price-rule"
     }
   }
 }
