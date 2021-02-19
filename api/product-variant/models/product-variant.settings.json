@@ -57,6 +57,15 @@
     },
     "appliedPriceRules": {
       "collection": "price-rule"
+    },
+    "images": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false
     }
   }
 }
