@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "orders",
+  "info": {
+    "name": "Order"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "number": {
+      "type": "string"
+    },
+    "note": {
+      "type": "text"
+    },
+    "currentStatus": {
+      "type": "enumeration",
+      "enum": [
+        "PLACED",
+        "UNDER_PROCESS",
+        "PACKED",
+        "SHIPPED",
+        "DELIVERED",
+        "CANCELLED"
+      ],
+      "required": false
+    },
+    "tracking": {
+      "type": "json"
+    },
+    "paymentStatus": {
+      "type": "enumeration",
+      "enum": [
+        "PENDING",
+        "PAID"
+      ]
+    },
+    "paymentMethod": {
+      "model": "payment-method"
+    },
+    "shop": {
+      "model": "shop",
+      "via": "orders"
+    }
+  }
+}
