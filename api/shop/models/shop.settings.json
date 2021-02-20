@@ -54,6 +54,10 @@
     "shopkeepers": {
       "via": "shops",
       "collection": "shopkeeper"
+    },
+    "orders": {
+      "via": "shop",
+      "collection": "order"
     }
   }
 }
