@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "order_shipments",
+  "info": {
+    "name": "Order Shipment"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "currentStatus": {
+      "type": "enumeration",
+      "enum": [
+        "CREATED",
+        "PACKED",
+        "SHIPPED",
+        "DELIVERED"
+      ],
+      "required": true
+    },
+    "tracking": {
+      "type": "json"
+    },
+    "company": {
+      "model": "company",
+      "via": "orderShipments"
+    },
+    "orderLines": {
+      "collection": "order-line",
+      "via": "orderShipment"
+    }
+  }
+}
