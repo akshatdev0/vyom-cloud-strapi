@@ -43,10 +43,6 @@
       "type": "decimal",
       "required": true
     },
-    "sellingPrice": {
-      "type": "decimal",
-      "required": true
-    },
     "specifications": {
       "type": "json"
     },
@@ -63,8 +59,8 @@
       "collection": "attribute"
     },
     "productVariants": {
-      "via": "product",
-      "collection": "product-variant"
+      "collection": "product-variant",
+      "via": "product"
     },
     "appliedPriceRules": {
       "collection": "price-rule"

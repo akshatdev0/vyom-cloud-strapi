@@ -52,8 +52,8 @@
       "collection": "attribute-value"
     },
     "product": {
-      "model": "product",
-      "via": "productVariants"
+      "via": "productVariants",
+      "model": "product"
     },
     "appliedPriceRules": {
       "collection": "price-rule"
