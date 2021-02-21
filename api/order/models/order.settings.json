@@ -44,6 +44,10 @@
     "shop": {
       "model": "shop",
       "via": "orders"
+    },
+    "orderLines": {
+      "via": "order",
+      "collection": "order-line"
     }
   }
 }
