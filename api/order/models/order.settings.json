@@ -38,8 +38,8 @@
       "model": "payment-method"
     },
     "shop": {
-      "model": "shop",
-      "via": "orders"
+      "via": "orders",
+      "model": "shop"
     },
     "orderLines": {
       "collection": "order-line",
