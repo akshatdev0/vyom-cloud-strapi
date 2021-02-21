@@ -37,6 +37,9 @@
     "computeValue": {
       "type": "json",
       "required": true
+    },
+    "previousVersion": {
+      "model": "price-rule"
     }
   }
 }
