@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * shopkeeper.js controller
@@ -6,9 +6,9 @@
  * @description: A set of functions called "actions" for managing `Shopkeeper`.
  */
 
- /* eslint-disable no-useless-escape */
+/* eslint-disable no-useless-escape */
 const _ = require("lodash");
-const { sanitizeEntity } = require('strapi-utils');
+const { sanitizeEntity } = require("strapi-utils");
 const phoneNumberUtil = require("google-libphonenumber").PhoneNumberUtil.getInstance();
 const PhoneNumberType = require("google-libphonenumber").PhoneNumberType;
 
@@ -18,16 +18,36 @@ const formatError = (error) => [
 ];
 
 const USER_PROPERTIES = [
-    'firstName',
-    'lastName',
-    'gender',
-    'dateOfBirth',
-    'email',
-    'alternateMobileNumber'
+  "firstName",
+  "lastName",
+  "gender",
+  "dateOfBirth",
+  "email",
+  "alternateMobileNumber",
 ];
 
-module.exports = {
+const checkSelf = (ctx) => {
+  const ctxUser = ctx.state.user;
+  if (!ctxUser) {
+    return false;
+  }
 
+  if (!ctxUser.role) {
+    return false;
+  }
+
+  if (ctxUser.role.type !== "shopkeeper") {
+    return false;
+  }
+
+  if (ctxUser.shopkeeper && ctxUser.shopkeeper == ctx.params.id) {
+    return true;
+  }
+
+  return false;
+};
+
+module.exports = {
   /**
    * Create a record.
    *
@@ -47,31 +67,31 @@ module.exports = {
     }
 
     const role = await strapi
-      .query('role', 'users-permissions')
-      .findOne({ type: 'shopkeeper' }, []);
+      .query("role", "users-permissions")
+      .findOne({ type: "shopkeeper" }, []);
 
     if (!role) {
       return ctx.badRequest(
         null,
         formatError({
-          id: 'shopkeeper.create.error.role.notFound',
+          id: "shopkeeper.create.error.role.notFound",
           message: "Not able to find the 'Shopkeeper' role.",
         })
       );
     }
 
     const userValues = _.pick(ctx.request.body, USER_PROPERTIES);
-    
+
     if (userValues.email) {
       if (emailRegExp.test(userValues.email)) {
         userValues.email = userValues.email.toLowerCase();
       } else {
         return ctx.badRequest(
-            null,
-            formatError({
-            id: 'shopkeeper.create.error.email.format',
-            message: 'Please provide valid email address.',
-            })
+          null,
+          formatError({
+            id: "shopkeeper.create.error.email.format",
+            message: "Please provide valid email address.",
+          })
         );
       }
     }
@@ -95,9 +115,18 @@ module.exports = {
       }
     }
 
-    await strapi.query('user', 'users-permissions').update({ id: ctxUser.id }, { role: role.id, blocked: false, ...userValues });
-    const entity = await strapi.services.shopkeeper.create({ user: ctxUser.id });
-    return sanitizeEntity(entity.toJSON ? entity.toJSON() : entity, { model: strapi.models.shopkeeper });
+    await strapi
+      .query("user", "users-permissions")
+      .update(
+        { id: ctxUser.id },
+        { role: role.id, blocked: false, ...userValues }
+      );
+    const entity = await strapi.services.shopkeeper.create({
+      user: ctxUser.id,
+    });
+    return sanitizeEntity(entity.toJSON ? entity.toJSON() : entity, {
+      model: strapi.models.shopkeeper,
+    });
   },
 
   /**
@@ -118,18 +147,29 @@ module.exports = {
       );
     }
 
+    // Check that a shopkeeper can update his profile only
+    if (!checkSelf(ctx)) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "shopkeeper.update.error.invalid.action",
+          message: "A shopkeeper can update only himself.",
+        })
+      );
+    }
+
     const userValues = _.pick(ctx.request.body, USER_PROPERTIES);
-    
+
     if (userValues.email) {
       if (emailRegExp.test(userValues.email)) {
         userValues.email = userValues.email.toLowerCase();
       } else {
         return ctx.badRequest(
-            null,
-            formatError({
-            id: 'shopkeeper.update.error.email.format',
-            message: 'Please provide valid email address.',
-            })
+          null,
+          formatError({
+            id: "shopkeeper.update.error.email.format",
+            message: "Please provide valid email address.",
+          })
         );
       }
     }
@@ -153,10 +193,30 @@ module.exports = {
       }
     }
 
-    await strapi.query('user', 'users-permissions').update({ id: ctxUser.id }, userValues);
+    const shopkeeper = await strapi.services.shopkeeper.findOne({
+      id: ctx.params.id,
+    });
 
-    const { id } = ctx.params;
-    const entity = await strapi.services.shopkeeper.update({ id }, {});
-    return sanitizeEntity(entity.toJSON ? entity.toJSON() : entity, { model: strapi.models.shopkeeper });
-  }
+    if (!shopkeeper) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "shopkeeper.update.error.not.found",
+          message: `No shopkeeper found with ID=${ctx.params.id}.`,
+        })
+      );
+    }
+
+    await strapi
+      .query("user", "users-permissions")
+      .update({ id: shopkeeper.user.id }, userValues);
+
+    const entity = await strapi.services.shopkeeper.update(
+      { id: ctx.params.id },
+      {}
+    );
+    return sanitizeEntity(entity.toJSON ? entity.toJSON() : entity, {
+      model: strapi.models.shopkeeper,
+    });
+  },
 };

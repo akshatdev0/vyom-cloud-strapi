@@ -2,11 +2,13 @@
   "kind": "collectionType",
   "collectionName": "companies",
   "info": {
-    "name": "Company"
+    "name": "Company",
+    "description": ""
   },
   "options": {
     "increments": true,
-    "timestamps": true
+    "timestamps": true,
+    "draftAndPublish": false
   },
   "attributes": {
     "pid": {
@@ -46,6 +48,24 @@
     },
     "area": {
       "model": "area"
+    },
+    "sku": {
+      "type": "string",
+      "regex": "^[A-Z]{4}$",
+      "required": true,
+      "unique": true,
+      "maxLength": 4,
+      "minLength": 4
+    },
+    "priceRules": {
+      "collection": "price-rule"
+    },
+    "appliedPriceRules": {
+      "collection": "price-rule"
+    },
+    "orderShipments": {
+      "via": "company",
+      "collection": "order-shipment"
     }
   }
 }

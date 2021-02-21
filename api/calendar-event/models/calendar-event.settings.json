@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "calendar_events",
+  "info": {
+    "name": "Calendar Event",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "WEEKLY",
+        "MONTHLY_DAY",
+        "MONTHLY_DAY_OF_WEEK",
+        "YEARLY_DAY",
+        "YEARLY_DAY_OF_WEEK",
+        "YEARLY_DAY_OF_MONTH",
+        "SPECIFIC"
+      ],
+      "required": true
+    },
+    "day": {
+      "type": "integer",
+      "min": -366,
+      "max": 366
+    },
+    "week": {
+      "type": "integer",
+      "min": -53,
+      "max": 53
+    },
+    "month": {
+      "type": "integer",
+      "max": 12,
+      "min": -12
+    },
+    "year": {
+      "type": "integer"
+    }
+  }
+}
