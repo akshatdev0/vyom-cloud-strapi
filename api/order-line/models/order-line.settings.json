@@ -42,6 +42,10 @@
     },
     "productVariantAttributes": {
       "type": "json"
+    },
+    "orderShipment": {
+      "via": "orderLines",
+      "model": "order-shipment"
     }
   }
 }
