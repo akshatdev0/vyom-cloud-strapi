@@ -236,6 +236,8 @@ module.exports = {
     }
 
     try {
+      params.username = params.mobileNumber
+      params.email = ''
       const user = await strapi
         .query("user", "users-permissions")
         .create(params);
