@@ -161,7 +161,7 @@ module.exports = {
     }
   },
 
-  async register(ctx) {
+  async signup(ctx) {
     const pluginStore = await strapi.store({
       environment: "",
       type: "plugin",
@@ -219,7 +219,7 @@ module.exports = {
       mobileNumber: params.mobileNumber,
     });
 
-    if (user) {
+    if (user && user.confirmed) {
       return ctx.badRequest(
         null,
         formatError({
@@ -234,12 +234,8 @@ module.exports = {
         .query("user", "users-permissions")
         .create(params);
 
-      const sanitizedUser = sanitizeEntity(user, {
-        model: strapi.query("user", "users-permissions").model,
-      });
-
       return ctx.send({
-        user: sanitizedUser,
+        ok: (user && user.mobileNumber === params.mobileNumber)
       });
     } catch (err) {
       ctx.badRequest(
