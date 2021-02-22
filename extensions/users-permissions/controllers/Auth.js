@@ -219,14 +219,20 @@ module.exports = {
       mobileNumber: params.mobileNumber,
     });
 
-    if (user && user.confirmed) {
-      return ctx.badRequest(
-        null,
-        formatError({
-          id: "Auth.register.error.mobileNumber.taken",
-          message: "Mobile number is already taken.",
-        })
-      );
+    if (user) {
+      if (user.confirmed) {
+        return ctx.badRequest(
+          null,
+          formatError({
+            id: "Auth.register.error.mobileNumber.taken",
+            message: "Mobile number is already taken.",
+          })
+        );
+      } else {
+        return ctx.send({
+          ok: (user && user.mobileNumber === params.mobileNumber)
+        });
+      }
     }
 
     try {

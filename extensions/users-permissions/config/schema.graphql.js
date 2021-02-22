@@ -22,12 +22,6 @@ module.exports = {
     UsersPermissionsPermission: false, // Make this type NOT queriable.
   },
   definition: /* GraphQL */ `
-    input UsersPermissionsSignupInput {
-      username: String!
-      email: String!
-      password: String!
-    }
-
     type UserPermissionsOkPayload {
       ok: Boolean!
     }
@@ -35,7 +29,7 @@ module.exports = {
   query: `
   `,
   mutation: `
-    signup(input: UsersPermissionsSignupInput!): UserPermissionsOkPayload!
+    signup(mobileNumber: String!): UserPermissionsOkPayload!
   `,
   resolver: {
     Mutation: {
@@ -43,15 +37,13 @@ module.exports = {
         description: 'Signup a user',
         resolverOf: 'plugins::users-permissions.auth.signup',
         resolver: async (obj, options, { context }) => {
-          context.request.body = _.toPlainObject(options.input);
+          context.request.body = _.toPlainObject(options);
 
           await strapi.plugins['users-permissions'].controllers.auth.signup(context);
           let output = context.body.toJSON ? context.body.toJSON() : context.body;
 
           checkBadRequest(output);
-          return {
-            ok: output.ok
-          };
+          return output
         },
       }
     },
