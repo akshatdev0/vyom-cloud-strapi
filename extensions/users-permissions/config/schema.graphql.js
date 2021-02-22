@@ -49,9 +49,9 @@ module.exports = {
       token: String
     }
   `,
-  query: `
-  `,
+  query: ``,
   mutation: `
+    signin(input: UsersPermissionsLoginInput!): UsersPermissionsAuthUserTokenPayload!
     signup(mobileNumber: String!): UserPermissionsOkPayload
     sendSmsConfirmation(mobileNumber: String!): UserPermissionsSendSmsConfirmationPayload
     smsConfirmation(confirmation: String!): UsersPermissionsAuthUserTokenPayload
@@ -59,6 +59,25 @@ module.exports = {
   `,
   resolver: {
     Mutation: {
+      signin: {
+        resolverOf: 'plugins::users-permissions.auth.callback',
+        resolver: async (obj, options, { context }) => {
+          context.params = {
+            ...context.params,
+            provider: options.input.provider,
+          };
+          context.request.body = _.toPlainObject(options.input);
+
+          await strapi.plugins['users-permissions'].controllers.auth.callback(context);
+          let output = context.body.toJSON ? context.body.toJSON() : context.body;
+
+          checkBadRequest(output);
+          return {
+            user: output.user || output,
+            jwt: output.jwt,
+          };
+        },
+      },
       signup: {
         description: 'Signup a new user with given mobile number and with the default role',
         resolverOf: 'plugins::users-permissions.auth.signup',

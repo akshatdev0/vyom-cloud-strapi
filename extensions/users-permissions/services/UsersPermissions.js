@@ -16,6 +16,7 @@ const DEFAULT_PERMISSIONS = [
   { action: 'autoreload', controller: null, type: null, roleType: null },
 
   // Enabled only for 'public' role
+  { action: 'callback', controller: 'auth', type: 'users-permissions', roleType: 'public' },
   { action: 'signup', controller: 'auth', type: 'users-permissions', roleType: 'public' },
   { action: 'sendsmsconfirmation', controller: 'auth', type: 'users-permissions', roleType: 'public' },
   { action: 'smsconfirmation', controller: 'auth', type: 'users-permissions', roleType: 'public' },
