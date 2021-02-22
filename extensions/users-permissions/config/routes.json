@@ -2,6 +2,21 @@
   "routes": [
     {
       "method": "POST",
+      "path": "/auth/local/signup",
+      "handler": "Auth.signup",
+      "config": {
+        "policies": ["plugins::users-permissions.ratelimit"],
+        "prefix": "",
+        "description": "Sign up a new user with the default role",
+        "tag": {
+          "plugin": "users-permissions",
+          "name": "User",
+          "actionType": "create"
+        }
+      }
+    },
+    {
+      "method": "POST",
       "path": "/auth/send-sms-confirmation",
       "handler": "Auth.sendSmsConfirmation",
       "config": {
