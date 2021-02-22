@@ -30,8 +30,12 @@ module.exports = {
       role: UsersPermissionsMeRole
     }
 
-    type UsersPermissionsSmsConfirmationPayload {
+    type UsersPermissionsAuthUserTokenPayload {
       jwt: String
+      user: UsersPermissionsAuthUser!
+    }
+
+    type UsersPermissionsAuthUserPayload {
       user: UsersPermissionsAuthUser!
     }
 
@@ -50,7 +54,8 @@ module.exports = {
   mutation: `
     signup(mobileNumber: String!): UserPermissionsOkPayload
     sendSmsConfirmation(mobileNumber: String!): UserPermissionsSendSmsConfirmationPayload
-    smsConfirmation(confirmation: String!): UsersPermissionsSmsConfirmationPayload
+    smsConfirmation(confirmation: String!): UsersPermissionsAuthUserTokenPayload
+    createPassword(password: String!): UsersPermissionsAuthUserPayload
   `,
   resolver: {
     Mutation: {
@@ -94,6 +99,22 @@ module.exports = {
           return {
             user: output.user || output,
             jwt: output.jwt,
+          };
+        },
+      },
+      createPassword: {
+        description: 'Create a new password for current authenticated user',
+        resolverOf: 'plugins::users-permissions.auth.createPassword',
+        resolver: async (obj, options, { context }) => {
+          context.request.body = _.toPlainObject(options);
+
+          await strapi.plugins['users-permissions'].controllers.auth.createPassword(context);
+          let output = context.body.toJSON ? context.body.toJSON() : context.body;
+
+          checkBadRequest(output);
+
+          return {
+            user: output.user || output
           };
         },
       },
