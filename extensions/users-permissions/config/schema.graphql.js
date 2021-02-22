@@ -22,19 +22,40 @@ module.exports = {
     UsersPermissionsPermission: false, // Make this type NOT queriable.
   },
   definition: /* GraphQL */ `
+    type UsersPermissionsAuthUser {
+      id: ID!
+      mobileNumber: String!
+      confirmed: Boolean
+      blocked: Boolean
+      role: UsersPermissionsMeRole
+    }
+
+    type UsersPermissionsSmsConfirmationPayload {
+      jwt: String
+      user: UsersPermissionsAuthUser!
+    }
+
     type UserPermissionsOkPayload {
-      ok: Boolean!
+      ok: Boolean
+    }
+
+    type UserPermissionsSendSmsConfirmationPayload {
+      mobileNumber: String
+      sent: Boolean
+      token: String
     }
   `,
   query: `
   `,
   mutation: `
-    signup(mobileNumber: String!): UserPermissionsOkPayload!
+    signup(mobileNumber: String!): UserPermissionsOkPayload
+    sendSmsConfirmation(mobileNumber: String!): UserPermissionsSendSmsConfirmationPayload
+    smsConfirmation(confirmation: String!): UsersPermissionsSmsConfirmationPayload
   `,
   resolver: {
     Mutation: {
       signup: {
-        description: 'Signup a user',
+        description: 'Signup a new user with given mobile number and with the default role',
         resolverOf: 'plugins::users-permissions.auth.signup',
         resolver: async (obj, options, { context }) => {
           context.request.body = _.toPlainObject(options);
@@ -45,7 +66,37 @@ module.exports = {
           checkBadRequest(output);
           return output
         },
-      }
+      },
+      sendSmsConfirmation: {
+        description: 'Send SMS OTP for mobile number confirmation',
+        resolverOf: 'plugins::users-permissions.auth.sendSmsConfirmation',
+        resolver: async (obj, options, { context }) => {
+          context.request.body = _.toPlainObject(options);
+
+          await strapi.plugins['users-permissions'].controllers.auth.sendSmsConfirmation(context);
+          let output = context.body.toJSON ? context.body.toJSON() : context.body;
+
+          checkBadRequest(output);
+          return output
+        },
+      },
+      smsConfirmation: {
+        description: 'Confirm mobile number with received SMS OTP',
+        resolverOf: 'plugins::users-permissions.auth.smsConfirmation',
+        resolver: async (obj, options, { context }) => {
+          context.query = _.toPlainObject(options);
+
+          await strapi.plugins['users-permissions'].controllers.auth.smsConfirmation(context);
+          let output = context.body.toJSON ? context.body.toJSON() : context.body;
+
+          checkBadRequest(output);
+
+          return {
+            user: output.user || output,
+            jwt: output.jwt,
+          };
+        },
+      },
     },
   },
 };

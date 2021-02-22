@@ -177,7 +177,7 @@ module.exports = {
         null,
         formatError({
           id: "Auth.advanced.allow_register",
-          message: "Register action is currently disabled.",
+          message: "Signup action is currently disabled.",
         })
       );
     }
@@ -192,7 +192,7 @@ module.exports = {
       return ctx.badRequest(
         null,
         formatError({
-          id: "Auth.register.error.mobileNumber.provide",
+          id: "Auth.signup.error.mobileNumber.provide",
           message: "Please provide your mobile number.",
         })
       );
@@ -209,7 +209,7 @@ module.exports = {
       return ctx.badRequest(
         null,
         formatError({
-          id: "Auth.register.error.mobileNumber.invalid",
+          id: "Auth.signup.error.mobileNumber.invalid",
           message: "Please provide a valid mobile number.",
         })
       );
@@ -224,7 +224,7 @@ module.exports = {
         return ctx.badRequest(
           null,
           formatError({
-            id: "Auth.register.error.mobileNumber.taken",
+            id: "Auth.signup.error.mobileNumber.taken",
             message: "Mobile number is already taken.",
           })
         );
@@ -247,7 +247,7 @@ module.exports = {
       ctx.badRequest(
         null,
         formatError({
-          id: "Auth.register.error",
+          id: "Auth.signup.error",
           message: err.message,
         })
       );
