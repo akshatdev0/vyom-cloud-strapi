@@ -17,6 +17,12 @@ const DEFAULT_PERMISSIONS = [
 
   // Enabled only for 'public' role
   { action: 'signup', controller: 'auth', type: 'users-permissions', roleType: 'public' },
+  { action: 'sendsmsconfirmation', controller: 'auth', type: 'users-permissions', roleType: 'public' },
+  { action: 'smsconfirmation', controller: 'auth', type: 'users-permissions', roleType: 'public' },
+
+  // Enabled only for 'authenticated' role
+  { action: 'createpassword', controller: 'auth', type: 'users-permissions', roleType: 'authenticated' },
+  { action: 'create', controller: 'shopkeeper', type: 'application', roleType: 'authenticated' },
 ];
 
 const isPermissionEnabled = (permission, role) =>
