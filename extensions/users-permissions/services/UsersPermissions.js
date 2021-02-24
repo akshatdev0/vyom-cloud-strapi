@@ -10,25 +10,31 @@ const request = require('request');
  */
 
 const DEFAULT_PERMISSIONS = [
-  // Enabled for all roles
+  /* Enabled for all roles */
   { action: 'init', controller: 'userspermissions', type: null, roleType: null },
   { action: 'me', controller: 'user', type: 'users-permissions', roleType: null },
   { action: 'autoreload', controller: null, type: null, roleType: null },
 
-  // Enabled only for 'public' role
+  /* Enabled only for 'public' role */
   { action: 'callback', controller: 'auth', type: 'users-permissions', roleType: 'public' },
   { action: 'signup', controller: 'auth', type: 'users-permissions', roleType: 'public' },
   { action: 'sendsmsconfirmation', controller: 'auth', type: 'users-permissions', roleType: 'public' },
   { action: 'smsconfirmation', controller: 'auth', type: 'users-permissions', roleType: 'public' },
 
-  // Enabled only for 'authenticated' role
+  /* Enabled only for 'authenticated' role */
   { action: 'createpassword', controller: 'auth', type: 'users-permissions', roleType: 'authenticated' },
   { action: 'create', controller: 'shopkeeper', type: 'application', roleType: 'authenticated' },
 
-  // Enabled only for 'shopkeeper' role
+  /* Enabled only for 'shopkeeper' role */
+  // - self
   { action: 'update', controller: 'shopkeeper', type: 'application', roleType: 'shopkeeper' },
+
+  // - shop
   { action: 'create', controller: 'shop', type: 'application', roleType: 'shopkeeper' },
   { action: 'update', controller: 'shop', type: 'application', roleType: 'shopkeeper' },
+
+  // - product
+  { action: 'find', controller: 'product', type: 'application', roleType: 'shopkeeper' },
 ];
 
 const isPermissionEnabled = (permission, role) =>
