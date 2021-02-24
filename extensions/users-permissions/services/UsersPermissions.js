@@ -35,6 +35,9 @@ const DEFAULT_PERMISSIONS = [
 
   // - product
   { action: 'find', controller: 'product', type: 'application', roleType: 'shopkeeper' },
+  
+  // - order
+  { action: 'find', controller: 'order', type: 'application', roleType: 'shopkeeper' },
 ];
 
 const isPermissionEnabled = (permission, role) =>
