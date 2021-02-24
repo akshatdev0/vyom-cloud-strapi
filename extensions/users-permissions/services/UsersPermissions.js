@@ -24,6 +24,11 @@ const DEFAULT_PERMISSIONS = [
   // Enabled only for 'authenticated' role
   { action: 'createpassword', controller: 'auth', type: 'users-permissions', roleType: 'authenticated' },
   { action: 'create', controller: 'shopkeeper', type: 'application', roleType: 'authenticated' },
+
+  // Enabled only for 'shopkeeper' role
+  { action: 'update', controller: 'shopkeeper', type: 'application', roleType: 'shopkeeper' },
+  { action: 'create', controller: 'shop', type: 'application', roleType: 'shopkeeper' },
+  { action: 'update', controller: 'shop', type: 'application', roleType: 'shopkeeper' },
 ];
 
 const isPermissionEnabled = (permission, role) =>
@@ -130,6 +135,30 @@ module.exports = {
         name: 'EDM Admin',
         description: 'EDM Master Admin role.',
         type: 'edm_admin',
+      });
+
+      await strapi.query('role', 'users-permissions').create({
+        name: 'Company Owner',
+        description: 'Company owner role.',
+        type: 'company_owner',
+      });
+
+      await strapi.query('role', 'users-permissions').create({
+        name: 'Shopkeeper',
+        description: 'Shopkeeper role.',
+        type: 'shopkeeper',
+      });
+
+      await strapi.query('role', 'users-permissions').create({
+        name: 'Salesman',
+        description: 'Salesman role.',
+        type: 'salesman',
+      });
+
+      await strapi.query('role', 'users-permissions').create({
+        name: 'Supplier',
+        description: 'Supplier role.',
+        type: 'supplier',
       });
 
       await strapi.query('role', 'users-permissions').create({
