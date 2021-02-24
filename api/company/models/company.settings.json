@@ -66,6 +66,14 @@
     "orderShipments": {
       "via": "company",
       "collection": "order-shipment"
+    },
+    "productCategories": {
+      "via": "company",
+      "collection": "product-category"
+    },
+    "products": {
+      "via": "company",
+      "collection": "product"
     }
   }
 }
