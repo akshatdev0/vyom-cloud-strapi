@@ -48,12 +48,16 @@
       "required": true,
       "regex": "^[A-Z]{2,3}$"
     },
-    "products": {
-      "via": "product_category",
-      "collection": "product"
-    },
     "appliedPriceRules": {
       "collection": "price-rule"
+    },
+    "company": {
+      "model": "company",
+      "via": "productCategories"
+    },
+    "products": {
+      "via": "productCategory",
+      "collection": "product"
     }
   }
 }
