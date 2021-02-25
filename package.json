@@ -4,12 +4,18 @@
   "version": "0.1.0",
   "description": "EDM Backend for AWS Cloud",
   "scripts": {
+    "lint": "eslint --fix . && echo 'Lint complete.'",
     "develop": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^7.20.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "prettier": "^2.2.1"
+  },
   "dependencies": {
     "google-libphonenumber": "^3.2.17",
     "knex": "<0.20.0",
@@ -28,7 +34,7 @@
     "strapi-utils": "3.4.6"
   },
   "author": {
-    "name": "Akshat Nigam"
+    "name": "Exilien Supreme"
   },
   "strapi": {
     "uuid": "6800bf3a-fc18-4ec9-ace2-95a5cb48bd68"
