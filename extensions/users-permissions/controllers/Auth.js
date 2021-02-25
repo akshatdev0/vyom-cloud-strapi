@@ -230,20 +230,20 @@ module.exports = {
         );
       } else {
         return ctx.send({
-          ok: (user && user.mobileNumber === params.mobileNumber)
+          ok: user && user.mobileNumber === params.mobileNumber,
         });
       }
     }
 
     try {
-      params.username = params.mobileNumber
-      params.email = ''
+      params.username = params.mobileNumber;
+      params.email = "";
       const user = await strapi
         .query("user", "users-permissions")
         .create(params);
 
       return ctx.send({
-        ok: (user && user.mobileNumber === params.mobileNumber)
+        ok: user && user.mobileNumber === params.mobileNumber,
       });
     } catch (err) {
       ctx.badRequest(

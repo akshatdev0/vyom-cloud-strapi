@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const _ = require('lodash');
+const _ = require("lodash");
 
 /**
  * Throws an ApolloError if context body contains a bad request
@@ -8,10 +8,10 @@ const _ = require('lodash');
  * @throws ApolloError if the body is a bad request
  */
 function checkBadRequest(contextBody) {
-  if (_.get(contextBody, 'statusCode', 200) !== 200) {
-    const message = _.get(contextBody, 'error', 'Bad Request');
+  if (_.get(contextBody, "statusCode", 200) !== 200) {
+    const message = _.get(contextBody, "error", "Bad Request");
     const exception = new Error(message);
-    exception.code = _.get(contextBody, 'statusCode', 400);
+    exception.code = _.get(contextBody, "statusCode", 400);
     exception.data = contextBody;
     throw exception;
   }
@@ -49,7 +49,7 @@ module.exports = {
       token: String
     }
   `,
-  query: ``,
+  query: "",
   mutation: `
     signin(input: UsersPermissionsLoginInput!): UsersPermissionsAuthUserTokenPayload!
     signup(mobileNumber: String!): UserPermissionsOkPayload
@@ -60,7 +60,7 @@ module.exports = {
   resolver: {
     Mutation: {
       signin: {
-        resolverOf: 'plugins::users-permissions.auth.callback',
+        resolverOf: "plugins::users-permissions.auth.callback",
         resolver: async (obj, options, { context }) => {
           context.params = {
             ...context.params,
@@ -68,8 +68,12 @@ module.exports = {
           };
           context.request.body = _.toPlainObject(options.input);
 
-          await strapi.plugins['users-permissions'].controllers.auth.callback(context);
-          let output = context.body.toJSON ? context.body.toJSON() : context.body;
+          await strapi.plugins["users-permissions"].controllers.auth.callback(
+            context
+          );
+          let output = context.body.toJSON
+            ? context.body.toJSON()
+            : context.body;
 
           checkBadRequest(output);
           return {
@@ -79,39 +83,52 @@ module.exports = {
         },
       },
       signup: {
-        description: 'Signup a new user with given mobile number and with the default role',
-        resolverOf: 'plugins::users-permissions.auth.signup',
+        description:
+          "Signup a new user with given mobile number and with the default role",
+        resolverOf: "plugins::users-permissions.auth.signup",
         resolver: async (obj, options, { context }) => {
           context.request.body = _.toPlainObject(options);
 
-          await strapi.plugins['users-permissions'].controllers.auth.signup(context);
-          let output = context.body.toJSON ? context.body.toJSON() : context.body;
+          await strapi.plugins["users-permissions"].controllers.auth.signup(
+            context
+          );
+          let output = context.body.toJSON
+            ? context.body.toJSON()
+            : context.body;
 
           checkBadRequest(output);
-          return output
+          return output;
         },
       },
       sendSmsConfirmation: {
-        description: 'Send SMS OTP for mobile number confirmation',
-        resolverOf: 'plugins::users-permissions.auth.sendSmsConfirmation',
+        description: "Send SMS OTP for mobile number confirmation",
+        resolverOf: "plugins::users-permissions.auth.sendSmsConfirmation",
         resolver: async (obj, options, { context }) => {
           context.request.body = _.toPlainObject(options);
 
-          await strapi.plugins['users-permissions'].controllers.auth.sendSmsConfirmation(context);
-          let output = context.body.toJSON ? context.body.toJSON() : context.body;
+          await strapi.plugins[
+            "users-permissions"
+          ].controllers.auth.sendSmsConfirmation(context);
+          let output = context.body.toJSON
+            ? context.body.toJSON()
+            : context.body;
 
           checkBadRequest(output);
-          return output
+          return output;
         },
       },
       smsConfirmation: {
-        description: 'Confirm mobile number with received SMS OTP',
-        resolverOf: 'plugins::users-permissions.auth.smsConfirmation',
+        description: "Confirm mobile number with received SMS OTP",
+        resolverOf: "plugins::users-permissions.auth.smsConfirmation",
         resolver: async (obj, options, { context }) => {
           context.query = _.toPlainObject(options);
 
-          await strapi.plugins['users-permissions'].controllers.auth.smsConfirmation(context);
-          let output = context.body.toJSON ? context.body.toJSON() : context.body;
+          await strapi.plugins[
+            "users-permissions"
+          ].controllers.auth.smsConfirmation(context);
+          let output = context.body.toJSON
+            ? context.body.toJSON()
+            : context.body;
 
           checkBadRequest(output);
 
@@ -122,18 +139,22 @@ module.exports = {
         },
       },
       createPassword: {
-        description: 'Create a new password for current authenticated user',
-        resolverOf: 'plugins::users-permissions.auth.createPassword',
+        description: "Create a new password for current authenticated user",
+        resolverOf: "plugins::users-permissions.auth.createPassword",
         resolver: async (obj, options, { context }) => {
           context.request.body = _.toPlainObject(options);
 
-          await strapi.plugins['users-permissions'].controllers.auth.createPassword(context);
-          let output = context.body.toJSON ? context.body.toJSON() : context.body;
+          await strapi.plugins[
+            "users-permissions"
+          ].controllers.auth.createPassword(context);
+          let output = context.body.toJSON
+            ? context.body.toJSON()
+            : context.body;
 
           checkBadRequest(output);
 
           return {
-            user: output.user || output
+            user: output.user || output,
           };
         },
       },

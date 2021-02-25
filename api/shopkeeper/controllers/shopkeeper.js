@@ -75,7 +75,7 @@ module.exports = {
         null,
         formatError({
           id: "shopkeeper.create.error.role.notFound",
-          message: "Not able to find the 'Shopkeeper' role.",
+          message: "Not able to find the Shopkeeper role.",
         })
       );
     }
