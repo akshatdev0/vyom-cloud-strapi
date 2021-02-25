@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "price_rules",
+  "info": {
+    "name": "Price Rule",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "minSellingQuantity": {
+      "type": "integer",
+      "default": 0
+    },
+    "startDateTime": {
+      "type": "datetime"
+    },
+    "endDateTime": {
+      "type": "datetime"
+    },
+    "computationType": {
+      "type": "enumeration",
+      "enum": [
+        "FIXED_PRICE",
+        "PERCENTAGE",
+        "RELATIVE"
+      ],
+      "default": "FIXED_PRICE"
+    },
+    "computeValue": {
+      "type": "json",
+      "required": true
+    },
+    "previousVersion": {
+      "model": "price-rule"
+    }
+  }
+}

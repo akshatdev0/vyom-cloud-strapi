@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "attribute_values",
+  "info": {
+    "name": "AttributeValue"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "value": {
+      "type": "string"
+    },
+    "attribute": {
+      "via": "values",
+      "model": "attribute"
+    }
+  }
+}

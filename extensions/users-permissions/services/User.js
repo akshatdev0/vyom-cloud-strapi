@@ -8,9 +8,13 @@
 
 module.exports = {
   async sendConfirmationSms(user) {
-    const { confirmationToken } = await this.fetch({ id: user.id }, ['confirmationToken'])
+    const { confirmationToken } = await this.fetch({ id: user.id }, [
+      "confirmationToken",
+    ]);
 
-    const token = confirmationToken || Math.floor(100000 + Math.random() * 900000).toString();
+    const token =
+      confirmationToken ||
+      Math.floor(100000 + Math.random() * 900000).toString();
 
     await this.edit({ id: user.id }, { confirmationToken: token });
 

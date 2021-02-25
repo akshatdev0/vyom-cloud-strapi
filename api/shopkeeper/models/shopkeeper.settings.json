@@ -11,8 +11,8 @@
   },
   "attributes": {
     "shops": {
-      "collection": "shop",
       "via": "shopkeepers",
+      "collection": "shop",
       "dominant": true
     },
     "user": {
