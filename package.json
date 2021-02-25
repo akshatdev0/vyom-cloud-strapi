@@ -11,9 +11,12 @@
     "strapi": "strapi"
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "eslint": "^7.20.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
+    "husky": "=4",
+    "lint-staged": ">=10",
     "prettier": "^2.2.1"
   },
   "dependencies": {
@@ -42,5 +45,13 @@
   "engines": {
     "node": ">=10.0.0",
     "npm": ">=6.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
   }
 }
