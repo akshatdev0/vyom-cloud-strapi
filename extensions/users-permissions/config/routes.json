@@ -2,12 +2,27 @@
   "routes": [
     {
       "method": "POST",
+      "path": "/auth/local/signup",
+      "handler": "Auth.signup",
+      "config": {
+        "policies": ["plugins::users-permissions.ratelimit"],
+        "prefix": "",
+        "description": "Signup a new user with given mobile number and with the default role",
+        "tag": {
+          "plugin": "users-permissions",
+          "name": "User",
+          "actionType": "create"
+        }
+      }
+    },
+    {
+      "method": "POST",
       "path": "/auth/send-sms-confirmation",
       "handler": "Auth.sendSmsConfirmation",
       "config": {
         "policies": [],
         "prefix": "",
-        "description": "Send a confirmation sms to user",
+        "description": "Send SMS OTP for mobile number confirmation",
         "tag": {
           "plugin": "users-permissions",
           "name": "User"
@@ -21,7 +36,7 @@
       "config": {
         "policies": [],
         "prefix": "",
-        "description": "Validate a user account",
+        "description": "Confirm mobile number with received SMS OTP",
         "tag": {
           "plugin": "users-permissions",
           "name": "User"

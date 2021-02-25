@@ -52,8 +52,15 @@
       "type": "string"
     },
     "shopkeepers": {
-      "via": "shops",
-      "collection": "shopkeeper"
+      "collection": "shopkeeper",
+      "via": "shops"
+    },
+    "orders": {
+      "collection": "order",
+      "via": "shop"
+    },
+    "holidays": {
+      "collection": "calendar-event"
     }
   }
 }

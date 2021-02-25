@@ -1,0 +1,73 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "name": "Product",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "sku": {
+      "type": "string",
+      "required": true,
+      "maxLength": 3,
+      "minLength": 3,
+      "regex": "^[A-Z]{3}$"
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "longDescription": {
+      "type": "richtext"
+    },
+    "productCategory": {
+      "model": "product-category",
+      "via": "products"
+    },
+    "brand": {
+      "model": "brand"
+    },
+    "unit": {
+      "model": "unit"
+    },
+    "buyingPrice": {
+      "type": "decimal",
+      "required": true
+    },
+    "specifications": {
+      "type": "json"
+    },
+    "image": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "variantAttributes": {
+      "collection": "attribute"
+    },
+    "productVariants": {
+      "collection": "product-variant",
+      "via": "product"
+    },
+    "appliedPriceRules": {
+      "collection": "price-rule"
+    },
+    "company": {
+      "model": "company",
+      "via": "products"
+    }
+  }
+}
