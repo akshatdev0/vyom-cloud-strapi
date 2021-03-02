@@ -35,10 +35,6 @@ module.exports = {
       user: UsersPermissionsAuthUser!
     }
 
-    type UsersPermissionsAuthUserPayload {
-      user: UsersPermissionsAuthUser!
-    }
-
     type UserPermissionsOkPayload {
       ok: Boolean
     }
@@ -55,7 +51,7 @@ module.exports = {
     signUp(mobileNumber: String!): UserPermissionsOkPayload
     sendSmsConfirmation(mobileNumber: String!): UserPermissionsSendSmsConfirmationPayload
     smsConfirmation(confirmation: String!): UsersPermissionsAuthUserTokenPayload
-    createPassword(password: String!): UsersPermissionsAuthUserPayload
+    createPassword(password: String!): UsersPermissionsAuthUserTokenPayload
   `,
   resolver: {
     Mutation: {

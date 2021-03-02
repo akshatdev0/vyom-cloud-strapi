@@ -452,13 +452,16 @@ module.exports = {
       );
     }
 
-    const { user: userService } = strapi.plugins["users-permissions"].services;
+    const { user: userService, jwt: jwtService } = strapi.plugins[
+      "users-permissions"
+    ].services;
     const updatedUser = await userService.edit(
       { id: ctxUser.id },
       { password: params.password }
     );
 
     ctx.send({
+      jwt: jwtService.issue({ id: updatedUser.id }),
       user: sanitizeEntity(updatedUser, {
         model: strapi.query("user", "users-permissions").model,
       }),
