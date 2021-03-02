@@ -7,7 +7,7 @@
  */
 
 module.exports = {
-  async sendConfirmationSms(user) {
+  async sendOtp(user) {
     const { confirmationToken } = await this.fetch({ id: user.id }, [
       "confirmationToken",
     ]);

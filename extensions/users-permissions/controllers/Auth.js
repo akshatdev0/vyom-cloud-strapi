@@ -256,14 +256,14 @@ module.exports = {
     }
   },
 
-  async sendSmsConfirmation(ctx) {
+  async sendOtp(ctx) {
     const params = _.assign(ctx.request.body);
 
     if (!params.mobileNumber) {
       return ctx.badRequest(
         null,
         formatError({
-          id: "Auth.sendSmsConfirmation.error.mobileNumber.provide",
+          id: "Auth.sendOtp.error.mobileNumber.provide",
           message: "Please provide your mobile number.",
         })
       );
@@ -280,7 +280,7 @@ module.exports = {
       return ctx.badRequest(
         null,
         formatError({
-          id: "Auth.sendSmsConfirmation.error.mobileNumber.invalid",
+          id: "Auth.sendOtp.error.mobileNumber.invalid",
           message: "Please provide a valid mobile number.",
         })
       );
@@ -290,21 +290,11 @@ module.exports = {
       mobileNumber: params.mobileNumber,
     });
 
-    if (user.confirmed) {
-      return ctx.badRequest(
-        null,
-        formatError({
-          id: "Auth.sendSmsConfirmation.error.mobileNumber.already.confirmed",
-          message: "Mobile number is already confirmed.",
-        })
-      );
-    }
-
     if (user.blocked) {
       return ctx.badRequest(
         null,
         formatError({
-          id: "Auth.sendSmsConfirmation.error.user.blocked",
+          id: "Auth.sendOtp.error.user.blocked",
           message: "User has been blocked.",
         })
       );
@@ -313,7 +303,7 @@ module.exports = {
     try {
       const confirmationToken = await strapi.plugins[
         "users-permissions"
-      ].services.user.sendConfirmationSms(user);
+      ].services.user.sendOtp(user);
 
       // Todo - Remove sending token here
       ctx.send({
@@ -326,7 +316,7 @@ module.exports = {
     }
   },
 
-  async smsConfirmation(ctx) {
+  async verify(ctx) {
     const pluginStore = await strapi.store({
       environment: "",
       type: "plugin",
@@ -347,7 +337,7 @@ module.exports = {
       return ctx.badRequest(
         null,
         formatError({
-          id: "Auth.smsConfirmation.error.token.invalid",
+          id: "Auth.verify.error.token.invalid",
           message: "Token is invalid.",
         })
       );
@@ -359,7 +349,7 @@ module.exports = {
       return ctx.badRequest(
         null,
         formatError({
-          id: "Auth.smsConfirmation.error.token.invalid",
+          id: "Auth.verify.error.token.invalid",
           message: "Token is invalid.",
         })
       );

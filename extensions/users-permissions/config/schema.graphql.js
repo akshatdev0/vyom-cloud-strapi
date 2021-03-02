@@ -49,8 +49,8 @@ module.exports = {
   mutation: `
     signIn(input: UsersPermissionsLoginInput!): UsersPermissionsAuthUserTokenPayload!
     signUp(mobileNumber: String!): UserPermissionsOkPayload
-    sendSmsConfirmation(mobileNumber: String!): UserPermissionsSendSmsConfirmationPayload
-    smsConfirmation(confirmation: String!): UsersPermissionsAuthUserTokenPayload
+    sendOtp(mobileNumber: String!): UserPermissionsSendSmsConfirmationPayload
+    verify(confirmation: String!): UsersPermissionsAuthUserTokenPayload
     createPassword(password: String!): UsersPermissionsAuthUserTokenPayload
   `,
   resolver: {
@@ -96,15 +96,15 @@ module.exports = {
           return output;
         },
       },
-      sendSmsConfirmation: {
-        description: "Send SMS OTP for mobile number confirmation",
-        resolverOf: "plugins::users-permissions.auth.sendSmsConfirmation",
+      sendOtp: {
+        description: "Send OTP on mobile number",
+        resolverOf: "plugins::users-permissions.auth.sendOtp",
         resolver: async (obj, options, { context }) => {
           context.request.body = _.toPlainObject(options);
 
-          await strapi.plugins[
-            "users-permissions"
-          ].controllers.auth.sendSmsConfirmation(context);
+          await strapi.plugins["users-permissions"].controllers.auth.sendOtp(
+            context
+          );
           let output = context.body.toJSON
             ? context.body.toJSON()
             : context.body;
@@ -113,15 +113,15 @@ module.exports = {
           return output;
         },
       },
-      smsConfirmation: {
-        description: "Confirm mobile number with received SMS OTP",
-        resolverOf: "plugins::users-permissions.auth.smsConfirmation",
+      verify: {
+        description: "Verify user",
+        resolverOf: "plugins::users-permissions.auth.verify",
         resolver: async (obj, options, { context }) => {
           context.query = _.toPlainObject(options);
 
-          await strapi.plugins[
-            "users-permissions"
-          ].controllers.auth.smsConfirmation(context);
+          await strapi.plugins["users-permissions"].controllers.auth.verify(
+            context
+          );
           let output = context.body.toJSON
             ? context.body.toJSON()
             : context.body;
