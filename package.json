@@ -39,9 +39,6 @@
   "author": {
     "name": "Exilien Supreme"
   },
-  "strapi": {
-    "uuid": "6800bf3a-fc18-4ec9-ace2-95a5cb48bd68"
-  },
   "engines": {
     "node": ">=10.0.0",
     "npm": ">=6.0.0"

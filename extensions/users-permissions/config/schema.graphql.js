@@ -51,15 +51,15 @@ module.exports = {
   `,
   query: "",
   mutation: `
-    signin(input: UsersPermissionsLoginInput!): UsersPermissionsAuthUserTokenPayload!
-    signup(mobileNumber: String!): UserPermissionsOkPayload
+    signIn(input: UsersPermissionsLoginInput!): UsersPermissionsAuthUserTokenPayload!
+    signUp(mobileNumber: String!): UserPermissionsOkPayload
     sendSmsConfirmation(mobileNumber: String!): UserPermissionsSendSmsConfirmationPayload
     smsConfirmation(confirmation: String!): UsersPermissionsAuthUserTokenPayload
     createPassword(password: String!): UsersPermissionsAuthUserPayload
   `,
   resolver: {
     Mutation: {
-      signin: {
+      signIn: {
         resolverOf: "plugins::users-permissions.auth.callback",
         resolver: async (obj, options, { context }) => {
           context.params = {
@@ -82,7 +82,7 @@ module.exports = {
           };
         },
       },
-      signup: {
+      signUp: {
         description:
           "Signup a new user with given mobile number and with the default role",
         resolverOf: "plugins::users-permissions.auth.signup",
