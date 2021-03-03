@@ -114,7 +114,7 @@ module.exports = {
         },
       },
       verify: {
-        description: "Verify user",
+        description: "Verify account",
         resolverOf: "plugins::users-permissions.auth.verify",
         resolver: async (obj, options, { context }) => {
           context.query = _.toPlainObject(options);
@@ -129,8 +129,8 @@ module.exports = {
           checkBadRequest(output);
 
           return {
-            user: output.user || output,
             jwt: output.jwt,
+            user: output.user || output,
           };
         },
       },
@@ -150,6 +150,7 @@ module.exports = {
           checkBadRequest(output);
 
           return {
+            jwt: output.jwt,
             user: output.user || output,
           };
         },
