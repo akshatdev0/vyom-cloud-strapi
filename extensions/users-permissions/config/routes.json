@@ -17,12 +17,12 @@
     },
     {
       "method": "POST",
-      "path": "/auth/send-sms-confirmation",
-      "handler": "Auth.sendSmsConfirmation",
+      "path": "/auth/send-otp",
+      "handler": "Auth.sendOtp",
       "config": {
         "policies": [],
         "prefix": "",
-        "description": "Send SMS OTP for mobile number confirmation",
+        "description": "Send OTP on mobile number",
         "tag": {
           "plugin": "users-permissions",
           "name": "User"
@@ -31,12 +31,12 @@
     },
     {
       "method": "GET",
-      "path": "/auth/sms-confirmation",
-      "handler": "Auth.smsConfirmation",
+      "path": "/auth/verify",
+      "handler": "Auth.verify",
       "config": {
         "policies": [],
         "prefix": "",
-        "description": "Confirm mobile number with received SMS OTP",
+        "description": "Verify account",
         "tag": {
           "plugin": "users-permissions",
           "name": "User"
