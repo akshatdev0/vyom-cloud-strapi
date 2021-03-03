@@ -220,7 +220,7 @@ module.exports = {
     });
 
     if (user) {
-      if (user.confirmed) {
+      if (user.confirmed && user.password) {
         return ctx.badRequest(
           null,
           formatError({
@@ -229,6 +229,9 @@ module.exports = {
           })
         );
       } else {
+        await strapi
+          .query("user", "users-permissions")
+          .update({ id: user.id }, { confirmed: false });
         return ctx.send({
           ok: user && user.mobileNumber === params.mobileNumber,
         });
