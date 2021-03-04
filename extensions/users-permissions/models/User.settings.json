@@ -87,6 +87,10 @@
     "shopkeeper": {
       "model": "shopkeeper",
       "via": "user"
+    },
+    "companyOwner": {
+      "via": "user",
+      "model": "company-owner"
     }
   }
 }

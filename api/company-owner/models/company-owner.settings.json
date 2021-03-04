@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "company_owners",
+  "info": {
+    "name": "Company Owner"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "companyOwner"
+    },
+    "company": {
+      "model": "company",
+      "via": "companyOwners"
+    }
+  }
+}
