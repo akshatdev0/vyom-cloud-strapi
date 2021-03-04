@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "company_employees",
+  "info": {
+    "name": "Company Employee"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "companyEmployee"
+    },
+    "company": {
+      "model": "company",
+      "via": "employees"
+    }
+  }
+}

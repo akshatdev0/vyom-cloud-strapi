@@ -91,6 +91,10 @@
     "companyOwner": {
       "via": "user",
       "model": "company-owner"
+    },
+    "companyEmployee": {
+      "via": "user",
+      "model": "company-employee"
     }
   }
 }
