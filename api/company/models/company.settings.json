@@ -74,6 +74,10 @@
     "products": {
       "via": "company",
       "collection": "product"
+    },
+    "companyOwners": {
+      "via": "company",
+      "collection": "company-owner"
     }
   }
 }
