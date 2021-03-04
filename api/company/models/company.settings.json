@@ -78,6 +78,10 @@
     "companyOwners": {
       "via": "company",
       "collection": "company-owner"
+    },
+    "employees": {
+      "via": "company",
+      "collection": "company-employee"
     }
   }
 }
