@@ -38,13 +38,13 @@ const DEFAULT_PERMISSIONS = [
     roleType: "public",
   },
   {
-    action: "sendsmsconfirmation",
+    action: "sendotp",
     controller: "auth",
     type: "users-permissions",
     roleType: "public",
   },
   {
-    action: "smsconfirmation",
+    action: "verify",
     controller: "auth",
     type: "users-permissions",
     roleType: "public",
