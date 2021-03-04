@@ -37,8 +37,8 @@ module.exports = {
         return ctx.badRequest(
           null,
           formatError({
-            id: "Auth.callback.error.identifier.provide",
-            message: "Please provide your identifier.",
+            id: "Auth.callback.error.mobileNumber.provide",
+            message: "Please provide your Mobile Number.",
           })
         );
       }
@@ -67,7 +67,7 @@ module.exports = {
           null,
           formatError({
             id: "Auth.callback.error.invalid",
-            message: "Identifier or password invalid.",
+            message: "Mobile Number or password is invalid.",
           })
         );
       }
@@ -77,7 +77,7 @@ module.exports = {
           null,
           formatError({
             id: "Auth.callback.error.mobileNumber.not.confirmed",
-            message: "Your mobile number is not confirmed",
+            message: "Your Mobile Number is not confirmed",
           })
         );
       }
@@ -112,7 +112,7 @@ module.exports = {
           null,
           formatError({
             id: "Auth.callback.error.invalid",
-            message: "Identifier or password invalid.",
+            message: "Mobile Number or password is invalid.",
           })
         );
       } else {
@@ -177,7 +177,7 @@ module.exports = {
         null,
         formatError({
           id: "Auth.advanced.allow_register",
-          message: "Signup action is currently disabled.",
+          message: "Sign Up action is currently disabled.",
         })
       );
     }
@@ -193,7 +193,7 @@ module.exports = {
         null,
         formatError({
           id: "Auth.signup.error.mobileNumber.provide",
-          message: "Please provide your mobile number.",
+          message: "Please provide your Mobile Number.",
         })
       );
     }
@@ -210,7 +210,7 @@ module.exports = {
         null,
         formatError({
           id: "Auth.signup.error.mobileNumber.invalid",
-          message: "Please provide a valid mobile number.",
+          message: "Please provide a valid Mobile Number.",
         })
       );
     }
@@ -267,7 +267,7 @@ module.exports = {
         null,
         formatError({
           id: "Auth.sendOtp.error.mobileNumber.provide",
-          message: "Please provide your mobile number.",
+          message: "Please provide your Mobile Number.",
         })
       );
     }
@@ -284,7 +284,7 @@ module.exports = {
         null,
         formatError({
           id: "Auth.sendOtp.error.mobileNumber.invalid",
-          message: "Please provide a valid mobile number.",
+          message: "Please provide a valid Mobile Number.",
         })
       );
     }
