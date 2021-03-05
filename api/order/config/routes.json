@@ -47,6 +47,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "POST",
+      "path": "/create-order",
+      "handler": "order._create",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }
