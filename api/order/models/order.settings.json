@@ -42,8 +42,8 @@
       "model": "shop"
     },
     "orderLines": {
-      "collection": "order-line",
-      "via": "order"
+      "via": "order",
+      "collection": "order-line"
     }
   }
 }

@@ -28,8 +28,8 @@
       "via": "orderShipments"
     },
     "orderLines": {
-      "collection": "order-line",
-      "via": "orderShipment"
+      "via": "orderShipment",
+      "collection": "order-line"
     }
   }
 }

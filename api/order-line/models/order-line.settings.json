@@ -15,8 +15,8 @@
       "type": "integer"
     },
     "order": {
-      "via": "orderLines",
-      "model": "order"
+      "model": "order",
+      "via": "orderLines"
     },
     "productVariant": {
       "model": "product-variant"
@@ -27,8 +27,9 @@
       "required": true,
       "min": 1
     },
-    "price": {
-      "type": "decimal"
+    "unitPrice": {
+      "type": "decimal",
+      "required": true
     },
     "appliedPriceRules": {
       "collection": "price-rule"
@@ -44,8 +45,12 @@
       "type": "json"
     },
     "orderShipment": {
-      "via": "orderLines",
-      "model": "order-shipment"
+      "model": "order-shipment",
+      "via": "orderLines"
+    },
+    "productPrice": {
+      "type": "decimal",
+      "required": true
     }
   }
 }
