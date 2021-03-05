@@ -66,6 +66,9 @@
       ],
       "plugin": "upload",
       "required": false
+    },
+    "price": {
+      "type": "decimal"
     }
   }
 }

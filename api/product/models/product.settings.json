@@ -68,6 +68,9 @@
     "company": {
       "model": "company",
       "via": "products"
+    },
+    "price": {
+      "type": "decimal"
     }
   }
 }
