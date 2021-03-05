@@ -39,13 +39,16 @@ module.exports = {
     //   - unitPrice
     //   - productPrice
     //   - [TBD] appliedPriceRules
-    const populatedOrderLines = orderLines.map(async (orderLine) => {
+    const populatedOrderLines = [];
+    for (let i = 0; i < orderLines.length; i++) {
+      const orderLine = orderLines[i];
+
       const productVariant = await strapi.services["product-variant"].findOne({
         id: orderLine.productVariant,
       });
 
       if (!productVariant) {
-        ctx.badRequest(
+        return ctx.badRequest(
           null,
           formatError({
             id: "order._create.error.product-variant.not.found",
@@ -59,7 +62,7 @@ module.exports = {
       });
 
       if (!product) {
-        ctx.badRequest(
+        return ctx.badRequest(
           null,
           formatError({
             id: "order._create.error.product.not.found",
@@ -68,7 +71,7 @@ module.exports = {
         );
       }
 
-      return {
+      populatedOrderLines.push({
         index: orderLine.index,
         quantity: orderLine.quantity,
         productTitle: product.title,
@@ -78,8 +81,8 @@ module.exports = {
         productPrice: product.price,
         productVariant: orderLine.productVariant,
         appliedPriceRules: [],
-      };
-    });
+      });
+    }
 
     // Populate Order
     // - Generate Order Number
@@ -101,12 +104,13 @@ module.exports = {
 
     // Create Order Lines
     // - Set orderID
-    populatedOrderLines.forEach(async (orderLine) => {
+    for (let j = 0; j < populatedOrderLines.length; j++) {
+      const orderLine = populatedOrderLines[j];
       await strapi.services["order-line"].create({
         ...orderLine,
         order: createdOrder.id,
       });
-    });
+    }
 
     // Return final Order
     const entity = await strapi.services.order.findOne({
