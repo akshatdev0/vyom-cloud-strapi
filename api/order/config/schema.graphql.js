@@ -27,7 +27,7 @@ module.exports = {
 
     input _OrderInput {
       shop: ID!
-      note: String
+      note: String = ""
       orderLines: [_OrderLineInput]
     }
 
@@ -56,9 +56,7 @@ module.exports = {
             : context.body;
 
           checkBadRequest(output);
-          return {
-            result: output,
-          };
+          return output;
         },
       },
     },
