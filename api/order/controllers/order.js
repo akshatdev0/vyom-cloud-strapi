@@ -113,6 +113,7 @@ module.exports = {
     }
 
     // Return final Order
+    // - [TODO] Calculate total order price
     const entity = await strapi.services.order.findOne({
       id: createdOrder.id,
     });
