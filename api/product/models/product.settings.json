@@ -30,8 +30,8 @@
       "type": "richtext"
     },
     "productCategory": {
-      "model": "product-category",
-      "via": "products"
+      "via": "products",
+      "model": "product-category"
     },
     "brand": {
       "model": "brand"
