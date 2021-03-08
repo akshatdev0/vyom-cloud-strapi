@@ -18,8 +18,8 @@
       "model": "state"
     },
     "areas": {
-      "collection": "area",
-      "via": "city"
+      "via": "city",
+      "collection": "area"
     }
   }
 }

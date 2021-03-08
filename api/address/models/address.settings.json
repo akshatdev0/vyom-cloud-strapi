@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "addresses",
   "info": {
-    "name": "Address"
+    "name": "Address",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -27,6 +28,10 @@
     },
     "area": {
       "model": "area"
+    },
+    "isDeleted": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

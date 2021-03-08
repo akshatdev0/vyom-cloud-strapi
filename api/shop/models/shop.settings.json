@@ -18,15 +18,6 @@
     "rating": {
       "type": "integer"
     },
-    "type": {
-      "type": "string",
-      "required": true
-    },
-    "currentStatus": {
-      "type": "boolean",
-      "default": true,
-      "required": true
-    },
     "gstNumber": {
       "type": "string"
     },
@@ -58,6 +49,13 @@
     },
     "shippingAddresses": {
       "collection": "address"
+    },
+    "isActive": {
+      "type": "boolean"
+    },
+    "isDeleted": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

@@ -2,11 +2,13 @@
   "kind": "collectionType",
   "collectionName": "units",
   "info": {
-    "name": "Unit"
+    "name": "Unit",
+    "description": ""
   },
   "options": {
     "increments": true,
-    "timestamps": true
+    "timestamps": true,
+    "draftAndPublish": false
   },
   "attributes": {
     "name": {
@@ -23,10 +25,8 @@
       "type": "integer",
       "required": false
     },
-    "block": {
-      "type": "boolean",
-      "default": true,
-      "required": true
+    "isActive": {
+      "type": "boolean"
     }
   }
 }

@@ -2,11 +2,13 @@
   "kind": "collectionType",
   "collectionName": "transaction_types",
   "info": {
-    "name": "Transaction Type"
+    "name": "Transaction Type",
+    "description": ""
   },
   "options": {
     "increments": true,
-    "timestamps": true
+    "timestamps": true,
+    "draftAndPublish": false
   },
   "attributes": {
     "name": {
@@ -22,10 +24,8 @@
       ],
       "required": true
     },
-    "block": {
-      "type": "boolean",
-      "default": true,
-      "required": true
+    "isActive": {
+      "type": "boolean"
     }
   }
 }

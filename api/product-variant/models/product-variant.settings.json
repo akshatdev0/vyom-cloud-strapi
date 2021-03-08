@@ -52,8 +52,8 @@
       "collection": "attribute-value"
     },
     "product": {
-      "via": "productVariants",
-      "model": "product"
+      "model": "product",
+      "via": "productVariants"
     },
     "appliedPriceRules": {
       "collection": "price-rule"
@@ -69,6 +69,10 @@
     },
     "price": {
       "type": "decimal"
+    },
+    "isDeleted": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

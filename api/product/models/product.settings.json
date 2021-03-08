@@ -59,18 +59,22 @@
       "collection": "attribute"
     },
     "productVariants": {
-      "collection": "product-variant",
-      "via": "product"
+      "via": "product",
+      "collection": "product-variant"
     },
     "appliedPriceRules": {
       "collection": "price-rule"
     },
     "company": {
-      "via": "products",
-      "model": "company"
+      "model": "company",
+      "via": "products"
     },
     "price": {
       "type": "decimal"
+    },
+    "isDeleted": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

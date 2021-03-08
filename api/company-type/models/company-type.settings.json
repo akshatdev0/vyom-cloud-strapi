@@ -2,11 +2,13 @@
   "kind": "collectionType",
   "collectionName": "company_types",
   "info": {
-    "name": "Company Type"
+    "name": "Company Type",
+    "description": ""
   },
   "options": {
     "increments": true,
-    "timestamps": true
+    "timestamps": true,
+    "draftAndPublish": false
   },
   "attributes": {
     "name": {
@@ -17,10 +19,8 @@
     "description": {
       "type": "string"
     },
-    "block": {
-      "type": "boolean",
-      "default": true,
-      "required": true
+    "isActive": {
+      "type": "boolean"
     }
   }
 }

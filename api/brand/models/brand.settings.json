@@ -2,17 +2,23 @@
   "kind": "collectionType",
   "collectionName": "brands",
   "info": {
-    "name": "Brand"
+    "name": "Brand",
+    "description": ""
   },
   "options": {
     "increments": true,
-    "timestamps": true
+    "timestamps": true,
+    "draftAndPublish": false
   },
   "attributes": {
     "name": {
       "type": "string",
       "required": true,
       "unique": true
+    },
+    "isDeleted": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
