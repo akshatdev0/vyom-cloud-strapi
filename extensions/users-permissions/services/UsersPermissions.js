@@ -233,9 +233,9 @@ module.exports = {
 
     if (roleCount === 0) {
       await strapi.query("role", "users-permissions").create({
-        name: "EDM Admin",
-        description: "EDM Master Admin role.",
-        type: "edm_admin",
+        name: "Platform Master Admin",
+        description: "Platform Master Admin role.",
+        type: "platform_master_admin",
       });
 
       await strapi.query("role", "users-permissions").create({
