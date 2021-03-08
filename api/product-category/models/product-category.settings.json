@@ -34,7 +34,7 @@
     },
     "subcategories": {
       "collection": "product-category",
-      "via": "parent_category"
+      "via": "parentCategory"
     },
     "parentCategory": {
       "model": "product-category",
