@@ -52,6 +52,12 @@
     },
     "businessTypes": {
       "collection": "business-type"
+    },
+    "billingAddress": {
+      "model": "address"
+    },
+    "shippingAddresses": {
+      "collection": "address"
     }
   }
 }
