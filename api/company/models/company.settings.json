@@ -37,18 +37,6 @@
     "companyType": {
       "model": "company-type"
     },
-    "addressLine1": {
-      "type": "string"
-    },
-    "addressLine2": {
-      "type": "string"
-    },
-    "pincode": {
-      "type": "string"
-    },
-    "area": {
-      "model": "area"
-    },
     "sku": {
       "type": "string",
       "regex": "^[A-Z]{4}$",
@@ -64,24 +52,24 @@
       "collection": "price-rule"
     },
     "orderShipments": {
-      "via": "company",
-      "collection": "order-shipment"
+      "collection": "order-shipment",
+      "via": "company"
     },
     "productCategories": {
-      "via": "company",
-      "collection": "product-category"
+      "collection": "product-category",
+      "via": "company"
     },
     "products": {
-      "via": "company",
-      "collection": "product"
+      "collection": "product",
+      "via": "company"
     },
     "companyOwners": {
-      "via": "company",
-      "collection": "company-owner"
+      "collection": "company-owner",
+      "via": "company"
     },
     "employees": {
-      "via": "company",
-      "collection": "company-employee"
+      "collection": "company-employee",
+      "via": "company"
     }
   }
 }

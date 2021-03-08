@@ -27,18 +27,6 @@
       "default": true,
       "required": true
     },
-    "addressLine1": {
-      "type": "string"
-    },
-    "addressLine2": {
-      "type": "string"
-    },
-    "pincode": {
-      "type": "string"
-    },
-    "area": {
-      "model": "area"
-    },
     "gstNumber": {
       "type": "string"
     },

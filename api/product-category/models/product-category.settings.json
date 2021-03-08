@@ -52,8 +52,8 @@
       "collection": "price-rule"
     },
     "company": {
-      "model": "company",
-      "via": "productCategories"
+      "via": "productCategories",
+      "model": "company"
     },
     "products": {
       "collection": "product",
