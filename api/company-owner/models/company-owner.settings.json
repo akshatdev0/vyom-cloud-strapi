@@ -16,8 +16,8 @@
       "via": "companyOwner"
     },
     "company": {
-      "model": "company",
-      "via": "companyOwners"
+      "via": "companyOwners",
+      "model": "company"
     }
   }
 }

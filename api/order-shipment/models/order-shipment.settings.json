@@ -24,8 +24,8 @@
       "type": "json"
     },
     "company": {
-      "model": "company",
-      "via": "orderShipments"
+      "via": "orderShipments",
+      "model": "company"
     },
     "orderLines": {
       "via": "orderShipment",
