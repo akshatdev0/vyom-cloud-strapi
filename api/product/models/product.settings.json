@@ -66,8 +66,8 @@
       "collection": "price-rule"
     },
     "company": {
-      "model": "company",
-      "via": "products"
+      "via": "products",
+      "model": "company"
     },
     "price": {
       "type": "decimal"

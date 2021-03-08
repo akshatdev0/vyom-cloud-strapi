@@ -41,20 +41,20 @@
       "via": "company"
     },
     "productCategories": {
-      "via": "company",
-      "collection": "product-category"
+      "collection": "product-category",
+      "via": "company"
     },
     "products": {
-      "via": "company",
-      "collection": "product"
+      "collection": "product",
+      "via": "company"
     },
     "companyOwners": {
       "collection": "company-owner",
       "via": "company"
     },
     "employees": {
-      "via": "company",
-      "collection": "company-employee"
+      "collection": "company-employee",
+      "via": "company"
     },
     "address": {
       "model": "address"
@@ -65,6 +65,10 @@
     "isDeleted": {
       "type": "boolean",
       "default": false
+    },
+    "companyDetail": {
+      "via": "company",
+      "model": "company-detail"
     }
   }
 }

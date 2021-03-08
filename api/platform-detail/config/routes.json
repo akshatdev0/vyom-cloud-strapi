@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/platform-detail",
+      "handler": "platform-detail.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/platform-detail",
+      "handler": "platform-detail.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/platform-detail",
+      "handler": "platform-detail.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
