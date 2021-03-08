@@ -56,6 +56,10 @@
     "isDeleted": {
       "type": "boolean",
       "default": false
+    },
+    "companyTradeConnections": {
+      "via": "shop",
+      "collection": "company-shop-trade-connection"
     }
   }
 }

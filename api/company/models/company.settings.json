@@ -69,6 +69,10 @@
     "companyDetail": {
       "via": "company",
       "model": "company-detail"
+    },
+    "shopTradeConnections": {
+      "via": "company",
+      "collection": "company-shop-trade-connection"
     }
   }
 }
