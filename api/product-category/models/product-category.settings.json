@@ -17,10 +17,6 @@
     "description": {
       "type": "text"
     },
-    "block": {
-      "type": "boolean",
-      "default": false
-    },
     "image": {
       "model": "file",
       "via": "related",
@@ -52,12 +48,19 @@
       "collection": "price-rule"
     },
     "company": {
-      "via": "productCategories",
-      "model": "company"
+      "model": "company",
+      "via": "productCategories"
     },
     "products": {
       "collection": "product",
       "via": "productCategory"
+    },
+    "isActive": {
+      "type": "boolean"
+    },
+    "isDeleted": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

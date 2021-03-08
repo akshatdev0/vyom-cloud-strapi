@@ -11,25 +11,10 @@
     "draftAndPublish": false
   },
   "attributes": {
-    "pid": {
-      "type": "string",
-      "required": true,
-      "unique": true
-    },
     "name": {
       "type": "string",
       "required": true,
       "unique": true
-    },
-    "currentStatus": {
-      "type": "boolean",
-      "default": true,
-      "required": true
-    },
-    "suspendStatus": {
-      "type": "boolean",
-      "default": false,
-      "required": true
     },
     "businessType": {
       "model": "business-type"
@@ -56,23 +41,30 @@
       "via": "company"
     },
     "productCategories": {
-      "collection": "product-category",
-      "via": "company"
+      "via": "company",
+      "collection": "product-category"
     },
     "products": {
-      "collection": "product",
-      "via": "company"
+      "via": "company",
+      "collection": "product"
     },
     "companyOwners": {
       "collection": "company-owner",
       "via": "company"
     },
     "employees": {
-      "collection": "company-employee",
-      "via": "company"
+      "via": "company",
+      "collection": "company-employee"
     },
     "address": {
       "model": "address"
+    },
+    "isActive": {
+      "type": "boolean"
+    },
+    "isDeleted": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
