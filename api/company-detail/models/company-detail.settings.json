@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "company_details",
+  "info": {
+    "name": "Company Detail"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "returnPolicy": {
+      "type": "richtext"
+    },
+    "company": {
+      "model": "company",
+      "via": "companyDetail"
+    }
+  }
+}

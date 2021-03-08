@@ -1,0 +1,17 @@
+{
+  "kind": "singleType",
+  "collectionName": "platform_details",
+  "info": {
+    "name": "Platform Detail"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "privacyPolicy": {
+      "type": "richtext"
+    }
+  }
+}

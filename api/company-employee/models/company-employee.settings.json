@@ -17,8 +17,8 @@
       "via": "companyEmployee"
     },
     "company": {
-      "model": "company",
-      "via": "employees"
+      "via": "employees",
+      "model": "company"
     },
     "isActive": {
       "type": "boolean"
