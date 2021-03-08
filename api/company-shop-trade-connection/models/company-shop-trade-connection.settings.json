@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "company_shop_trade_connections",
+  "info": {
+    "name": "CompanyShopTradeConnection",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "company": {
+      "model": "company",
+      "via": "shopTradeConnections"
+    },
+    "shop": {
+      "model": "shop",
+      "via": "companyTradeConnections"
+    },
+    "isActive": {
+      "type": "boolean"
+    }
+  }
+}

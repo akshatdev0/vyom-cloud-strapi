@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/company-shop-trade-connections",
+      "handler": "company-shop-trade-connection.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/company-shop-trade-connections/count",
+      "handler": "company-shop-trade-connection.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/company-shop-trade-connections/:id",
+      "handler": "company-shop-trade-connection.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/company-shop-trade-connections",
+      "handler": "company-shop-trade-connection.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/company-shop-trade-connections/:id",
+      "handler": "company-shop-trade-connection.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/company-shop-trade-connections/:id",
+      "handler": "company-shop-trade-connection.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
