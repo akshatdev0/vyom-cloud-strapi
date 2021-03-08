@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "addresses",
+  "info": {
+    "name": "Address"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "addressLine1": {
+      "type": "text"
+    },
+    "addressLine2": {
+      "type": "text"
+    },
+    "landmark": {
+      "type": "string"
+    },
+    "postalCode": {
+      "type": "string"
+    },
+    "plusCode": {
+      "type": "string"
+    },
+    "area": {
+      "model": "area"
+    }
+  }
+}
