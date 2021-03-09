@@ -24,6 +24,12 @@ const DEFAULT_PERMISSIONS = [
     type: "users-permissions",
     roleType: null,
   },
+  {
+    action: "update",
+    controller: "user",
+    type: "users-permissions",
+    roleType: null,
+  },
   // - address
   {
     action: "create",
@@ -180,8 +186,7 @@ module.exports = {
     // Execute request to update default permissions.
     await Promise.all(
       DEFAULT_PERMISSIONS.filter(
-        (defaultPerm) =>
-          defaultPerm.type !== null && defaultPerm.type !== "users-permissions"
+        (defaultPerm) => defaultPerm.type !== null
       ).map((defaultPerm) => {
         if (defaultPerm.roleType == null) {
           for (let r = 0; r < roles.length; r++) {
