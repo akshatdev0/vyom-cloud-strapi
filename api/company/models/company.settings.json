@@ -56,7 +56,7 @@
       "collection": "company-employee",
       "via": "company"
     },
-    "address": {
+    "registeredAddress": {
       "model": "address"
     },
     "isActive": {
@@ -68,12 +68,12 @@
       "default": false
     },
     "companyDetail": {
-      "via": "company",
-      "model": "company-detail"
+      "model": "company-detail",
+      "via": "company"
     },
     "shopTradeConnections": {
-      "via": "company",
-      "collection": "company-shop-trade-connection"
+      "collection": "company-shop-trade-connection",
+      "via": "company"
     }
   }
 }

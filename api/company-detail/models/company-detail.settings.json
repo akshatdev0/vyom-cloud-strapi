@@ -14,8 +14,8 @@
       "type": "richtext"
     },
     "company": {
-      "model": "company",
-      "via": "companyDetail"
+      "via": "companyDetail",
+      "model": "company"
     }
   }
 }

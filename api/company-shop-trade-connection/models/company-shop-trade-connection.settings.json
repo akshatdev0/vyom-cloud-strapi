@@ -12,8 +12,8 @@
   },
   "attributes": {
     "company": {
-      "model": "company",
-      "via": "shopTradeConnections"
+      "via": "shopTradeConnections",
+      "model": "company"
     },
     "shop": {
       "model": "shop",
