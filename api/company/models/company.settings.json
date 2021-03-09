@@ -72,8 +72,8 @@
       "via": "company"
     },
     "shopTradeConnections": {
-      "collection": "company-shop-trade-connection",
-      "via": "company"
+      "via": "company",
+      "collection": "company-shop-trade-connection"
     }
   }
 }
