@@ -10,6 +10,8 @@ const _ = require("lodash");
 
 const DEFAULT_PERMISSIONS = [
   /* Enabled for all roles */
+  { action: "autoreload", controller: null, type: null, roleType: null },
+  // - userspermissions
   {
     action: "init",
     controller: "userspermissions",
@@ -22,9 +24,16 @@ const DEFAULT_PERMISSIONS = [
     type: "users-permissions",
     roleType: null,
   },
-  { action: "autoreload", controller: null, type: null, roleType: null },
+  // - address
+  {
+    action: "create",
+    controller: "address",
+    type: "application",
+    roleType: null,
+  },
 
   /* Enabled only for 'public' role */
+  // - auth
   {
     action: "callback",
     controller: "auth",
@@ -65,14 +74,59 @@ const DEFAULT_PERMISSIONS = [
   },
 
   /* Enabled only for 'shopkeeper' role */
-  // - self
+  // - company
   {
-    action: "update",
-    controller: "shopkeeper",
+    action: "find",
+    controller: "company",
     type: "application",
     roleType: "shopkeeper",
   },
-
+  // - order
+  {
+    action: "find",
+    controller: "order",
+    type: "application",
+    roleType: "shopkeeper",
+  },
+  {
+    action: "_create",
+    controller: "order",
+    type: "application",
+    roleType: "shopkeeper",
+  },
+  // - order-line
+  {
+    action: "update",
+    controller: "order-line",
+    type: "application",
+    roleType: "shopkeeper",
+  },
+  {
+    action: "delete",
+    controller: "order-line",
+    type: "application",
+    roleType: "shopkeeper",
+  },
+  // - product
+  {
+    action: "find",
+    controller: "product",
+    type: "application",
+    roleType: "shopkeeper",
+  },
+  {
+    action: "findone",
+    controller: "product",
+    type: "application",
+    roleType: "shopkeeper",
+  },
+  // - product-category
+  {
+    action: "find",
+    controller: "product-category",
+    type: "application",
+    roleType: "shopkeeper",
+  },
   // - shop
   {
     action: "create",
@@ -86,19 +140,10 @@ const DEFAULT_PERMISSIONS = [
     type: "application",
     roleType: "shopkeeper",
   },
-
-  // - product
+  // - shopkeeper
   {
-    action: "find",
-    controller: "product",
-    type: "application",
-    roleType: "shopkeeper",
-  },
-
-  // - order
-  {
-    action: "find",
-    controller: "order",
+    action: "update",
+    controller: "shopkeeper",
     type: "application",
     roleType: "shopkeeper",
   },
