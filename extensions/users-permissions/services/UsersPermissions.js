@@ -161,6 +161,48 @@ const isPermissionEnabled = (permission, role) =>
   );
 
 module.exports = {
+  async enablePermission(params) {
+    const query = strapi.query("permission", "users-permissions");
+    const permission = await query.findOne(params);
+    if (permission) {
+      if (!permission.enabled) {
+        await query.update({ id: permission.id }, { enabled: true });
+      }
+    }
+  },
+  async updateDefaultPermissions() {
+    const roles = await strapi.query("role", "users-permissions").find({}, []);
+    const roleIDsMap = roles.reduce(
+      (map, role) => ({ ...map, [role.type]: role.id }),
+      {}
+    );
+
+    // Execute request to update default permissions.
+    await Promise.all(
+      DEFAULT_PERMISSIONS.filter(
+        (defaultPerm) =>
+          defaultPerm.type !== null && defaultPerm.type !== "users-permissions"
+      ).map((defaultPerm) => {
+        if (defaultPerm.roleType == null) {
+          for (let r = 0; r < roles.length; r++) {
+            this.enablePermission({
+              action: defaultPerm.action,
+              controller: defaultPerm.controller,
+              type: defaultPerm.type,
+              role: roles[r].id,
+            });
+          }
+        } else {
+          this.enablePermission({
+            action: defaultPerm.action,
+            controller: defaultPerm.controller,
+            type: defaultPerm.type,
+            role: roleIDsMap[defaultPerm.roleType],
+          });
+        }
+      })
+    );
+  },
   async updatePermissions() {
     const { primaryKey } = strapi.query("permission", "users-permissions");
     const roles = await strapi.query("role", "users-permissions").find({}, []);
@@ -192,7 +234,6 @@ module.exports = {
           acc = acc.concat(actions);
         }
       );
-
       return acc;
     }, []);
 
@@ -209,7 +250,6 @@ module.exports = {
 
         acc = acc.concat(actions);
       });
-
       return acc;
     }, []);
 
@@ -320,6 +360,7 @@ module.exports = {
       });
     }
 
-    return this.updatePermissions();
+    this.updatePermissions();
+    this.updateDefaultPermissions();
   },
 };
