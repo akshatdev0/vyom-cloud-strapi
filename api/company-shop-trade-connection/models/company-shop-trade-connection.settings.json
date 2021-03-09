@@ -19,9 +19,9 @@
       "model": "shop",
       "via": "companyTradeConnections"
     },
-    "isActive": {
+    "isSuspended": {
       "type": "boolean",
-      "default": true
+      "default": false
     }
   }
 }
