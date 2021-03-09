@@ -60,7 +60,8 @@
       "model": "address"
     },
     "isActive": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": true
     },
     "isDeleted": {
       "type": "boolean",
