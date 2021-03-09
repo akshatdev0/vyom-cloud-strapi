@@ -25,7 +25,8 @@
       "required": true
     },
     "isActive": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": true
     }
   }
 }
