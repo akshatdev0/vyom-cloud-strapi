@@ -12,14 +12,22 @@
   },
   "attributes": {
     "company": {
-      "via": "shopTradeConnections",
-      "model": "company"
+      "model": "company",
+      "via": "shopTradeConnections"
     },
     "shop": {
       "model": "shop",
       "via": "companyTradeConnections"
     },
-    "isSuspended": {
+    "isSuspendedByCompany": {
+      "type": "boolean",
+      "default": false
+    },
+    "isBlockedByCompany": {
+      "type": "boolean",
+      "default": false
+    },
+    "isBlockedByShop": {
       "type": "boolean",
       "default": false
     }
