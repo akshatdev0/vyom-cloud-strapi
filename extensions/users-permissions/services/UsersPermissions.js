@@ -165,6 +165,12 @@ const DEFAULT_PERMISSIONS = [
     type: "application",
     roleType: "shopkeeper",
   },
+  {
+    action: "findone",
+    controller: "shop",
+    type: "application",
+    roleType: "shopkeeper",
+  },
   // shopkeeper
   {
     action: "update",
