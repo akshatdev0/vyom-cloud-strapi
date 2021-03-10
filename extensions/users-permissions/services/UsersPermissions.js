@@ -11,7 +11,7 @@ const _ = require("lodash");
 const DEFAULT_PERMISSIONS = [
   /* Enabled for all roles */
   { action: "autoreload", controller: null, type: null, roleType: null },
-  // - userspermissions
+  // userspermissions
   {
     action: "init",
     controller: "userspermissions",
@@ -30,7 +30,7 @@ const DEFAULT_PERMISSIONS = [
     type: "users-permissions",
     roleType: null,
   },
-  // - address
+  // address
   {
     action: "create",
     controller: "address",
@@ -39,7 +39,7 @@ const DEFAULT_PERMISSIONS = [
   },
 
   /* Enabled only for 'public' role */
-  // - auth
+  // auth
   {
     action: "callback",
     controller: "auth",
@@ -80,14 +80,33 @@ const DEFAULT_PERMISSIONS = [
   },
 
   /* Enabled only for 'shopkeeper' role */
-  // - company
+  // company
   {
     action: "find",
     controller: "company",
     type: "application",
     roleType: "shopkeeper",
   },
-  // - order
+  // company-shop-trade-connection
+  {
+    action: "find",
+    controller: "company-shop-trade-connection",
+    type: "application",
+    roleType: "shopkeeper",
+  },
+  {
+    action: "create",
+    controller: "company-shop-trade-connection",
+    type: "application",
+    roleType: "shopkeeper",
+  },
+  {
+    action: "update",
+    controller: "company-shop-trade-connection",
+    type: "application",
+    roleType: "shopkeeper",
+  },
+  // order
   {
     action: "find",
     controller: "order",
@@ -100,7 +119,7 @@ const DEFAULT_PERMISSIONS = [
     type: "application",
     roleType: "shopkeeper",
   },
-  // - order-line
+  // order-line
   {
     action: "update",
     controller: "order-line",
@@ -113,7 +132,7 @@ const DEFAULT_PERMISSIONS = [
     type: "application",
     roleType: "shopkeeper",
   },
-  // - product
+  // product
   {
     action: "find",
     controller: "product",
@@ -126,14 +145,14 @@ const DEFAULT_PERMISSIONS = [
     type: "application",
     roleType: "shopkeeper",
   },
-  // - product-category
+  // product-category
   {
     action: "find",
     controller: "product-category",
     type: "application",
     roleType: "shopkeeper",
   },
-  // - shop
+  // shop
   {
     action: "create",
     controller: "shop",
@@ -146,7 +165,7 @@ const DEFAULT_PERMISSIONS = [
     type: "application",
     roleType: "shopkeeper",
   },
-  // - shopkeeper
+  // shopkeeper
   {
     action: "update",
     controller: "shopkeeper",
