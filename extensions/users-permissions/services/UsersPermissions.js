@@ -37,6 +37,13 @@ const DEFAULT_PERMISSIONS = [
     type: "application",
     roleType: null,
   },
+  // calendar-event
+  {
+    action: "create",
+    controller: "calendar-event",
+    type: "application",
+    roleType: null,
+  },
 
   /* Enabled only for 'public' role */
   // auth
