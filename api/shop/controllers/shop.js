@@ -16,14 +16,19 @@ const formatError = (error) => [
 const SHOP_PROPERTIES = [
   "name",
   "type",
-  "addressLine1",
-  "addressLine2",
-  "area",
-  "pincode",
   "gstNumber",
   "gstRegistrationType",
   "openingYear",
   "websiteURL",
+];
+
+const ADDRESS_PROPERTIES = [
+  "addressLine1",
+  "addressLine2",
+  "landmark",
+  "postalCode",
+  "plusCode",
+  "areaID",
 ];
 
 const checkShopkeeper = (ctx) => {
@@ -129,7 +134,7 @@ module.exports = {
       return ctx.badRequest(
         null,
         formatError({
-          id: "shopkeeper.update.error.not.found",
+          id: "shop.update.error.shopkeeper.not.found",
           message: `No shopkeeper found with ID=${ctx.state.user.shopkeeper}.`,
         })
       );
@@ -149,6 +154,86 @@ module.exports = {
     const entity = await strapi.services.shop.update(
       { id: ctx.params.id },
       shopValues
+    );
+    return sanitizeEntity(entity.toJSON ? entity.toJSON() : entity, {
+      model: strapi.models.shop,
+    });
+  },
+
+  /**
+   * Add shipping address.
+   *
+   * @return {Object}
+   */
+  async _addShippingAddress(ctx) {
+    if (!ctx.state.user) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "shop.addShippingAddress.error.auth.header.missing",
+          message: "No authorization header was found.",
+        })
+      );
+    }
+
+    if (!checkShopkeeper(ctx)) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "shop.addShippingAddress.error.shopkeeper.only",
+          message: "Only a shopkeeper can add a shipping address to a shop.",
+        })
+      );
+    }
+
+    const shopkeeper = await strapi.services.shopkeeper.findOne({
+      id: ctx.state.user.shopkeeper,
+    });
+
+    if (!shopkeeper) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "shop.addShippingAddress.error.shopkeeper.not.found",
+          message: `No shopkeeper found with ID=${ctx.state.user.shopkeeper}.`,
+        })
+      );
+    }
+
+    if (!checkOwnShop(ctx, shopkeeper)) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "shop.addShippingAddress.error.own.shop.only",
+          message:
+            "A shopkeeper can only add shipping address to his own shop.",
+        })
+      );
+    }
+
+    const addressValues = _.pick(ctx.request.body, ADDRESS_PROPERTIES);
+    const createdAddress = await strapi.services.address.create(addressValues);
+
+    const shop = await strapi.services.shop.findOne({ id: ctx.params.id });
+    if (!shop) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "shop.addShippingAddress.error.shop.not.found",
+          message: `No shop found with ID=${ctx.params.id}.`,
+        })
+      );
+    }
+
+    const shippingAddressIDs = shop.shippingAddresses.map(
+      (address) => address.id
+    );
+
+    const entity = await strapi.services.shop.update(
+      { id: ctx.params.id },
+      {
+        shippingAddresses: [...shippingAddressIDs, createdAddress.id],
+      }
     );
     return sanitizeEntity(entity.toJSON ? entity.toJSON() : entity, {
       model: strapi.models.shop,
