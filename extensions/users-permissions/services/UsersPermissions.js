@@ -191,6 +191,12 @@ const DEFAULT_PERMISSIONS = [
     type: "application",
     roleType: "shopkeeper",
   },
+  {
+    action: "_addholiday",
+    controller: "shop",
+    type: "application",
+    roleType: "shopkeeper",
+  },
   // shopkeeper
   {
     action: "update",
