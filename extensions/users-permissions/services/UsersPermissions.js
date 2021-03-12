@@ -37,6 +37,13 @@ const DEFAULT_PERMISSIONS = [
     type: "application",
     roleType: null,
   },
+  // business-type
+  {
+    action: "find",
+    controller: "business-type",
+    type: "application",
+    roleType: null,
+  },
   // calendar-event
   {
     action: "create",
