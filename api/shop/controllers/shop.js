@@ -31,6 +31,15 @@ const ADDRESS_PROPERTIES = [
   "area",
 ];
 
+const CALENDAR_EVENT_PROPERTIES = [
+  "title",
+  "type",
+  "day",
+  "week",
+  "month",
+  "year",
+];
+
 const checkShopkeeper = (ctx) => {
   const ctxUser = ctx.state.user;
   if (!ctxUser) {
@@ -243,6 +252,100 @@ module.exports = {
       { id: ctx.params.id },
       {
         shippingAddresses: [...shippingAddressIDs, createdAddress.id],
+      }
+    );
+    ctx.send({
+      shop: sanitizeEntity(entity.toJSON ? entity.toJSON() : entity, {
+        model: strapi.models.shop,
+      }),
+    });
+  },
+
+  /**
+   * Add holiday.
+   *
+   * @return {Object}
+   */
+  async _addHoliday(ctx) {
+    if (!ctx.state.user) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "shop.addHoliday.error.auth.header.missing",
+          message: "No authorization header was found.",
+        })
+      );
+    }
+
+    if (!checkShopkeeper(ctx)) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "shop.addHoliday.error.shopkeeper.only",
+          message: "Only a shopkeeper can add a holiday to a shop.",
+        })
+      );
+    }
+
+    const shopkeeper = await strapi.services.shopkeeper.findOne({
+      id: ctx.state.user.shopkeeper,
+    });
+
+    if (!shopkeeper) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "shop.addHoliday.error.shopkeeper.not.found",
+          message: `No shopkeeper found with ID=${ctx.state.user.shopkeeper}.`,
+        })
+      );
+    }
+
+    if (!checkOwnShop(ctx, shopkeeper)) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "shop.addHoliday.error.own.shop.only",
+          message: "A shopkeeper can only add holiday to his own shop.",
+        })
+      );
+    }
+
+    if (!ctx.request.body.data) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "shop.addHoliday.error.holidayDataNotFound",
+          message: "Holiday data field not found in request body.",
+        })
+      );
+    }
+
+    const calendarEventValues = _.pick(
+      ctx.request.body.data,
+      CALENDAR_EVENT_PROPERTIES
+    );
+    const createdCalendarEvent = await strapi.services["calendar-event"].create(
+      calendarEventValues
+    );
+
+    const shop = await strapi.services.shop.findOne({ id: ctx.params.id });
+    if (!shop) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "shop.addHoliday.error.shop.not.found",
+          message: `No shop found with ID=${ctx.params.id}.`,
+        })
+      );
+    }
+
+    const holidayIDs = shop.holidays.map((calendarEvent) => calendarEvent.id);
+
+    const entity = await strapi.services.shop.update(
+      { id: ctx.params.id },
+      {
+        holidays: [...holidayIDs, createdCalendarEvent.id],
       }
     );
     ctx.send({
