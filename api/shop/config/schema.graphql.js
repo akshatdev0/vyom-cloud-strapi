@@ -23,10 +23,16 @@ module.exports = {
       where: InputID
       data: AddressInput
     }
+
+    input _addShopHolidayInput {
+      where: InputID
+      data: CalendarEventInput
+    }
   `,
   query: "",
   mutation: `
     _addShopShippingAddress(input: _addShopShippingAddressInput): updateShopPayload
+    _addShopHoliday(input: _addShopHolidayInput): updateShopPayload
   `,
   resolver: {
     Query: {},
@@ -37,6 +43,20 @@ module.exports = {
           context.request.body = _.toPlainObject(options.input);
 
           await strapi.controllers.shop._addShippingAddress(context);
+          let output = context.body.toJSON
+            ? context.body.toJSON()
+            : context.body;
+
+          checkBadRequest(output);
+          return output;
+        },
+      },
+      _addShopHoliday: {
+        resolverOf: "api::shop.shop._addHoliday",
+        resolver: async (obj, options, { context }) => {
+          context.request.body = _.toPlainObject(options.input);
+
+          await strapi.controllers.shop._addHoliday(context);
           let output = context.body.toJSON
             ? context.body.toJSON()
             : context.body;
