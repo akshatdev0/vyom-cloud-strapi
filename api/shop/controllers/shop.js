@@ -28,7 +28,7 @@ const ADDRESS_PROPERTIES = [
   "landmark",
   "postalCode",
   "plusCode",
-  "areaID",
+  "area",
 ];
 
 const checkShopkeeper = (ctx) => {
@@ -211,7 +211,17 @@ module.exports = {
       );
     }
 
-    const addressValues = _.pick(ctx.request.body, ADDRESS_PROPERTIES);
+    if (!ctx.request.body.data) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "shop.addShippingAddress.error.addressDataNotFound",
+          message: "Address data field not found in request body.",
+        })
+      );
+    }
+
+    const addressValues = _.pick(ctx.request.body.data, ADDRESS_PROPERTIES);
     const createdAddress = await strapi.services.address.create(addressValues);
 
     const shop = await strapi.services.shop.findOne({ id: ctx.params.id });
@@ -235,8 +245,10 @@ module.exports = {
         shippingAddresses: [...shippingAddressIDs, createdAddress.id],
       }
     );
-    return sanitizeEntity(entity.toJSON ? entity.toJSON() : entity, {
-      model: strapi.models.shop,
+    ctx.send({
+      shop: sanitizeEntity(entity.toJSON ? entity.toJSON() : entity, {
+        model: strapi.models.shop,
+      }),
     });
   },
 };
