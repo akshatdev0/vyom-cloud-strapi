@@ -43,7 +43,7 @@ module.exports = {
       CREATE_ORDER_LINE_PROPERTIES
     );
 
-    const order = await strapi.services["order"].findOne(
+    const order = await strapi.services.order.findOne(
       {
         id: orderLineValues.order,
       },

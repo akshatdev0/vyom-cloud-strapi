@@ -1,17 +1,78 @@
 "use strict";
 
-const { sanitizeEntity } = require("strapi-utils");
-
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/concepts/controllers.html#core-controllers)
  * to customize this controller
  */
+const _ = require("lodash");
+const { sanitizeEntity } = require("strapi-utils");
 
 const formatError = (error) => [
   { messages: [{ id: error.id, message: error.message, field: error.field }] },
 ];
 
+const PLACE_ORDER_PROPERTIES = ["id", "note"];
+
 module.exports = {
+  /**
+   * Place an existing cart order.
+   *
+   * @return {Object}
+   */
+  async _place(ctx) {
+    const id = ctx.params.id;
+
+    const orderValues = _.pick(ctx.request.body, PLACE_ORDER_PROPERTIES);
+
+    const order = await strapi.services.order.findOne(
+      {
+        id: orderValues.id,
+      },
+      ["shop", "shop.id"]
+    );
+
+    if (!order) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "order._place.error.order-not-found",
+          message: `No Order found with ID=${id}.`,
+        })
+      );
+    }
+
+    // New empty Order for the shop's cart
+    const cartOrder = await strapi.services.order.create({
+      currentStatus: "IN_CART",
+    });
+    await strapi.services.shop.update(
+      { id: order.shop.id },
+      { cart: cartOrder.id }
+    );
+
+    // Populate Order
+    // - Generate Order Number
+    // - [TODO] Make Order Number Unique
+    // - Set initial statuses
+    // - Set shopID
+    const orderNumber =
+      "OD" + (Math.floor(Math.random() * (999999 - 1000 + 1)) + 1000);
+    const orderData = {
+      ...orderValues,
+      number: orderNumber,
+      currentStatus: "PLACED",
+      paymentStatus: "PENDING",
+    };
+
+    const entity = await strapi.services.order.update(
+      { id: ctx.params.id },
+      orderData
+    );
+    return sanitizeEntity(entity.toJSON ? entity.toJSON() : entity, {
+      model: strapi.models.order,
+    });
+  },
+
   /**
    * Create a new order with order lines.
    *
