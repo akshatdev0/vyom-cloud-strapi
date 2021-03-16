@@ -16,8 +16,8 @@
       "via": "shopTradeConnections"
     },
     "shop": {
-      "model": "shop",
-      "via": "companyTradeConnections"
+      "via": "companyTradeConnections",
+      "model": "shop"
     },
     "isSuspendedByCompany": {
       "type": "boolean",
