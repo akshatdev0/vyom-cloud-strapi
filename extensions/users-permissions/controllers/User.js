@@ -41,18 +41,18 @@ const checkAdminUser = (ctx) => {
   );
 };
 
-const checkSelf = (ctx) => {
-  const ctxUser = ctx.state.user;
-  if (!ctxUser) {
-    return false;
-  }
+// const checkSelf = (ctx) => {
+//   const ctxUser = ctx.state.user;
+//   if (!ctxUser) {
+//     return false;
+//   }
 
-  if (ctxUser.id && ctxUser.id == ctx.params.id) {
-    return true;
-  }
+//   if (ctxUser.id && ctxUser.id == ctx.params.id) {
+//     return true;
+//   }
 
-  return false;
-};
+//   return false;
+// };
 
 module.exports = {
   /**
@@ -252,18 +252,18 @@ module.exports = {
     }
 
     // Check that a user can update own profile only
-    if (!checkSelf(ctx)) {
-      strapi.log.error("A user can update only self.", {
-        id: "user.update.error.invalid.action",
-      });
-      return ctx.badRequest(
-        null,
-        formatError({
-          id: "user.update.error.invalid.action",
-          message: "A user can update only self.",
-        })
-      );
-    }
+    // if (!checkSelf(ctx)) {
+    //   strapi.log.error("A user can update only self.", {
+    //     id: "user.update.error.invalid.action",
+    //   });
+    //   return ctx.badRequest(
+    //     null,
+    //     formatError({
+    //       id: "user.update.error.invalid.action",
+    //       message: "A user can update only self.",
+    //     })
+    //   );
+    // }
 
     const userValues = _.pick(ctx.request.body, UPDATE_USER_PROPERTIES);
 
