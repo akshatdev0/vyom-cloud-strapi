@@ -35,8 +35,8 @@
       "via": "shops"
     },
     "orders": {
-      "collection": "order",
-      "via": "shop"
+      "via": "shop",
+      "collection": "order"
     },
     "holidays": {
       "collection": "calendar-event"

@@ -20,6 +20,7 @@
     "currentStatus": {
       "type": "enumeration",
       "enum": [
+        "IN_CART",
         "PLACED",
         "UNDER_PROCESS",
         "COMPLETED",
@@ -38,12 +39,12 @@
       "model": "payment-method"
     },
     "shop": {
-      "via": "orders",
-      "model": "shop"
+      "model": "shop",
+      "via": "orders"
     },
     "orderLines": {
-      "via": "order",
-      "collection": "order-line"
+      "collection": "order-line",
+      "via": "order"
     }
   }
 }
