@@ -27,6 +27,14 @@
     "isDeleted": {
       "type": "boolean",
       "default": false
+    },
+    "salesman": {
+      "via": "companyEmployee",
+      "model": "salesman"
+    },
+    "supplier": {
+      "via": "companyEmployee",
+      "model": "supplier"
     }
   }
 }

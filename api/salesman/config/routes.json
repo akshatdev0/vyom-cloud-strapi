@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/salesmen",
+      "handler": "salesman.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/salesmen/count",
+      "handler": "salesman.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/salesmen/:id",
+      "handler": "salesman.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/salesmen",
+      "handler": "salesman.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/salesmen/:id",
+      "handler": "salesman.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/salesmen/:id",
+      "handler": "salesman.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
