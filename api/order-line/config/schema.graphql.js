@@ -19,28 +19,29 @@ function checkBadRequest(contextBody) {
 
 module.exports = {
   definition: /* GraphQL */ `
-    input _PlaceOrderData {
-      note: String
+    input _OrderLineInput {
+      order: ID!
+      productVariant: ID!
+      quantity: Int!
     }
 
-    input _placeOrderInput {
-      where: InputID
-      data: _PlaceOrderData
+    input _createOrderLineInput {
+      data: _OrderLineInput
     }
   `,
   query: "",
   mutation: `
-    _placeOrder(input: _placeOrderInput): updateOrderPayload
+    _createOrderLine(input: _createOrderLineInput): createOrderLinePayload
   `,
   resolver: {
     Query: {},
     Mutation: {
-      _placeOrder: {
-        resolverOf: "api::order.order._place",
+      _createOrderLine: {
+        resolverOf: "api::order.order._create",
         resolver: async (obj, options, { context }) => {
           context.request.body = _.toPlainObject(options.input);
 
-          await strapi.controllers.order._place(context);
+          await strapi.controllers["order-line"]._create(context);
           let output = context.body.toJSON
             ? context.body.toJSON()
             : context.body;

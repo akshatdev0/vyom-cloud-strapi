@@ -132,6 +132,12 @@ const DEFAULT_PERMISSIONS = [
   },
   // order-line
   {
+    action: "_create",
+    controller: "order-line",
+    type: "application",
+    roleType: "shopkeeper",
+  },
+  {
     action: "update",
     controller: "order-line",
     type: "application",
