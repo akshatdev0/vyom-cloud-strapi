@@ -69,7 +69,7 @@ module.exports = {
 
     const role = await strapi
       .query("role", "users-permissions")
-      .findOne({ type: "shopkeeper" }, []);
+      .findOne({ type: "shopkeeper" });
 
     if (!role) {
       strapi.log.error("Not able to find the Shopkeeper role.", {
