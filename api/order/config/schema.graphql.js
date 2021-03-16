@@ -34,14 +34,38 @@ module.exports = {
     input _createOrderInput {
       data: _OrderInput
     }
+
+    input _PlaceOrderData {
+      note: String
+    }
+
+    input _placeOrderInput {
+      where: InputID
+      data: _PlaceOrderData
+    }
   `,
   query: "",
   mutation: `
+    _placeOrder(input: _placeOrderInput): updateOrderPayload
     _createOrder(input: _createOrderInput): createOrderPayload
   `,
   resolver: {
     Query: {},
     Mutation: {
+      _placeOrder: {
+        resolverOf: "api::order.order._place",
+        resolver: async (obj, options, { context }) => {
+          context.request.body = _.toPlainObject(options.input);
+
+          await strapi.controllers.order._place(context);
+          let output = context.body.toJSON
+            ? context.body.toJSON()
+            : context.body;
+
+          checkBadRequest(output);
+          return output;
+        },
+      },
       _createOrder: {
         resolverOf: "api::order.order._create",
         resolver: async (obj, options, { context }) => {
