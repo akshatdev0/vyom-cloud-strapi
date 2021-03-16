@@ -98,10 +98,16 @@ module.exports = {
       );
     }
 
+    // Empty Order for the cart
+    const cartOrder = await strapi.services.order.create({
+      currentStatus: "IN_CART",
+    });
+
     const shopValues = _.pick(ctx.request.body, SHOP_PROPERTIES);
     shopValues.rating = 0;
-    shopValues.currentSatus = false;
+    shopValues.currentStatus = false;
     shopValues.shopkeepers = [ctx.state.user.shopkeeper];
+    shopValues.cart = cartOrder.id;
 
     const entity = await strapi.services.shop.create(shopValues);
     return sanitizeEntity(entity.toJSON ? entity.toJSON() : entity, {
