@@ -209,13 +209,6 @@ const DEFAULT_PERMISSIONS = [
   },
 
   /* Enabled only for 'company_owner' role */
-  // user
-  {
-    action: "create",
-    controller: "user",
-    type: "application",
-    roleType: "company_owner",
-  },
   // company-employee
   {
     action: "create",
