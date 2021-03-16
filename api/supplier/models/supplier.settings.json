@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "suppliers",
+  "info": {
+    "name": "Supplier",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "companyEmployee": {
+      "model": "company-employee",
+      "via": "supplier"
+    }
+  }
+}
