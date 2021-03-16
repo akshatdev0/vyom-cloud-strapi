@@ -20,7 +20,7 @@ module.exports = {
    *
    * @return {Object}
    */
-  async create(ctx) {
+  async _create(ctx) {
     // [TODO]
     // * Put checks
     //   - For Shopkeeper:
