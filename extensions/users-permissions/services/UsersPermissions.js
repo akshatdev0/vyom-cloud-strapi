@@ -207,6 +207,29 @@ const DEFAULT_PERMISSIONS = [
     type: "application",
     roleType: "shopkeeper",
   },
+
+  /* Enabled only for 'company_owner' role */
+  // company-employee
+  {
+    action: "create",
+    controller: "company-employee",
+    type: "application",
+    roleType: "company_owner",
+  },
+  // salesman
+  {
+    action: "create",
+    controller: "salesman",
+    type: "application",
+    roleType: "company_owner",
+  },
+  // supplier
+  {
+    action: "create",
+    controller: "supplier",
+    type: "application",
+    roleType: "company_owner",
+  },
 ];
 
 const isPermissionEnabled = (permission, role) =>
@@ -221,11 +244,14 @@ const isPermissionEnabled = (permission, role) =>
   );
 
 module.exports = {
-  async enablePermission(params) {
+  async enablePermission(params, roleType) {
     const query = strapi.query("permission", "users-permissions");
     const permission = await query.findOne(params);
     if (permission) {
       if (!permission.enabled) {
+        strapi.log.info(
+          `Enabling Permission for Role=${roleType}: ${JSON.stringify(params)}`
+        );
         await query.update({ id: permission.id }, { enabled: true });
       }
     }
@@ -255,20 +281,26 @@ module.exports = {
               continue;
             }
 
-            this.enablePermission({
+            this.enablePermission(
+              {
+                action: defaultPerm.action,
+                controller: defaultPerm.controller,
+                type: defaultPerm.type,
+                role: roles[r].id,
+              },
+              roles[r].type
+            );
+          }
+        } else {
+          this.enablePermission(
+            {
               action: defaultPerm.action,
               controller: defaultPerm.controller,
               type: defaultPerm.type,
-              role: roles[r].id,
-            });
-          }
-        } else {
-          this.enablePermission({
-            action: defaultPerm.action,
-            controller: defaultPerm.controller,
-            type: defaultPerm.type,
-            role: roleIDsMap[defaultPerm.roleType],
-          });
+              role: roleIDsMap[defaultPerm.roleType],
+            },
+            defaultPerm.roleType
+          );
         }
       })
     );
