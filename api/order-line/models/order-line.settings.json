@@ -15,8 +15,8 @@
       "type": "integer"
     },
     "order": {
-      "model": "order",
-      "via": "orderLines"
+      "via": "orderLines",
+      "model": "order"
     },
     "productVariant": {
       "model": "product-variant"
