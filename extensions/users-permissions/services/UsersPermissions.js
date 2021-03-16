@@ -24,33 +24,6 @@ const DEFAULT_PERMISSIONS = [
     type: "users-permissions",
     roleType: null,
   },
-  {
-    action: "update",
-    controller: "user",
-    type: "users-permissions",
-    roleType: null,
-  },
-  // address
-  {
-    action: "create",
-    controller: "address",
-    type: "application",
-    roleType: null,
-  },
-  // business-type
-  {
-    action: "find",
-    controller: "business-type",
-    type: "application",
-    roleType: null,
-  },
-  // calendar-event
-  {
-    action: "create",
-    controller: "calendar-event",
-    type: "application",
-    roleType: null,
-  },
 
   /* Enabled only for 'public' role */
   // auth
@@ -77,6 +50,36 @@ const DEFAULT_PERMISSIONS = [
     controller: "auth",
     type: "users-permissions",
     roleType: "public",
+  },
+
+  /* Enabled for all roles except 'public' role */
+  // userspermissions
+  {
+    action: "update",
+    controller: "user",
+    type: "users-permissions",
+    roleType: "!public",
+  },
+  // address
+  {
+    action: "create",
+    controller: "address",
+    type: "application",
+    roleType: "!public",
+  },
+  // business-type
+  {
+    action: "find",
+    controller: "business-type",
+    type: "application",
+    roleType: "!public",
+  },
+  // calendar-event
+  {
+    action: "create",
+    controller: "calendar-event",
+    type: "application",
+    roleType: "!public",
   },
 
   /* Enabled only for 'authenticated' role */
@@ -239,8 +242,19 @@ module.exports = {
       DEFAULT_PERMISSIONS.filter(
         (defaultPerm) => defaultPerm.type !== null
       ).map((defaultPerm) => {
-        if (defaultPerm.roleType == null) {
+        if (
+          defaultPerm.roleType == null ||
+          defaultPerm.roleType === "!public"
+        ) {
           for (let r = 0; r < roles.length; r++) {
+            // Ignoring public role in case of non-public permission
+            if (
+              defaultPerm.roleType === "!public" &&
+              roles[r].type === "public"
+            ) {
+              continue;
+            }
+
             this.enablePermission({
               action: defaultPerm.action,
               controller: defaultPerm.controller,
