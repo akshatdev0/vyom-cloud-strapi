@@ -59,8 +59,11 @@
       "default": false
     },
     "companyTradeConnections": {
-      "via": "shop",
-      "collection": "company-shop-trade-connection"
+      "collection": "company-shop-trade-connection",
+      "via": "shop"
+    },
+    "cart": {
+      "model": "order"
     }
   }
 }
