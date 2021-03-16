@@ -16,7 +16,17 @@ const formatError = (error) => [
   { messages: [{ id: error.id, message: error.message, field: error.field }] },
 ];
 
-const USER_PROPERTIES = [
+const CREATE_USER_PROPERTIES = [
+  "mobileNumber",
+  "firstName",
+  "lastName",
+  "gender",
+  "dateOfBirth",
+  "email",
+  "alternateMobileNumber",
+];
+
+const UPDATE_USER_PROPERTIES = [
   "firstName",
   "lastName",
   "gender",
@@ -46,10 +56,172 @@ const checkSelf = (ctx) => {
 
 module.exports = {
   /**
+   * Create a/an user record.
+   * @return {Object}
+   */
+  async create(ctx) {
+    if (checkAdminUser(ctx)) {
+      strapi.log.error("Cannot create an Admin User.", {
+        id: "user.create.error.invalid.action",
+      });
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "user.create.error.invalid.action",
+          message: "Cannot create an Admin User.",
+        })
+      );
+    }
+
+    const userValues = _.pick(ctx.request.body, CREATE_USER_PROPERTIES);
+
+    const advancedConfigs = await strapi
+      .store({
+        environment: "",
+        type: "plugin",
+        name: "users-permissions",
+        key: "advanced",
+      })
+      .get();
+
+    const { mobileNumber, email, alternateMobileNumber } = userValues;
+
+    // Mobile Number is required.
+    if (!mobileNumber) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "user.create.error.mobileNumber.provide",
+          message: "Please provide Mobile Number.",
+        })
+      );
+    }
+
+    const phoneNumber = phoneNumberUtil.parseAndKeepRawInput(
+      mobileNumber,
+      "IN"
+    );
+    if (
+      !phoneNumberUtil.isValidNumberForRegion(phoneNumber, "IN") ||
+      phoneNumberUtil.getNumberType(phoneNumber) !== PhoneNumberType.MOBILE
+    ) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "Auth.signup.error.mobileNumber.invalid",
+          message: "Please provide a valid Mobile Number.",
+        })
+      );
+    }
+
+    const user = await strapi.query("user", "users-permissions").findOne({
+      mobileNumber: mobileNumber,
+    });
+    if (user) {
+      if (user.confirmed && user.password) {
+        return ctx.badRequest(
+          null,
+          formatError({
+            id: "Auth.signup.error.mobileNumber.taken",
+            message: "Mobile number is already taken.",
+          })
+        );
+      }
+    }
+
+    if (_.has(userValues, "email")) {
+      if (!email) {
+        return ctx.badRequest("email.notNull");
+      }
+
+      if (!emailRegExp.test(email)) {
+        strapi.log.error("Please provide valid email address.", {
+          id: "user.create.error.email.format",
+        });
+        return ctx.badRequest(
+          null,
+          formatError({
+            id: "user.create.error.email.format",
+            message: "Please provide valid email address.",
+          })
+        );
+      }
+
+      userValues.email = userValues.email.toLowerCase();
+
+      if (advancedConfigs.unique_email) {
+        const userWithSameEmail = await strapi
+          .query("user", "users-permissions")
+          .findOne({ email: email.toLowerCase() });
+
+        if (userWithSameEmail && userWithSameEmail.id != id) {
+          strapi.log.error("Email already taken", {
+            id: "user.create.error.email.taken",
+          });
+          return ctx.badRequest(
+            null,
+            formatError({
+              id: "user.create.error.email.taken",
+              message: "Email already taken",
+              field: ["email"],
+            })
+          );
+        }
+      }
+    }
+
+    if (_.has(userValues, "alternateMobileNumber")) {
+      if (!alternateMobileNumber) {
+        return ctx.badRequest("alternateMobileNumber.notNull");
+      }
+
+      const phoneNumber = phoneNumberUtil.parseAndKeepRawInput(
+        userValues.alternateMobileNumber,
+        "IN"
+      );
+      if (
+        !phoneNumberUtil.isValidNumberForRegion(phoneNumber, "IN") ||
+        phoneNumberUtil.getNumberType(phoneNumber) !== PhoneNumberType.MOBILE
+      ) {
+        strapi.log.error("Please provide a valid alternate mobile number.", {
+          id: "user.create.error.alternateMobileNumber.invalid",
+        });
+        return ctx.badRequest(
+          null,
+          formatError({
+            id: "user.create.error.alternateMobileNumber.invalid",
+            message: "Please provide a valid alternate mobile number.",
+          })
+        );
+      }
+    }
+
+    let createData = {
+      ...userValues,
+      username: mobileNumber,
+    };
+
+    try {
+      const data = await strapi
+        .query("user", "users-permissions")
+        .create(createData);
+
+      return ctx.send(sanitizeUser(data));
+    } catch (err) {
+      ctx.badRequest(
+        null,
+        formatError({
+          id: "Auth.signup.error",
+          message: err.message,
+        })
+      );
+    }
+  },
+
+  /**
    * Update a/an user record.
    * @return {Object}
    */
-
   async update(ctx) {
     if (checkAdminUser(ctx)) {
       strapi.log.error("Cannot update an Admin User.", {
@@ -93,7 +265,7 @@ module.exports = {
       );
     }
 
-    const userValues = _.pick(ctx.request.body, USER_PROPERTIES);
+    const userValues = _.pick(ctx.request.body, UPDATE_USER_PROPERTIES);
 
     const advancedConfigs = await strapi
       .store({
