@@ -385,6 +385,53 @@ module.exports = {
       );
     }
 
+    // Populate and Update Order Lines
+    const orderLines = order.orderLines;
+    const populatedOrderLines = [];
+    for (let i = 0; i < orderLines.length; i++) {
+      const orderLine = orderLines[i];
+
+      const productVariant = await strapi.services["product-variant"].findOne({
+        id: orderLine.productVariant,
+      });
+
+      if (!productVariant) {
+        return ctx.badRequest(
+          null,
+          formatError({
+            id: "shop.get-shopping-cart.error.product-variant.not.found",
+            message: `No Product Variant found with ID=${orderLine.productVariant}.`,
+          })
+        );
+      }
+
+      const product = await strapi.services.product.findOne({
+        id: productVariant.product,
+      });
+
+      if (!product) {
+        return ctx.badRequest(
+          null,
+          formatError({
+            id: "shop.get-shopping-cart.error.product.not.found",
+            message: `No Product found with ID=${productVariant.product}.`,
+          })
+        );
+      }
+
+      populatedOrderLines.push({
+        ...orderLine,
+        productTitle: product.title,
+        productVariantTitle: productVariant.title,
+        productVariantAttributes: {},
+        unitPrice: productVariant.price,
+        productPrice: product.price,
+        appliedPriceRules: [],
+      });
+    }
+
+    order.orderLines = populatedOrderLines;
+
     return sanitizeEntity(order.toJSON ? order.toJSON() : order, {
       model: strapi.models.order,
     });
