@@ -29,13 +29,30 @@ module.exports = {
       data: CalendarEventInput
     }
   `,
-  query: "",
+  query: `
+    _getShoppingCartOfShop(id: ID!): Order
+  `,
   mutation: `
     _addShopShippingAddress(input: _addShopShippingAddressInput): updateShopPayload
     _addShopHoliday(input: _addShopHolidayInput): updateShopPayload
   `,
   resolver: {
-    Query: {},
+    Query: {
+      _getShoppingCartOfShop: {
+        resolverOf: "api::shop.shop._getShoppingCart",
+        resolver: async (obj, options, { context }) => {
+          context.params = { ...context.params, ...options.input };
+
+          await strapi.controllers.shop._getShoppingCart(context);
+          let output = context.body.toJSON
+            ? context.body.toJSON()
+            : context.body;
+
+          checkBadRequest(output);
+          return output;
+        },
+      },
+    },
     Mutation: {
       _addShopShippingAddress: {
         resolverOf: "api::shop.shop._addShippingAddress",
