@@ -28,7 +28,13 @@ module.exports = {
       {
         id: orderValues.id,
       },
-      ["shop", "shop.id"]
+      [
+        "shop",
+        "shop.id",
+        "orderLines",
+        "orderLines.id",
+        "orderLines.productVariant",
+      ]
     );
 
     if (!order) {
@@ -41,6 +47,26 @@ module.exports = {
       );
     }
 
+    if (order.currentStatus !== "IN_CART") {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "order._place.error.order-already-placed",
+          message: `Order with ID=${id} has already been placed.`,
+        })
+      );
+    }
+
+    if (!order.orderLines || order.orderLines.length === 0) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "order._place.error.order-is-empty",
+          message: `Order with ID=${id} is empty.`,
+        })
+      );
+    }
+
     // New empty Order for the shop's cart
     const cartOrder = await strapi.services.order.create({
       currentStatus: "IN_CART",
@@ -49,6 +75,52 @@ module.exports = {
       { id: order.shop.id },
       { cart: cartOrder.id }
     );
+
+    // Populate and Update Order Lines
+    const orderLines = order.orderLines;
+    const populatedOrderLines = [];
+    for (let i = 0; i < orderLines.length; i++) {
+      const orderLine = orderLines[i];
+
+      const productVariant = await strapi.services["product-variant"].findOne({
+        id: orderLine.productVariant,
+      });
+
+      if (!productVariant) {
+        return ctx.badRequest(
+          null,
+          formatError({
+            id: "order._create.error.product-variant.not.found",
+            message: `No Product Variant found with ID=${orderLine.productVariant}.`,
+          })
+        );
+      }
+
+      const product = await strapi.services.product.findOne({
+        id: productVariant.product,
+      });
+
+      if (!product) {
+        return ctx.badRequest(
+          null,
+          formatError({
+            id: "order._create.error.product.not.found",
+            message: `No Product found with ID=${productVariant.product}.`,
+          })
+        );
+      }
+
+      populatedOrderLines.push({
+        id: orderLine.id,
+        productTitle: product.title,
+        productVariantTitle: productVariant.title,
+        productVariantAttributes: {},
+        unitPrice: productVariant.price,
+        productPrice: product.price,
+        productVariant: orderLine.productVariant,
+        appliedPriceRules: [],
+      });
+    }
 
     // Populate Order
     // - Generate Order Number
@@ -64,6 +136,18 @@ module.exports = {
       paymentStatus: "PENDING",
     };
 
+    // Update Order Lines
+    for (let j = 0; j < populatedOrderLines.length; j++) {
+      const updatedOrderLine = populatedOrderLines[j];
+      await strapi.services["order-line"].update(
+        {
+          id: updatedOrderLine,
+        },
+        updatedOrderLine
+      );
+    }
+
+    // Update Order
     const entity = await strapi.services.order.update(
       { id: ctx.params.id },
       orderData
