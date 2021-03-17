@@ -201,7 +201,7 @@ const DEFAULT_PERMISSIONS = [
     roleType: "shopkeeper",
   },
   {
-    action: "_getShoppingCart",
+    action: "_getshoppingcart",
     controller: "shop",
     type: "application",
     roleType: "shopkeeper",
