@@ -23,11 +23,17 @@ module.exports = {
   },
   definition: /* GraphQL */ `
     type UsersPermissionsAuthUser {
-      id: ID!
-      mobileNumber: String!
+      id: ID
+      mobileNumber: String
+      firstName: String
+      lastName: String
+      gender: ENUM_USERSPERMISSIONSUSER_GENDER
       confirmed: Boolean
       blocked: Boolean
       role: UsersPermissionsMeRole
+      shopkeeper: Shopkeeper
+      companyOwner: CompanyOwner
+      companyEmployee: CompanyEmployee
     }
 
     type UsersPermissionsAuthUserTokenPayload {
@@ -50,7 +56,7 @@ module.exports = {
     signIn(input: UsersPermissionsLoginInput!): UsersPermissionsAuthUserTokenPayload!
     signUp(mobileNumber: String!): UserPermissionsOkPayload
     sendOtp(mobileNumber: String!): UserPermissionsSendSmsConfirmationPayload
-    verify(confirmation: String!): UsersPermissionsAuthUserTokenPayload
+    verify(mobileNumber: String!, confirmation: String!): UsersPermissionsAuthUserTokenPayload
     createPassword(password: String!): UsersPermissionsAuthUserTokenPayload
   `,
   resolver: {

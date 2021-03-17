@@ -60,7 +60,19 @@ module.exports = {
       // Check if the user exists.
       const user = await strapi
         .query("user", "users-permissions")
-        .findOne(query);
+        .findOne(query, [
+          "id",
+          "mobileNumber",
+          "confirmed",
+          "blocked",
+          "role",
+          "companyOwner",
+          "companyOwner.company",
+          "companyEmployee",
+          "companyEmployee.company",
+          "shopkeeper",
+          "shopkeeper.shops",
+        ]);
 
       if (!user) {
         return ctx.badRequest(
@@ -71,6 +83,8 @@ module.exports = {
           })
         );
       }
+
+      console.log(JSON.stringify(user, undefined, 2));
 
       if (user.confirmed !== true) {
         return ctx.badRequest(
@@ -330,11 +344,21 @@ module.exports = {
       key: "advanced",
     });
 
-    const { confirmation: confirmationToken } = ctx.query;
+    const { confirmation: confirmationToken, mobileNumber } = ctx.query;
 
     const { user: userService, jwt: jwtService } = strapi.plugins[
       "users-permissions"
     ].services;
+
+    if (!mobileNumber) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "Auth.verify.error.token.invalid",
+          message: "Please provide mobile number.",
+        })
+      );
+    }
 
     if (_.isEmpty(confirmationToken)) {
       return ctx.badRequest(
@@ -346,14 +370,30 @@ module.exports = {
       );
     }
 
-    const user = await userService.fetch({ confirmationToken }, []);
+    const query = { confirmationToken, mobileNumber };
+
+    const user = await strapi
+      .query("user", "users-permissions")
+      .findOne(query, [
+        "id",
+        "mobileNumber",
+        "confirmed",
+        "blocked",
+        "role",
+        "companyOwner",
+        "companyOwner.company",
+        "companyEmployee",
+        "companyEmployee.company",
+        "shopkeeper",
+        "shopkeeper.shops",
+      ]);
 
     if (!user) {
       return ctx.badRequest(
         null,
         formatError({
-          id: "Auth.verify.error.token.invalid",
-          message: "Token is invalid.",
+          id: "Auth.verify.error.mobile-number-or-token-invalid",
+          message: "Mobile Number or Token is invalid.",
         })
       );
     }
@@ -432,9 +472,24 @@ module.exports = {
       );
     }
 
-    const user = await strapi.query("user", "users-permissions").findOne({
-      id: ctxUser.id,
-    });
+    const query = { id: ctxUser.id };
+
+    const user = await strapi
+      .query("user", "users-permissions")
+      .findOne(query, [
+        "id",
+        "mobileNumber",
+        "confirmed",
+        "blocked",
+        "role",
+        "companyOwner",
+        "companyOwner.company",
+        "companyEmployee",
+        "companyEmployee.company",
+        "shopkeeper",
+        "shopkeeper.shops",
+      ]);
+
     if (user.password) {
       return ctx.badRequest(
         null,
