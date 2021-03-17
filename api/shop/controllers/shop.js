@@ -360,4 +360,33 @@ module.exports = {
       }),
     });
   },
+
+  /**
+   * Get Shopping Cart.
+   *
+   * @return {Object}
+   */
+  async _getShoppingCart(ctx) {
+    const shop = await strapi.services.shop.findOne({ id: ctx.params.id }, [
+      "cart",
+    ]);
+
+    const order = await strapi.services.order.findOne({
+      id: shop.cart,
+    });
+
+    if (!order) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "shop.get-shopping-cart.error.order-not-found",
+          message: `No Order found with ID=${orderLineValues.order}.`,
+        })
+      );
+    }
+
+    return sanitizeEntity(order.toJSON ? order.toJSON() : order, {
+      model: strapi.models.order,
+    });
+  },
 };
