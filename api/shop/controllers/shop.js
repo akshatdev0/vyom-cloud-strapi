@@ -371,8 +371,18 @@ module.exports = {
       "cart",
     ]);
 
+    if (!shop.cart) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "shop.get-shopping-cart.error.cart-not-found",
+          message: `No Shopping Cart found.`,
+        })
+      );
+    }
+
     const order = await strapi.services.order.findOne({
-      id: shop.cart,
+      id: shop.cart.id,
     });
 
     if (!order) {
@@ -432,8 +442,10 @@ module.exports = {
 
     order.orderLines = populatedOrderLines;
 
-    return sanitizeEntity(order.toJSON ? order.toJSON() : order, {
-      model: strapi.models.order,
-    });
+    return ctx.send(
+      sanitizeEntity(order.toJSON ? order.toJSON() : order, {
+        model: strapi.models.order,
+      })
+    );
   },
 };
