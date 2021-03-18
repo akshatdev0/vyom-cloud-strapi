@@ -84,8 +84,6 @@ module.exports = {
         );
       }
 
-      console.log(JSON.stringify(user, undefined, 2));
-
       if (user.confirmed !== true) {
         return ctx.badRequest(
           null,
