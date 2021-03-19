@@ -180,12 +180,6 @@ module.exports = {
     }
   },
 
-  async update(ctx) {
-    this._update(ctx);
-    let output = ctx.body.toJSON ? ctx.body.toJSON() : ctx.body;
-    checkBadRequest(output);
-  },
-
   /**
    * Update a record.
    *
@@ -306,5 +300,11 @@ module.exports = {
         model: strapi.models["order-line"],
       })
     );
+  },
+
+  async update(ctx) {
+    await module.exports._update(ctx);
+    let output = ctx.body.toJSON ? ctx.body.toJSON() : ctx.body;
+    checkBadRequest(output);
   },
 };
