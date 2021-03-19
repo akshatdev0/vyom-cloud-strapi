@@ -74,6 +74,16 @@ module.exports = {
       );
     }
 
+    if (!productVariant.product) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "order-line.create.error.product-not-found",
+          message: `The Product Variant has no product.`,
+        })
+      );
+    }
+
     if (orderLineValues.quantity < productVariant.minSellingQuantity) {
       return ctx.badRequest(
         null,
@@ -104,20 +114,6 @@ module.exports = {
       );
     }
 
-    const product = await strapi.services.product.findOne({
-      id: productVariant.product,
-    });
-
-    if (!product) {
-      return ctx.badRequest(
-        null,
-        formatError({
-          id: "order-line.create.error.product-not-found",
-          message: `No Product found with ID=${productVariant.product}.`,
-        })
-      );
-    }
-
     if (order.currentStatus === "IN_CART") {
       const orderLineData = {
         ...orderLineValues,
@@ -132,11 +128,11 @@ module.exports = {
 
       const entity = await strapi.services["order-line"].create(orderLineData);
 
-      entity.productTitle = product.title;
+      entity.productTitle = productVariant.product.title;
       entity.productVariantTitle = productVariant.title;
       entity.productVariantAttributes = {};
       entity.unitPrice = productVariant.price;
-      entity.productPrice = product.price;
+      entity.productPrice = productVariant.product.price;
       entity.appliedPriceRules = [];
 
       // - [TODO] Calculate order price and populate order
@@ -148,11 +144,11 @@ module.exports = {
       const orderLineData = {
         ...orderLineValues,
         index: order.orderLines ? order.orderLines.length : 0,
-        productTitle: product.title,
+        productTitle: productVariant.product.title,
         productVariantTitle: productVariant.title,
         productVariantAttributes: {},
         unitPrice: productVariant.price,
-        productPrice: product.price,
+        productPrice: productVariant.product.price,
         appliedPriceRules: [],
       };
 
@@ -215,6 +211,16 @@ module.exports = {
       );
     }
 
+    if (!productVariant.product) {
+      return ctx.badRequest(
+        null,
+        formatError({
+          id: "order-line.create.error.product-not-found",
+          message: `The Product Variant has no product.`,
+        })
+      );
+    }
+
     if (orderLineValues.quantity < productVariant.minSellingQuantity) {
       return ctx.badRequest(
         null,
@@ -245,20 +251,6 @@ module.exports = {
       );
     }
 
-    const product = await strapi.services.product.findOne({
-      id: productVariant.product,
-    });
-
-    if (!product) {
-      return ctx.badRequest(
-        null,
-        formatError({
-          id: "order-line.create.error.product-not-found",
-          message: `No Product found with ID=${productVariant.product}.`,
-        })
-      );
-    }
-
     // - [TODO] Calculate and update total order price
 
     const entity = await strapi.services["order-line"].update(
@@ -267,11 +259,11 @@ module.exports = {
     );
 
     if (order.currentStatus === "IN_CART") {
-      entity.productTitle = product.title;
+      entity.productTitle = product.productVariant.title;
       entity.productVariantTitle = productVariant.title;
       entity.productVariantAttributes = {};
       entity.unitPrice = productVariant.price;
-      entity.productPrice = product.price;
+      entity.productPrice = product.productVariant.price;
       entity.appliedPriceRules = [];
 
       // - [TODO] Calculate order price and populate order
