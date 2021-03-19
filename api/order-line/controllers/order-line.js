@@ -155,8 +155,10 @@ module.exports = {
       // - [TODO] Calculate and update total order price and populate order
 
       const entity = await strapi.services["order-line"].create(orderLineData);
-      return sanitizeEntity(entity.toJSON ? entity.toJSON() : entity, {
-        model: strapi.models["order-line"],
+      return ctx.send({
+        orderLine: sanitizeEntity(entity.toJSON ? entity.toJSON() : entity, {
+          model: strapi.models["order-line"],
+        }),
       });
     }
   },
@@ -269,8 +271,10 @@ module.exports = {
       // - [TODO] Calculate order price and populate order
     }
 
-    return sanitizeEntity(entity.toJSON ? entity.toJSON() : entity, {
-      model: strapi.models["order-line"],
+    return ctx.send({
+      orderLine: sanitizeEntity(entity.toJSON ? entity.toJSON() : entity, {
+        model: strapi.models["order-line"],
+      }),
     });
   },
 };
