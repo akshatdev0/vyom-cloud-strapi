@@ -39,7 +39,7 @@ module.exports = {
       _createOrderLine: {
         resolverOf: "api::order.order._create",
         resolver: async (obj, options, { context }) => {
-          context.request.body = _.toPlainObject(options.input);
+          context.request.body = _.toPlainObject(options.input.data);
 
           await strapi.controllers["order-line"]._create(context);
           let output = context.body.toJSON

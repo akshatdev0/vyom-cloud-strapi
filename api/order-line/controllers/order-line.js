@@ -14,6 +14,21 @@ const formatError = (error) => [
 const CREATE_ORDER_LINE_PROPERTIES = ["order", "productVariant", "quantity"];
 const UPDATE_ORDER_LINE_PROPERTIES = ["quantity"];
 
+/**
+ * Throws an ApolloError if context body contains a bad request
+ * @param contextBody - body of the context object given to the resolver
+ * @throws ApolloError if the body is a bad request
+ */
+function checkBadRequest(contextBody) {
+  if (_.get(contextBody, "statusCode", 200) !== 200) {
+    const message = _.get(contextBody, "error", "Bad Request");
+    const exception = new Error(message);
+    exception.code = _.get(contextBody, "statusCode", 400);
+    exception.data = contextBody;
+    throw exception;
+  }
+}
+
 module.exports = {
   /**
    * Create a record.
@@ -39,7 +54,7 @@ module.exports = {
     //   - [TBD] appliedPriceRules
 
     const orderLineValues = _.pick(
-      ctx.request.body.data,
+      ctx.request.body,
       CREATE_ORDER_LINE_PROPERTIES
     );
 
@@ -165,12 +180,18 @@ module.exports = {
     }
   },
 
+  async update(ctx) {
+    this._update(ctx);
+    let output = ctx.body.toJSON ? ctx.body.toJSON() : ctx.body;
+    checkBadRequest(output);
+  },
+
   /**
    * Update a record.
    *
    * @return {Object}
    */
-  async update(ctx) {
+  async _update(ctx) {
     // [TODO]
     // * Put checks
     //   - For Shopkeeper:
@@ -180,7 +201,7 @@ module.exports = {
     //     - To have been verified by this shop's shopkeeper using OTP
 
     const orderLineValues = _.pick(
-      ctx.request.body.data,
+      ctx.request.body,
       UPDATE_ORDER_LINE_PROPERTIES
     );
 
@@ -280,10 +301,10 @@ module.exports = {
       // - [TODO] Calculate order price and populate order
     }
 
-    return ctx.send({
-      orderLine: sanitizeEntity(entity.toJSON ? entity.toJSON() : entity, {
+    return ctx.send(
+      sanitizeEntity(entity.toJSON ? entity.toJSON() : entity, {
         model: strapi.models["order-line"],
-      }),
-    });
+      })
+    );
   },
 };
