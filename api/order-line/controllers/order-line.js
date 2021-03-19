@@ -39,7 +39,7 @@ module.exports = {
     //   - [TBD] appliedPriceRules
 
     const orderLineValues = _.pick(
-      ctx.request.body,
+      ctx.request.body.data,
       CREATE_ORDER_LINE_PROPERTIES
     );
 
@@ -180,7 +180,7 @@ module.exports = {
     //     - To have been verified by this shop's shopkeeper using OTP
 
     const orderLineValues = _.pick(
-      ctx.request.body,
+      ctx.request.body.data,
       UPDATE_ORDER_LINE_PROPERTIES
     );
 
