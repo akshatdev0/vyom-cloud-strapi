@@ -402,47 +402,6 @@ module.exports = {
       );
     }
 
-    // Populate and Update Order Lines
-    const orderLines = order.orderLines;
-    const populatedOrderLines = [];
-    for (let i = 0; i < orderLines.length; i++) {
-      const orderLine = orderLines[i];
-
-      if (!orderLine.productVariant) {
-        return ctx.badRequest(
-          null,
-          formatError({
-            id: "order-line.create.error.product-variant-not-found",
-            message: `No Product Variant found of Order Line with ID=${ctx.params.id}.`,
-          })
-        );
-      }
-      const productVariant = orderLine.productVariant;
-
-      if (!productVariant.product) {
-        return ctx.badRequest(
-          null,
-          formatError({
-            id: "order-line.create.error.product-not-found",
-            message: `No Product found of Product Variant with ID=${productVariant.id}.`,
-          })
-        );
-      }
-      const product = productVariant.product;
-
-      populatedOrderLines.push({
-        ...orderLine,
-        productTitle: product.title,
-        productVariantTitle: productVariant.title,
-        productVariantAttributes: {},
-        unitPrice: productVariant.price,
-        productPrice: product.price,
-        appliedPriceRules: [],
-      });
-    }
-
-    order.orderLines = populatedOrderLines;
-
     return ctx.send(
       sanitizeEntity(order.toJSON ? order.toJSON() : order, {
         model: strapi.models.order,
