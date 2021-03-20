@@ -369,6 +369,9 @@ module.exports = {
   async _getShoppingCart(ctx) {
     const shop = await strapi.services.shop.findOne({ id: ctx.params.id }, [
       "cart",
+      "cart.orderLines",
+      "cart.orderLines.productVariant",
+      "cart.orderLines.productVariant.product",
     ]);
 
     if (!shop.cart) {
@@ -381,31 +384,57 @@ module.exports = {
       );
     }
 
-    const order = await strapi.services.order.findOne(
-      {
-        id: shop.cart.id,
-      },
-      [
-        "orderLines",
-        "orderLines.productVariant",
-        "orderLines.productVariant.product",
-      ]
-    );
-
-    if (!order) {
+    if (shop.cart.currentStatus !== "IN_CART") {
       return ctx.badRequest(
         null,
         formatError({
-          id: "shop.get-shopping-cart.error.order-not-found",
-          message: `No Order found with ID=${orderLineValues.order}.`,
+          id: "shop.get-shopping-cart.error.invalid-cart",
+          message: `Shopping Cart Order with ID=${shop.cart.id} currentStatus is not IN_CART.`,
         })
       );
     }
 
-    return ctx.send(
-      sanitizeEntity(order.toJSON ? order.toJSON() : order, {
-        model: strapi.models.order,
-      })
-    );
+    // Populate and Update Order Lines
+    const orderLines = shop.cart.orderLines;
+    const cartItems = orderLines.map((orderLine) => {
+      if (!orderLine.productVariant) {
+        return ctx.badRequest(
+          null,
+          formatError({
+            id: "order-line.create.error.product-variant-not-found",
+            message: `No Product Variant found of Order Line with ID=${ctx.params.id}.`,
+          })
+        );
+      }
+      const productVariant = orderLine.productVariant;
+
+      if (!productVariant.product) {
+        return ctx.badRequest(
+          null,
+          formatError({
+            id: "order-line.create.error.product-not-found",
+            message: `No Product found of Product Variant with ID=${productVariant.id}.`,
+          })
+        );
+      }
+      const product = productVariant.product;
+
+      const populatedOrderLine = {
+        ...orderLine,
+        productTitle: product.title,
+        productVariantTitle: productVariant.title,
+        unitPrice: productVariant.price,
+        productPrice: product.price,
+      };
+      return sanitizeEntity(populatedOrderLine, {
+        model: strapi.models["order-line"],
+      });
+    });
+
+    return ctx.send({
+      id: shop.cart.id,
+      note: shop.cart.note,
+      items: cartItems,
+    });
   },
 };

@@ -28,9 +28,25 @@ module.exports = {
       where: InputID
       data: CalendarEventInput
     }
+
+    type CartItem {
+      id: ID!
+      index: Int
+      productTitle: String
+      productVariantTitle: String
+      unitPrice: Float
+      productPrice: Float
+      quantity: Int
+    }
+
+    type Cart {
+      id: ID!
+      note: String
+      items: [CartItem]
+    }
   `,
   query: `
-    _getShoppingCartOfShop(id: ID!): Order
+    _getShoppingCartOfShop(id: ID!): Cart
   `,
   mutation: `
     _addShopShippingAddress(input: _addShopShippingAddressInput): updateShopPayload
