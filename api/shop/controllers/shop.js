@@ -381,9 +381,16 @@ module.exports = {
       );
     }
 
-    const order = await strapi.services.order.findOne({
-      id: shop.cart.id,
-    });
+    const order = await strapi.services.order.findOne(
+      {
+        id: shop.cart.id,
+      },
+      [
+        "orderLines",
+        "orderLines.productVariant",
+        "orderLines.productVariant.product",
+      ]
+    );
 
     if (!order) {
       return ctx.badRequest(
@@ -401,33 +408,27 @@ module.exports = {
     for (let i = 0; i < orderLines.length; i++) {
       const orderLine = orderLines[i];
 
-      const productVariant = await strapi.services["product-variant"].findOne({
-        id: orderLine.productVariant,
-      });
-
-      if (!productVariant) {
+      if (!orderLine.productVariant) {
         return ctx.badRequest(
           null,
           formatError({
-            id: "shop.get-shopping-cart.error.product-variant.not.found",
-            message: `No Product Variant found with ID=${orderLine.productVariant}.`,
+            id: "order-line.create.error.product-variant-not-found",
+            message: `No Product Variant found of Order Line with ID=${ctx.params.id}.`,
           })
         );
       }
+      const productVariant = orderLine.productVariant;
 
-      const product = await strapi.services.product.findOne({
-        id: productVariant.product,
-      });
-
-      if (!product) {
+      if (!productVariant.product) {
         return ctx.badRequest(
           null,
           formatError({
-            id: "shop.get-shopping-cart.error.product.not.found",
-            message: `No Product found with ID=${productVariant.product}.`,
+            id: "order-line.create.error.product-not-found",
+            message: `No Product found of Product Variant with ID=${productVariant.id}.`,
           })
         );
       }
+      const product = productVariant.product;
 
       populatedOrderLines.push({
         ...orderLine,
