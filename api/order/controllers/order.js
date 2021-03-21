@@ -26,14 +26,13 @@ module.exports = {
 
     const order = await strapi.services.order.findOne(
       {
-        id: orderValues.id,
+        id,
       },
       [
         "shop",
-        "shop.id",
         "orderLines",
-        "orderLines.id",
         "orderLines.productVariant",
+        "orderLines.productVariant.product",
       ]
     );
 
@@ -70,6 +69,7 @@ module.exports = {
     // New empty Order for the shop's cart
     const cartOrder = await strapi.services.order.create({
       currentStatus: "IN_CART",
+      shop: order.shop.id,
     });
     await strapi.services.shop.update(
       { id: order.shop.id },
@@ -82,30 +82,26 @@ module.exports = {
     for (let i = 0; i < orderLines.length; i++) {
       const orderLine = orderLines[i];
 
-      const productVariant = await strapi.services["product-variant"].findOne({
-        id: orderLine.productVariant,
-      });
+      const productVariant = orderLine.productVariant;
 
       if (!productVariant) {
         return ctx.badRequest(
           null,
           formatError({
             id: "order._create.error.product-variant.not.found",
-            message: `No Product Variant found with ID=${orderLine.productVariant}.`,
+            message: `No Product Variant found of Order Line with ID=${orderLine.id}.`,
           })
         );
       }
 
-      const product = await strapi.services.product.findOne({
-        id: productVariant.product,
-      });
+      const product = productVariant.product;
 
       if (!product) {
         return ctx.badRequest(
           null,
           formatError({
             id: "order._create.error.product.not.found",
-            message: `No Product found with ID=${productVariant.product}.`,
+            message: `No Product found of Product Variant with ID=${productVariant.product}.`,
           })
         );
       }
@@ -141,7 +137,7 @@ module.exports = {
       const updatedOrderLine = populatedOrderLines[j];
       await strapi.services["order-line"].update(
         {
-          id: updatedOrderLine,
+          id: updatedOrderLine.id,
         },
         updatedOrderLine
       );
@@ -152,8 +148,10 @@ module.exports = {
       { id: ctx.params.id },
       orderData
     );
-    return sanitizeEntity(entity.toJSON ? entity.toJSON() : entity, {
-      model: strapi.models.order,
+    return ctx.send({
+      order: sanitizeEntity(entity.toJSON ? entity.toJSON() : entity, {
+        model: strapi.models.order,
+      }),
     });
   },
 
