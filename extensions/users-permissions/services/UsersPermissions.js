@@ -67,6 +67,13 @@ const DEFAULT_PERMISSIONS = [
     type: "application",
     roleType: "!public",
   },
+  // area
+  {
+    action: "find",
+    controller: "area",
+    type: "application",
+    roleType: "!public",
+  },
   // business-type
   {
     action: "find",
@@ -78,6 +85,34 @@ const DEFAULT_PERMISSIONS = [
   {
     action: "create",
     controller: "calendar-event",
+    type: "application",
+    roleType: "!public",
+  },
+  // city
+  {
+    action: "find",
+    controller: "city",
+    type: "application",
+    roleType: "!public",
+  },
+  // company-type
+  {
+    action: "find",
+    controller: "company-type",
+    type: "application",
+    roleType: "!public",
+  },
+  // country
+  {
+    action: "find",
+    controller: "country",
+    type: "application",
+    roleType: "!public",
+  },
+  // state
+  {
+    action: "find",
+    controller: "state",
     type: "application",
     roleType: "!public",
   },
@@ -126,6 +161,18 @@ const DEFAULT_PERMISSIONS = [
   // order
   {
     action: "find",
+    controller: "order",
+    type: "application",
+    roleType: "shopkeeper",
+  },
+  {
+    action: "_create",
+    controller: "order",
+    type: "application",
+    roleType: "shopkeeper",
+  },
+  {
+    action: "_place",
     controller: "order",
     type: "application",
     roleType: "shopkeeper",
@@ -221,10 +268,83 @@ const DEFAULT_PERMISSIONS = [
   },
 
   /* Enabled only for 'company_owner' role */
+  // address
+  {
+    action: "update",
+    controller: "address",
+    type: "application",
+    roleType: "company_owner",
+  },
+  // company
+  {
+    action: "findone",
+    controller: "company",
+    type: "application",
+    roleType: "company_owner",
+  },
+  {
+    action: "update",
+    controller: "company",
+    type: "application",
+    roleType: "company_owner",
+  },
+  // company-detail
+  {
+    action: "create",
+    controller: "company-detail",
+    type: "application",
+    roleType: "company_owner",
+  },
+  {
+    action: "findone",
+    controller: "company-detail",
+    type: "application",
+    roleType: "company_owner",
+  },
+  {
+    action: "update",
+    controller: "company-detail",
+    type: "application",
+    roleType: "company_owner",
+  },
   // company-employee
   {
     action: "create",
     controller: "company-employee",
+    type: "application",
+    roleType: "company_owner",
+  },
+  // company-owner
+  {
+    action: "findone",
+    controller: "company-owner",
+    type: "application",
+    roleType: "company_owner",
+  },
+  {
+    action: "update",
+    controller: "company-owner",
+    type: "application",
+    roleType: "company_owner",
+  },
+  // order
+  {
+    action: "find",
+    controller: "order",
+    type: "application",
+    roleType: "company_owner",
+  },
+  // product
+  {
+    action: "find",
+    controller: "product",
+    type: "application",
+    roleType: "company_owner",
+  },
+  // product-category
+  {
+    action: "find",
+    controller: "product-category",
     type: "application",
     roleType: "company_owner",
   },
