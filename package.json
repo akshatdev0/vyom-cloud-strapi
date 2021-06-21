@@ -1,8 +1,8 @@
 {
-  "name": "edm-cloud",
+  "name": "vyom-cloud",
   "private": true,
   "version": "0.1.0",
-  "description": "EDM Backend for AWS Cloud",
+  "description": "Vyom Backend for Render",
   "scripts": {
     "lint": "eslint --fix . && echo 'Lint complete.'",
     "develop": "strapi develop",

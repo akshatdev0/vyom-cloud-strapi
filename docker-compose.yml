@@ -23,9 +23,9 @@ services:
       POSTGRES_USER: strapi
       POSTGRES_PASSWORD: strapi
     volumes:
-      - exilien-edm-strapi-db:/var/lib/postgresql/data/
+      - exilien-vyom-strapi-db:/var/lib/postgresql/data/
     ports:
       - "5432:5432"
 
 volumes:
-  exilien-edm-strapi-db:
+  exilien-vyom-strapi-db:
