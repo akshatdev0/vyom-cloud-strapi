@@ -1,26 +1,14 @@
 module.exports = ({ env }) => ({
-  defaultConnection: "default",
+  defaultConnection: 'default',
   connections: {
     default: {
-      connector: "bookshelf",
+      connector: 'bookshelf',
       settings: {
-        client: "postgres",
-        host: env("DATABASE_HOST", "127.0.0.1"),
-        port: env.int("DATABASE_PORT", 5432),
-        database: env("DATABASE_NAME", "strapi"),
-        username: env("DATABASE_USERNAME", ""),
-        password: env("DATABASE_PASSWORD", ""),
+        client: 'sqlite',
+        filename: env('DATABASE_FILENAME', '.tmp/data.db'),
       },
       options: {
-        ssl: false,
-        debug: false,
-        pool: {
-          min: 0,
-          max: 30,
-          idleTimeoutMillis: 30000,
-          createTimeoutMillis: 30000,
-          acquireTimeoutMillis: 30000,
-        },
+        useNullAsDefault: true,
       },
     },
   },
