@@ -22,6 +22,7 @@
     "google-libphonenumber": "^3.2.17",
     "knex": "<0.20.0",
     "pg": "^8.3.3",
+    "pg-connection-string": "^2.5.0",
     "sqlite3": "latest",
     "strapi": "3.4.6",
     "strapi-admin": "3.4.6",
@@ -32,7 +33,7 @@
     "strapi-plugin-graphql": "3.4.6",
     "strapi-plugin-upload": "3.4.6",
     "strapi-plugin-users-permissions": "3.4.6",
-    "strapi-provider-upload-aws-s3": "^3.4.6",
+    "strapi-provider-upload-cloudinary": "3.4.6",
     "strapi-utils": "3.4.6"
   },
   "author": {
