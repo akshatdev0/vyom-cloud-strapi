@@ -1,0 +1,50 @@
+version: "3"
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: strapi
+      POSTGRES_USER: strapi
+      POSTGRES_PASSWORD: strapi
+    volumes:
+      - vyom-local-strapi-db:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"
+      interval: 5s
+      timeout: 2s
+      retries: 10
+
+  strapi:
+    build: .
+    restart: always
+    environment:
+      DATABASE_CLIENT: postgres
+      DATABASE_NAME: strapi
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_USERNAME: strapi
+      DATABASE_PASSWORD: strapi
+    volumes:
+      - ./:/srv/app
+    ports:
+      - "1337:1337"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  nocodb:
+    image: nocodb/nocodb:latest
+    restart: always
+    ports:
+      - "1338:8080"
+    environment:
+      NC_DB: "pg://postgres:5432?u=strapi&p=strapi&d=strapi"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  vyom-local-strapi-db:
