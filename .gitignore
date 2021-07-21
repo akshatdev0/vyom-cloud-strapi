@@ -129,7 +129,3 @@ database.env
 ############################
 # Local Development
 ############################
-
-docker-compose.yml
-docker-entrypoint.sh
-Dockerfile
