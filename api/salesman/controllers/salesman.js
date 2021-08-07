@@ -7,7 +7,6 @@
  */
 
 /* eslint-disable no-useless-escape */
-const _ = require("lodash");
 const { sanitizeEntity } = require("strapi-utils");
 
 const formatError = (error) => [

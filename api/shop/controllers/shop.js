@@ -379,7 +379,7 @@ module.exports = {
         null,
         formatError({
           id: "shop.get-shopping-cart.error.cart-not-found",
-          message: `No Shopping Cart found.`,
+          message: "No Shopping Cart found.",
         })
       );
     }

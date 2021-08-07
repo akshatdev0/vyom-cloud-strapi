@@ -344,9 +344,7 @@ module.exports = {
 
     const { confirmation: confirmationToken, mobileNumber } = ctx.query;
 
-    const { user: userService, jwt: jwtService } = strapi.plugins[
-      "users-permissions"
-    ].services;
+    const { jwt: jwtService } = strapi.plugins["users-permissions"].services;
 
     if (!mobileNumber) {
       return ctx.badRequest(
