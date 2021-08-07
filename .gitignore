@@ -125,3 +125,11 @@ database.env
 ############################
 
 .eslintcache
+
+############################
+# Local Development
+############################
+
+docker-compose.yml
+docker-entrypoint.sh
+Dockerfile

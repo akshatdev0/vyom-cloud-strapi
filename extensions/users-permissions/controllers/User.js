@@ -5,7 +5,7 @@ const { sanitizeEntity } = require("strapi-utils");
 const phoneNumberUtil = require("google-libphonenumber").PhoneNumberUtil.getInstance();
 const PhoneNumberType = require("google-libphonenumber").PhoneNumberType;
 
-const emailRegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const emailRegExp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const sanitizeUser = (user) =>
   sanitizeEntity(user, {
@@ -154,7 +154,7 @@ module.exports = {
           .query("user", "users-permissions")
           .findOne({ email: email.toLowerCase() });
 
-        if (userWithSameEmail && userWithSameEmail.id != id) {
+        if (userWithSameEmail) {
           strapi.log.error("Email already taken", {
             id: "user.create.error.email.taken",
           });
