@@ -28,16 +28,28 @@ module.exports = {
       data: _PlaceOrderData
     }
   `,
-  query: "",
+  query: `
+      countOrders(where: JSON): Int!
+  `,
   mutation: `
     _placeOrder(input: _placeOrderInput): updateOrderPayload
   `,
   resolver: {
-    Query: {},
+    Query: {
+      countOrders: {
+        description: "Return the count of orders",
+        resolverOf: "application::order.order.count",
+        resolver: async (_obj, options) => {
+          return await strapi.api.order.services.order.count(
+            options.where || {}
+          );
+        },
+      },
+    },
     Mutation: {
       _placeOrder: {
         resolverOf: "api::order.order._place",
-        resolver: async (obj, options, { context }) => {
+        resolver: async (_obj, options, { context }) => {
           context.request.body = _.toPlainObject(options.input);
 
           await strapi.controllers.order._place(context);
