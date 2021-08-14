@@ -329,12 +329,24 @@ const DEFAULT_PERMISSIONS = [
   },
   // order
   {
+    action: "count",
+    controller: "order",
+    type: "application",
+    roleType: "company_owner",
+  },
+  {
     action: "find",
     controller: "order",
     type: "application",
     roleType: "company_owner",
   },
   // product
+  {
+    action: "count",
+    controller: "product",
+    type: "application",
+    roleType: "company_owner",
+  },
   {
     action: "find",
     controller: "product",
